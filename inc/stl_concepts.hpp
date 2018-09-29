@@ -27,7 +27,8 @@ inline void ignore_unused_variable_warning(const T&) {}
  * @brief Specifies that an instance of the type can be default constructed.
  *
  * <p>
- * The type T satisfies <i>DefaultConstructible</i> if given
+ * The type T satisfies <i>DefaultConstructible</i> if
+ * Given
  * <ul style="list-style-type:disc">
  *   <li>u, an arbitrary identifier</li>
  * </ul>
@@ -64,7 +65,8 @@ BOOST_concept(DefaultConstructible, (T))
  * @brief Specifies that an instance of the type can be constructed from an rvalue argument.
  *
  * <p>
- * The type T satisfies <i>MoveConstructible</i> if given
+ * The type T satisfies <i>MoveConstructible</i> if
+ * Given
  * <ul style="list-style-type:disc">
  *   <li>rv, an rvalue expression of type T</li>
  *   <li>u, an arbitrary identifier</li>
@@ -86,7 +88,7 @@ BOOST_concept(MoveConstructible, (T))
 #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
         T u = boost::declval<T>();
         details::ignore_unused_variable_warning(u);
-        T(boost::declval<T>());
+        (T(boost::declval<T>()));
 #endif // BOOST_NO_CXX11_RVALUE_REFERENCES
     }
 };
@@ -98,7 +100,7 @@ BOOST_concept(MoveConstructible, (T))
  * <p>
  * The type T satisfies <i>CopyConstructible</i> if
  * <ul style="list-style-type:disc">
- *   <li>The type T satisfies MoveConstructible, and</li>
+ *   <li>The type T satisfies <i>MoveConstructible</i>, and</li>
  * </ul>
  * Given</br>
  * <ul style="list-style-type:disc">
@@ -126,10 +128,10 @@ BOOST_concept(CopyConstructible, (T)) : MoveConstructible<T>
     }
 
 private:
-    void const_lvalue_constraints(const T& v)
+    void const_lvalue_constraints(const T& x)
     {
-        T u = v;
-        (T(v));
+        T u = x;
+        (T(x));
         details::ignore_unused_variable_warning(u);
     }
 
@@ -137,13 +139,125 @@ private:
     {
 #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
         T u = boost::declval<const T>();
-        T(boost::declval<const T>());
+        (T(boost::declval<const T>()));
         details::ignore_unused_variable_warning(u);
 #endif // BOOST_NO_CXX11_RVALUE_REFERENCES
     }
 
 private:
     T v_;
+};
+
+/**
+ * @class MoveAssignable
+ * @brief Specifies that an instance of the type can be assigned from an rvalue argument.
+ *
+ * <p>
+ * The type T satisfies <i>MoveAssignable</i> if
+ * Given
+ * <ul style="list-style-type:disc">
+ *   <li>t, a modifiable lvalue expression of type T</li>
+ *   <li>rv, an rvalue expression of type T</li>
+ * </ul>
+ * The following expressions must be valid and have their specified effects
+ * <table>
+ *   <tr><th>Expression<th>Return type<th>Return value<th>Post-conditions
+ *   <tr><td>t = rv    <td>T&         <td>t           <td>If t and rv do not refer to the same object, the value of t is equivalent to the value of rv before the assignment.<br/>The new value of rv is unspecified.
+ * </table>
+ * </p>
+ * @tparam T - type to be checked
+ * @see https://en.cppreference.com/w/cpp/named_req/MoveAssignable
+ */
+BOOST_concept(MoveAssignable, (T))
+{
+    BOOST_CONCEPT_USAGE(MoveAssignable)
+    {
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+        t_ = boost::declval<T>();
+#endif // BOOST_NO_CXX11_RVALUE_REFERENCES
+    }
+
+private:
+    T t_;
+};
+
+/**
+ * @class CopyAssignable
+ * @brief Specifies that an instance of the type can be copy-assigned from an lvalue expression.
+ *
+ * <p>
+ * The type T satisfies <i>CopyAssignable</i> if
+ * <ul style="list-style-type:disc">
+ *   <li>The type T satisfies <i>MoveAssignable</i>, and</li>
+ * </ul>
+ * Given
+ * <ul style="list-style-type:disc">
+ *   <li>t, a modifiable lvalue expression of type T</li>
+ *   <li>v, an lvalue expression of type T or const T or an rvalue expression of type const T</li>
+ * </ul>
+ * The following expressions must be valid and have their specified effects
+ * <table>
+ *   <tr><th>Expression<th>Return type<th>Return value<th>Post-conditions
+ *   <tr><td>t = v     <td>T&         <td>t           <td>The value of t is equivalent to the value of v.<br/>The value of v is unchanged.
+ * </table>
+ * </p>
+ * @tparam T - type to be checked
+ * @see https://en.cppreference.com/w/cpp/named_req/CopyAssignable
+ */
+BOOST_concept(CopyAssignable, (T)) : MoveAssignable<T>
+{
+    BOOST_CONCEPT_USAGE(CopyAssignable)
+    {
+        t_ = v_;
+        const_lvalue_constraints(v_);
+    }
+
+private:
+    void const_lvalue_constraints(const T& x)
+    {
+        t_ = x;
+    }
+
+    void const_rvalue_constraints()
+    {
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+        t_ = boost::declval<const T>();
+#endif // BOOST_NO_CXX11_RVALUE_REFERENCES
+    }
+
+private:
+    T t_;
+    T v_;
+};
+
+/**
+ * @class Destructible
+ * @brief Specifies that an instance of the type can be destructed.
+ *
+ * <p>
+ * The type T satisfies <i>Destructible</i> if
+ * Given
+ * <ul style="list-style-type:disc">
+ *   <li>u, a expression of type T</li>
+ * </ul>
+ * The following expressions must be valid and have their specified effects
+ * <table>
+ *   <tr><th>Expression<th>Post-conditions
+ *   <tr><td>u.~T()    <td>All resources owned by u are reclaimed, no exceptions are thrown.
+ * </table>
+ * </p>
+ * @tparam T - type to be checked
+ * @see https://en.cppreference.com/w/cpp/named_req/Destructible
+ */
+BOOST_concept(Destructible, (T))
+{
+    ~Destructible()
+    {
+        u_.~T();
+    }
+
+private:
+    T u_;
 };
 
 } // namespace concepts

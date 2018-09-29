@@ -25,6 +25,10 @@ int main()
 {
     BOOST_CONCEPT_ASSERT((stl_concepts::DefaultConstructible<Test>));
     BOOST_CONCEPT_ASSERT((stl_concepts::CopyConstructible<Test>));
+    BOOST_CONCEPT_ASSERT((stl_concepts::CopyAssignable<Test>));
     BOOST_CONCEPT_ASSERT((stl_concepts::MoveConstructible<Test>));
+    BOOST_CONCEPT_ASSERT((stl_concepts::MoveAssignable<Test>));
+    BOOST_CONCEPT_ASSERT((stl_concepts::Destructible<Test>));
+
     return 0;
 }
