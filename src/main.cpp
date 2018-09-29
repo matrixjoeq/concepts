@@ -17,7 +17,14 @@ namespace {
 struct Test
 {
     int i_;
+
+    friend bool operator==(const Test& lhs, const Test& rhs);
 };
+
+bool operator==(const Test& lhs, const Test& rhs)
+{
+    return lhs.i_ == rhs.i_;
+}
 
 } // namespace
 
@@ -29,6 +36,8 @@ int main()
     BOOST_CONCEPT_ASSERT((stl_concepts::MoveConstructible<Test>));
     BOOST_CONCEPT_ASSERT((stl_concepts::MoveAssignable<Test>));
     BOOST_CONCEPT_ASSERT((stl_concepts::Destructible<Test>));
+
+    BOOST_CONCEPT_ASSERT((stl_concepts::EqualityComparable<Test>));
 
     return 0;
 }

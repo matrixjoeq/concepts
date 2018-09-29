@@ -1,3 +1,11 @@
+/**
+ * @file stl_concepts.hpp
+ * @brief Classes in this file define named requirements used in the normative text of the C++ standard library.
+ * @author Qu Xing
+ * @version 0.1
+ * @date 2018
+ * @copyright MIT License
+ */
 
 #ifndef __STL_CONCEPTS_HPP__
 #define __STL_CONCEPTS_HPP__
@@ -20,12 +28,24 @@ namespace details {
 template <class T>
 inline void ignore_unused_variable_warning(const T&) {}
 
+template <class T>
+void require_boolean_expr(const T& t)
+{
+    bool x = t;
+    ignore_unused_variable_warning(x);
+}
+
 } // namespace details
 
+/**
+ * @defgroup basic_group Basic Requirements
+ * @{
+ */
 /**
  * @class DefaultConstructible
  * @brief Specifies that an instance of the type can be default constructed.
  *
+ * <b>Requirements</b>
  * <p>
  * The type T satisfies <i>DefaultConstructible</i> if
  * Given
@@ -35,9 +55,9 @@ inline void ignore_unused_variable_warning(const T&) {}
  * The following expressions must be valid and have their specified effects
  * <table>
  *   <tr><th>Expression<th>Post-conditions
- *   <tr><td>T u       <td> The object u is default-initialized.
- *   <tr><td>T u{}     <td> The object u is value-initialized or aggregate-initialized.
- *   <tr><td>T()       <td rowspan="2"> A temporary object of type T is value-initialzied or aggregate-initialized.
+ *   <tr><td>T u       <td>The object u is default-initialized.
+ *   <tr><td>T u{}     <td>The object u is value-initialized or aggregate-initialized.
+ *   <tr><td>T()       <td rowspan="2">A temporary object of type T is value-initialzied or aggregate-initialized.
  *   <tr><td>T{}
  * </table>
  * </p>
@@ -55,7 +75,7 @@ BOOST_concept(DefaultConstructible, (T))
 #if !defined(BOOST_NO_CXX11_UNIFIED_INITIALIZATION_SYNTAX)
         T v{};
         details::ignore_unused_variable_warning(v);
-        T{};
+        details::ignore_unused_variable_warning(T{});
 #endif // BOOST_NO_CXX11_UNIFIED_INITIALIZATION_SYNTAX
     }
 };
@@ -64,6 +84,7 @@ BOOST_concept(DefaultConstructible, (T))
  * @class MoveConstructible
  * @brief Specifies that an instance of the type can be constructed from an rvalue argument.
  *
+ * <b>Requirements</b>
  * <p>
  * The type T satisfies <i>MoveConstructible</i> if
  * Given
@@ -74,8 +95,10 @@ BOOST_concept(DefaultConstructible, (T))
  * The following expressions must be valid and have their specified effects
  * <table>
  *   <tr><th>Expression<th>Post-conditions
- *   <tr><td>T u = rv  <td> The value of u is equivalent to the value of rv before the initialization.<br/>The new value of rv is unspecified.
- *   <tr><td>T(rv)     <td> The value of T(rv) is equivalent to the value of rv before the initialization.<br/>The new value of rv is unspecified.
+ *   <tr><td>T u = rv  <td>The value of u is equivalent to the value of rv before the initialization.<br/>
+ *                         The new value of rv is unspecified.
+ *   <tr><td>T(rv)     <td>The value of T(rv) is equivalent to the value of rv before the initialization.<br/>
+ *                         The new value of rv is unspecified.
  * </table>
  * </p>
  * @tparam T - type to be checked
@@ -97,6 +120,7 @@ BOOST_concept(MoveConstructible, (T))
  * @class CopyConstructible
  * @brief Specifies that an instance of the type can be copy-constructed from an lvalue expression.
  *
+ * <b>Requirements</b>
  * <p>
  * The type T satisfies <i>CopyConstructible</i> if
  * <ul style="list-style-type:disc">
@@ -152,6 +176,7 @@ private:
  * @class MoveAssignable
  * @brief Specifies that an instance of the type can be assigned from an rvalue argument.
  *
+ * <b>Requirements</b>
  * <p>
  * The type T satisfies <i>MoveAssignable</i> if
  * Given
@@ -162,7 +187,9 @@ private:
  * The following expressions must be valid and have their specified effects
  * <table>
  *   <tr><th>Expression<th>Return type<th>Return value<th>Post-conditions
- *   <tr><td>t = rv    <td>T&         <td>t           <td>If t and rv do not refer to the same object, the value of t is equivalent to the value of rv before the assignment.<br/>The new value of rv is unspecified.
+ *   <tr><td>t = rv    <td>T&         <td>t           <td>If t and rv do not refer to the same object, the value of t is
+ *                                                        equivalent to the value of rv before the assignment.<br/>
+ *                                                        The new value of rv is unspecified.
  * </table>
  * </p>
  * @tparam T - type to be checked
@@ -185,6 +212,7 @@ private:
  * @class CopyAssignable
  * @brief Specifies that an instance of the type can be copy-assigned from an lvalue expression.
  *
+ * <b>Requirements</b>
  * <p>
  * The type T satisfies <i>CopyAssignable</i> if
  * <ul style="list-style-type:disc">
@@ -198,7 +226,8 @@ private:
  * The following expressions must be valid and have their specified effects
  * <table>
  *   <tr><th>Expression<th>Return type<th>Return value<th>Post-conditions
- *   <tr><td>t = v     <td>T&         <td>t           <td>The value of t is equivalent to the value of v.<br/>The value of v is unchanged.
+ *   <tr><td>t = v     <td>T&         <td>t           <td>The value of t is equivalent to the value of v.<br/>
+ *                                                        The value of v is unchanged.
  * </table>
  * </p>
  * @tparam T - type to be checked
@@ -234,6 +263,7 @@ private:
  * @class Destructible
  * @brief Specifies that an instance of the type can be destructed.
  *
+ * <b>Requirements</b>
  * <p>
  * The type T satisfies <i>Destructible</i> if
  * Given
@@ -259,6 +289,69 @@ BOOST_concept(Destructible, (T))
 private:
     T u_;
 };
+/** @} */ // end of basic_group
+
+/**
+ * @defgroup library_wide_group Library-wide Requirements
+ * @{
+ */
+/**
+ * @class EqualityComparable
+ * @brief The type must work with == operator and the result should have standard semantics.
+ *
+ * <b>Requirements</b>
+ * <p>
+ * The type T satisfies <i>EqualityComparable</i> if
+ * Given
+ * <ul style="list-style-type:disc">
+ *   <li>a, b, and c, expressions of type T or const T</li>
+ * </ul>
+ * The following expressions must be valid and have their specified effects
+ * <table>
+ *   <tr><th>Expression<th>Return type                   <th>Requirements
+ *   <tr><td>a == b    <td>implicitly convertible to bool<td>Establishes an equivalence relation, that is, it satisfies
+ *                                                           the following properties:
+ *                                                           <ul style="list-style-type:disc">
+ *                                                             <li>For all values of a, a == a yields true.</li>
+ *                                                             <li>If a == b, then b == a</li>
+ *                                                             <li>If a == b and b == c, then a == c</li>
+ *                                                           </ul>
+ * </table>
+ * </p>
+ * @tparam T - type to be checked
+ * @see https://en.cppreference.com/w/cpp/named_req/EqualityComparable
+ */
+BOOST_concept(EqualityComparable, (T))
+{
+    BOOST_CONCEPT_USAGE(EqualityComparable)
+    {
+        details::require_boolean_expr(a_ == b_);
+        nonconst_const_constraints(a_, b_);
+        const_const_constraints(a_, b_);
+        const_nonconst_constraints(a_, b_);
+    }
+
+private:
+    void nonconst_const_constraints(T& x, const T& y)
+    {
+        details::require_boolean_expr(x == y);
+    }
+
+    void const_const_constraints(const T&x, const T& y)
+    {
+        details::require_boolean_expr(x == y);
+    }
+
+    void const_nonconst_constraints(const T& x, T& y)
+    {
+        details::require_boolean_expr(x == y);
+    }
+
+private:
+    T a_;
+    T b_;
+};
+/** @} */ // end of library_wide_group
 
 } // namespace concepts
 
