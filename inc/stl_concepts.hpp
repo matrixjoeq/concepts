@@ -12,7 +12,6 @@
 
 #include <boost/config.hpp>
 #include <boost/utility/declval.hpp>
-#include <boost/type_traits.hpp>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -22,9 +21,6 @@
 #pragma warning(disable : 4510) // default constructor could not be generated
 #pragma warning(disable : 4610) // object 'class' can never be instantiated - user-defined constructor required
 #endif
-
-#define STL_CONCEPTS_USING_TYPE_TRAITS
-//#define STL_CONCEPTS_USING_EXPRESSIONS
 
 namespace stl_concepts {
 
@@ -39,9 +35,6 @@ void require_boolean_expr(const T& t)
     bool x = t;
     ignore_unused_variable_warning(x);
 }
-
-template <class T>
-struct is_move_constructible : boost::is_constructible<T, typename boost::add_rvalue_reference<T>::type> {};
 
 } // namespace details
 
@@ -76,9 +69,6 @@ BOOST_concept(DefaultConstructible, (T))
 {
     BOOST_CONCEPT_USAGE(DefaultConstructible)
     {
-#if defined(STL_CONCEPTS_USING_TYPE_TRAITS)
-        BOOST_STATIC_ASSERT((boost::is_default_constructible<T>::value));
-#else // STL_CONCEPTS_USING_TYPE_TRAITS
         T u;
         details::ignore_unused_variable_warning(u);
         T();
@@ -88,7 +78,6 @@ BOOST_concept(DefaultConstructible, (T))
         details::ignore_unused_variable_warning(v);
         details::ignore_unused_variable_warning(T{});
 #endif // BOOST_NO_CXX11_UNIFIED_INITIALIZATION_SYNTAX
-#endif // STL_CONCEPTS_USING_TYPE_TRAITS
     }
 };
 
@@ -120,15 +109,11 @@ BOOST_concept(MoveConstructible, (T))
 {
     BOOST_CONCEPT_USAGE(MoveConstructible)
     {
-#if defined(STL_CONCEPTS_USING_TYPE_TRAITS)
-        BOOST_STATIC_ASSERT((details::is_move_constructible<T>::value));
-#else // STL_CONCEPTS_USING_TYPE_TRAITS
 #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
         T u = boost::declval<T>();
         details::ignore_unused_variable_warning(u);
         (T(boost::declval<T>()));
 #endif // BOOST_NO_CXX11_RVALUE_REFERENCES
-#endif // STL_CONCEPTS_USING_TYPE_TRAITS
     }
 };
 
