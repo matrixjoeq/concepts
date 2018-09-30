@@ -12,6 +12,7 @@
 
 #include <boost/config.hpp>
 #include <boost/utility/declval.hpp>
+#include <boost/type_traits.hpp>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -22,7 +23,11 @@
 #pragma warning(disable : 4610) // object 'class' can never be instantiated - user-defined constructor required
 #endif
 
+#define STL_CONCEPTS_USING_TYPE_TRAITS
+//#define STL_CONCEPTS_USING_EXPRESSIONS
+
 namespace stl_concepts {
+
 namespace details {
 
 template <class T>
@@ -34,6 +39,9 @@ void require_boolean_expr(const T& t)
     bool x = t;
     ignore_unused_variable_warning(x);
 }
+
+template <class T>
+struct is_move_constructible : boost::is_constructible<T, typename boost::add_rvalue_reference<T>::type> {};
 
 } // namespace details
 
@@ -68,6 +76,9 @@ BOOST_concept(DefaultConstructible, (T))
 {
     BOOST_CONCEPT_USAGE(DefaultConstructible)
     {
+#if defined(STL_CONCEPTS_USING_TYPE_TRAITS)
+        BOOST_STATIC_ASSERT((boost::is_default_constructible<T>::value));
+#else // STL_CONCEPTS_USING_TYPE_TRAITS
         T u;
         details::ignore_unused_variable_warning(u);
         T();
@@ -77,6 +88,7 @@ BOOST_concept(DefaultConstructible, (T))
         details::ignore_unused_variable_warning(v);
         details::ignore_unused_variable_warning(T{});
 #endif // BOOST_NO_CXX11_UNIFIED_INITIALIZATION_SYNTAX
+#endif // STL_CONCEPTS_USING_TYPE_TRAITS
     }
 };
 
@@ -108,11 +120,15 @@ BOOST_concept(MoveConstructible, (T))
 {
     BOOST_CONCEPT_USAGE(MoveConstructible)
     {
+#if defined(STL_CONCEPTS_USING_TYPE_TRAITS)
+        BOOST_STATIC_ASSERT((details::is_move_constructible<T>::value));
+#else // STL_CONCEPTS_USING_TYPE_TRAITS
 #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
         T u = boost::declval<T>();
         details::ignore_unused_variable_warning(u);
         (T(boost::declval<T>()));
 #endif // BOOST_NO_CXX11_RVALUE_REFERENCES
+#endif // STL_CONCEPTS_USING_TYPE_TRAITS
     }
 };
 
@@ -126,7 +142,7 @@ BOOST_concept(MoveConstructible, (T))
  * <ul style="list-style-type:disc">
  *   <li>The type T satisfies <i>MoveConstructible</i>, and</li>
  * </ul>
- * Given</br>
+ * Given
  * <ul style="list-style-type:disc">
  *   <li>v, an lvalue expression of type T or const T or an rvalue expression of type const T</li>
  *   <li>u, an arbitrary identifier</li>
@@ -351,6 +367,66 @@ private:
     T a_;
     T b_;
 };
+
+/**
+ * @class LessThanComparable
+ * @brief The type must work with < operator and the result should have standard semantics.
+ *
+ * <b>Requirements</b>
+ * <p>
+ * The type T satisfies <i>LessThanComparable</i> if
+ * Given
+ * <ul style="list-style-type:disc">
+ *   <li>a, b, and c, expressions of type T or const T</li>
+ * </ul>
+ * The following expressions must be valid and have their specified effects
+ * <table>
+ *   <tr><th>Expression<th>Return type                   <th>Requirements
+ *   <tr><td>a < b     <td>implicitly convertible to bool<td>Establishes strict weak ordering relation with the
+ *                                                           following properties
+ *                                                           <ul style="list-style-type:disc">
+ *                                                             <li>For all a, !(a < a)</li>
+ *                                                             <li>If a < b then !(b < a)</li>
+ *                                                             <li>If a < b and b < c then a < c</li>
+ *                                                             <li>Defining equiv(a, b) as !(a < b) && !(b < a), if
+ *                                                                 equiv(a, b) and equiv(b, c), then equiv(a, c)</li>
+ *                                                           </ul>
+ * </table>
+ * </p>
+ * @tparam T - type to be checked
+ * @see https://en.cppreference.com/w/cpp/named_req/LessThanComparable
+ */
+BOOST_concept(LessThanComparable, (T))
+{
+    BOOST_CONCEPT_USAGE(LessThanComparable)
+    {
+        details::require_boolean_expr(a_ < b_);
+        nonconst_const_constraints(a_, b_);
+        const_const_constraints(a_, b_);
+        const_nonconst_constraints(a_, b_);
+    }
+
+private:
+    void nonconst_const_constraints(T& x, const T& y)
+    {
+        details::require_boolean_expr(x < y);
+    }
+
+    void const_const_constraints(const T&x, const T& y)
+    {
+        details::require_boolean_expr(x < y);
+    }
+
+    void const_nonconst_constraints(const T& x, T& y)
+    {
+        details::require_boolean_expr(x < y);
+    }
+
+private:
+    T a_;
+    T b_;
+};
+
 /** @} */ // end of library_wide_group
 
 } // namespace concepts
