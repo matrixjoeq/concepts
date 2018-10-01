@@ -1,6 +1,8 @@
 
 #include <iostream>
 #include <string>
+#include <type_traits>
+#include <vector>
 
 #include <boost/type_traits.hpp>
 #include <boost/mpl/at.hpp>
@@ -12,7 +14,7 @@
 #include <boost/concept/requires.hpp>
 #include <boost/concept_check.hpp>
 
-#include "stl_concepts.hpp"
+#include "stl_concept.hpp"
 
 namespace {
 
@@ -37,38 +39,29 @@ bool operator<(const Test& lhs, const Test& rhs)
 }
 */
 
-template <typename E>
-    BOOST_CONCEPT_REQUIRES(
-        ((boost::SignedInteger<E>)),                     // properties
-        (typename std::make_unsigned<E>::type) // return type
-    )
-constexpr asUnsigned(E e)
-{
-    // need to perform an additional cast here because otherwise compiler/tools rightly warn about
-    // unsafe conversion
-    return static_cast<typename std::make_unsigned<E>::type>(typename std::make_unsigned<E>::type(e));
-}
-
 } // namespace
+
+void foo() {}
 
 int main()
 {
-    auto i = asUnsigned("100");
-    (void)i;
+    BOOST_CONCEPT_ASSERT((stl_concept::ValueSwappable<std::vector<int>::iterator>));
+    //static_assert(std::__is_referenceable<int[1][1]>::value, "");
+    //static_assert(stl_concept::__detail::__is_referenceable<int[1][1]>::value, "");
     //BOOST_CONCEPT_ASSERT((boost::DefaultConstructible<Test>));
-    //BOOST_CONCEPT_ASSERT((stl_concepts::DefaultConstructible<Test>));
+    //BOOST_CONCEPT_ASSERT((stl_concept::DefaultConstructible<Test>));
     //BOOST_CONCEPT_ASSERT((boost::DefaultConstructible<void>));
 
     /*
-    BOOST_CONCEPT_ASSERT((stl_concepts::DefaultConstructible<Test>));
-    BOOST_CONCEPT_ASSERT((stl_concepts::MoveConstructible<Test>));
-    BOOST_CONCEPT_ASSERT((stl_concepts::CopyConstructible<Test>));
-    BOOST_CONCEPT_ASSERT((stl_concepts::MoveAssignable<Test>));
-    BOOST_CONCEPT_ASSERT((stl_concepts::CopyAssignable<Test>));
-    BOOST_CONCEPT_ASSERT((stl_concepts::Destructible<Test>));
+    BOOST_CONCEPT_ASSERT((stl_concept::DefaultConstructible<Test>));
+    BOOST_CONCEPT_ASSERT((stl_concept::MoveConstructible<Test>));
+    BOOST_CONCEPT_ASSERT((stl_concept::CopyConstructible<Test>));
+    BOOST_CONCEPT_ASSERT((stl_concept::MoveAssignable<Test>));
+    BOOST_CONCEPT_ASSERT((stl_concept::CopyAssignable<Test>));
+    BOOST_CONCEPT_ASSERT((stl_concept::Destructible<Test>));
 
-    BOOST_CONCEPT_ASSERT((stl_concepts::EqualityComparable<Test>));
-    BOOST_CONCEPT_ASSERT((stl_concepts::LessThanComparable<Test>));
+    BOOST_CONCEPT_ASSERT((stl_concept::EqualityComparable<Test>));
+    BOOST_CONCEPT_ASSERT((stl_concept::LessThanComparable<Test>));
     */
     return 0;
 }
