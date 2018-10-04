@@ -181,31 +181,32 @@ BOOST_concept(MoveConstructible, (T))
  */
 BOOST_concept(CopyConstructible, (T)) : MoveConstructible<T>
 {
-    BOOST_CONCEPT_USAGE(CopyConstructible)
-    {
-        T u = v_;
-        (T(v_));
-        const_lvalue_constraints(u);
-        const_rvalue_constraints();
-    }
-
 private:
-    void const_lvalue_constraints(const T& x)
+    using _Tp = boost::remove_const_t<T>;
+    _Tp v_;
+
+    void const_lvalue_constraints(const _Tp& x)
     {
-        T u = x;
-        (T(x));
+        _Tp u(x);
+        __detail::__unuse(_Tp(x));
         __detail::__unuse(u);
     }
 
     void const_rvalue_constraints()
     {
-        T u = boost::declval<const T>();
-        (T(boost::declval<const T>()));
+        _Tp u(boost::declval<const _Tp>());
+        __detail::__unuse(_Tp(boost::declval<const _Tp>()));
         __detail::__unuse(u);
     }
 
-private:
-    T v_;
+public:
+    BOOST_CONCEPT_USAGE(CopyConstructible)
+    {
+        _Tp u(v_);
+        __detail::__unuse(_Tp(v_));
+        const_lvalue_constraints(u);
+        const_rvalue_constraints();
+    }
 };
 
 /**
@@ -411,23 +412,11 @@ BOOST_concept(LessThanComparable, (T))
     BOOST_CONCEPT_USAGE(LessThanComparable)
     {
         __detail::__require_expr_convertible_to<bool>(a_ < b_);
-        nonconst_const_constraints(a_, b_);
-        const_const_constraints(a_, b_);
-        const_nonconst_constraints(a_, b_);
+        constraints(a_, b_);
     }
 
 private:
-    void nonconst_const_constraints(T& x, const T& y)
-    {
-        __detail::__require_expr_convertible_to<bool>(x < y);
-    }
-
-    void const_const_constraints(const T&x, const T& y)
-    {
-        __detail::__require_expr_convertible_to<bool>(x < y);
-    }
-
-    void const_nonconst_constraints(const T& x, T& y)
+    void constraints(const T&x, const T& y)
     {
         __detail::__require_expr_convertible_to<bool>(x < y);
     }
@@ -465,27 +454,7 @@ public:
 
 template <class T> struct __Referenceable<T[]> {};
 template <class T, size_t N> struct __Referenceable<T[N]> {};
-
-#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
 template <class R, class... Args> struct __Referenceable<R(Args...)> {};
-#else // BOOST_NO_CXX11_VARIADIC_TEMPLATES
-template <class R> struct __Referenceable<R()> {};
-template <class R, class A0> struct __Referenceable<R(A0)> {};
-template <class R, class A0, class A1> struct __Referenceable<R(A0, A1)> {};
-template <class R, class A0, class A1, class A2> struct __Referenceable<R(A0, A1, A2)> {};
-template <class R, class A0, class A1, class A2, class A3> struct __Referenceable<R(A0, A1, A2, A3)> {};
-template <class R, class A0, class A1, class A2, class A3, class A4> struct __Referenceable<R(A0, A1, A2, A3, A4)> {};
-template <class R, class A0, class A1, class A2, class A3, class A4, class A5>
-struct __Referenceable<R(A0, A1, A2, A3, A4, A5)> {};
-template <class R, class A0, class A1, class A2, class A3, class A4, class A5, class A6>
-struct __Referenceable<R(A0, A1, A2, A3, A4, A5, A6)> {};
-template <class R, class A0, class A1, class A2, class A3, class A4, class A5, class A6, class A7>
-struct __Referenceable<R(A0, A1, A2, A3, A4, A5, A6, A7)> {};
-template <class R, class A0, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class A8>
-struct __Referenceable<R(A0, A1, A2, A3, A4, A5, A6, A7, A8)> {};
-template <class R, class A0, class A1, class A2, class A3, class A4, class A5, class A6, class A7, class A8, class A9>
-struct __Referenceable<R(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9)> {};
-#endif // BOOST_NO_CXX11_VARIADIC_TEMPLATES
 
 } // namespace __detail
 
