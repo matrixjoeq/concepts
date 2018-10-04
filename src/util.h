@@ -31,6 +31,8 @@ struct LessType
 void default_constructible_check();
 void move_constructible_check();
 void copy_constructible_check();
+void move_assignable_check();
+void copy_assignable_check();
 
 } // namespace test
 } // namespace stl_concept

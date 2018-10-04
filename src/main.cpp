@@ -7,6 +7,8 @@ int main()
     default_constructible_check();
     move_constructible_check();
     copy_constructible_check();
+    move_assignable_check();
+    copy_assignable_check();
 
     return 0;
 }
