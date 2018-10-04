@@ -17,10 +17,9 @@
 #include <utility>
 #endif // __cplusplus < 201103L
 
-#include <boost/config.hpp>
 #include <boost/type_traits/declval.hpp>
 #include <boost/type_traits/integral_constant.hpp>
-#include <boost/type_traits/add_rvalue_reference.hpp>
+#include <boost/type_traits/is_constructible.hpp>
 #include <boost/type_traits/remove_cv_ref.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/concept/assert.hpp>
@@ -38,17 +37,20 @@ namespace stl_concept {
 namespace __detail {
 
 template <class T>
-inline void __ignore_unused_variable_warning(const T&) {}
+inline void __unuse(T&&) {}
+
+template <class T, class U>
+struct __require_same_type;
 
 template <class T>
-void __require_boolean_expr(const T& t)
-{
-    bool x = t;
-    __ignore_unused_variable_warning(x);
-}
+struct __require_same_type<T, T> {};
 
-template <class T, class U, typename = typename boost::enable_if<boost::is_same<T, U> >::type>
-inline void __require_exact_type() {}
+template <class To, class From>
+inline void __require_expr_convertible_to(const From& x)
+{
+    To y = x;
+    __unuse(y);
+}
 
 } // namespace __detail
 
@@ -62,8 +64,9 @@ template <class T> struct Iterator;
  * @class stl_concept::DefaultConstructible
  * @brief Specifies that an instance of the type can be default constructed.
  *
- * <b>Requirements</b>
  * <p>
+ * <b>Requirements</b>
+ * </p><p>
  * The type T satisfies <i>DefaultConstructible</i> if<br/>
  * Given
  * <ul style="list-style-type:disc">
@@ -87,14 +90,21 @@ BOOST_concept(DefaultConstructible, (T))
     BOOST_CONCEPT_USAGE(DefaultConstructible)
     {
         T u;
-        __detail::__ignore_unused_variable_warning(u);
-        T();
+        __detail::__unuse(u);
+        __detail::__unuse(T());
 
-#if !defined(BOOST_NO_CXX11_UNIFIED_INITIALIZATION_SYNTAX)
         T v{};
-        __detail::__ignore_unused_variable_warning(v);
-        __detail::__ignore_unused_variable_warning(T{});
-#endif // BOOST_NO_CXX11_UNIFIED_INITIALIZATION_SYNTAX
+        __detail::__unuse(v);
+        __detail::__unuse(T{});
+    }
+};
+
+template <class T, size_t N>
+struct DefaultConstructible<T[N]>
+{
+    BOOST_CONCEPT_USAGE(DefaultConstructible)
+    {
+        BOOST_CONCEPT_ASSERT((DefaultConstructible<T>));
     }
 };
 
@@ -110,8 +120,9 @@ struct __is_move_constructible
  * @class stl_concept::MoveConstructible
  * @brief Specifies that an instance of the type can be constructed from an rvalue argument.
  *
- * <b>Requirements</b>
  * <p>
+ * <b>Requirements</b>
+ * </p><p>
  * The type T satisfies <i>MoveConstructible</i> if<br/>
  * Given
  * <ul style="list-style-type:disc">
@@ -136,8 +147,8 @@ BOOST_concept(MoveConstructible, (T))
     BOOST_CONCEPT_USAGE(MoveConstructible)
     {
         T u = boost::declval<T>(); // boost::declval works even before c++11
-        __detail::__ignore_unused_variable_warning(u);
-        (T(boost::declval<T>()));
+        __detail::__unuse(u);
+        __detail::__unuse(T(boost::declval<T>()));
     }
 };
 
@@ -145,8 +156,9 @@ BOOST_concept(MoveConstructible, (T))
  * @class stl_concept::CopyConstructible
  * @brief Specifies that an instance of the type can be copy-constructed from an lvalue expression.
  *
- * <b>Requirements</b>
  * <p>
+ * <b>Requirements</b>
+ * </p><p>
  * The type T satisfies <i>CopyConstructible</i> if
  * <ul style="list-style-type:disc">
  *   <li>The type T satisfies <i>MoveConstructible</i>, and</li>
@@ -182,14 +194,14 @@ private:
     {
         T u = x;
         (T(x));
-        __detail::__ignore_unused_variable_warning(u);
+        __detail::__unuse(u);
     }
 
     void const_rvalue_constraints()
     {
         T u = boost::declval<const T>();
         (T(boost::declval<const T>()));
-        __detail::__ignore_unused_variable_warning(u);
+        __detail::__unuse(u);
     }
 
 private:
@@ -200,8 +212,9 @@ private:
  * @class stl_concept::MoveAssignable
  * @brief Specifies that an instance of the type can be assigned from an rvalue argument.
  *
- * <b>Requirements</b>
  * <p>
+ * <b>Requirements</b>
+ * </p><p>
  * The type T satisfies <i>MoveAssignable</i> if<br/>
  * Given
  * <ul style="list-style-type:disc">
@@ -235,8 +248,9 @@ private:
  * @class stl_concept::CopyAssignable
  * @brief Specifies that an instance of the type can be copy-assigned from an lvalue expression.
  *
- * <b>Requirements</b>
  * <p>
+ * <b>Requirements</b>
+ * </p><p>
  * The type T satisfies <i>CopyAssignable</i> if
  * <ul style="list-style-type:disc">
  *   <li>The type T satisfies <i>MoveAssignable</i>, and</li>
@@ -286,8 +300,9 @@ private:
  * @class stl_concept::Destructible
  * @brief Specifies that an instance of the type can be destructed.
  *
- * <b>Requirements</b>
  * <p>
+ * <b>Requirements</b>
+ * </p><p>
  * The type T satisfies <i>Destructible</i> if<br/>
  * Given
  * <ul style="list-style-type:disc">
@@ -320,8 +335,9 @@ BOOST_concept(Destructible, (T))
  * @class stl_concept::EqualityComparable
  * @brief The type must work with == operator and the result should have standard semantics.
  *
- * <b>Requirements</b>
  * <p>
+ * <b>Requirements</b>
+ * </p><p>
  * The type T satisfies <i>EqualityComparable</i> if<br/>
  * Given
  * <ul style="list-style-type:disc">
@@ -347,26 +363,13 @@ BOOST_concept(EqualityComparable, (T))
 {
     BOOST_CONCEPT_USAGE(EqualityComparable)
     {
-        __detail::__require_boolean_expr(a_ == b_);
-        nonconst_const_constraints(a_, b_);
-        const_const_constraints(a_, b_);
-        const_nonconst_constraints(a_, b_);
+        constraints(a_, b_);
     }
 
 private:
-    void nonconst_const_constraints(T& x, const T& y)
+    void constraints(const T&x, const T& y)
     {
-        __detail::__require_boolean_expr(x == y);
-    }
-
-    void const_const_constraints(const T&x, const T& y)
-    {
-        __detail::__require_boolean_expr(x == y);
-    }
-
-    void const_nonconst_constraints(const T& x, T& y)
-    {
-        __detail::__require_boolean_expr(x == y);
+        __detail::__require_expr_convertible_to<bool>(x == y);
     }
 
 private:
@@ -378,8 +381,9 @@ private:
  * @class stl_concept::LessThanComparable
  * @brief The type must work with < operator and the result should have standard semantics.
  *
- * <b>Requirements</b>
  * <p>
+ * <b>Requirements</b>
+ * </p><p>
  * The type T satisfies <i>LessThanComparable</i> if<br/>
  * Given
  * <ul style="list-style-type:disc">
@@ -406,7 +410,7 @@ BOOST_concept(LessThanComparable, (T))
 {
     BOOST_CONCEPT_USAGE(LessThanComparable)
     {
-        __detail::__require_boolean_expr(a_ < b_);
+        __detail::__require_expr_convertible_to<bool>(a_ < b_);
         nonconst_const_constraints(a_, b_);
         const_const_constraints(a_, b_);
         const_nonconst_constraints(a_, b_);
@@ -415,17 +419,17 @@ BOOST_concept(LessThanComparable, (T))
 private:
     void nonconst_const_constraints(T& x, const T& y)
     {
-        __detail::__require_boolean_expr(x < y);
+        __detail::__require_expr_convertible_to<bool>(x < y);
     }
 
     void const_const_constraints(const T&x, const T& y)
     {
-        __detail::__require_boolean_expr(x < y);
+        __detail::__require_expr_convertible_to<bool>(x < y);
     }
 
     void const_nonconst_constraints(const T& x, T& y)
     {
-        __detail::__require_boolean_expr(x < y);
+        __detail::__require_expr_convertible_to<bool>(x < y);
     }
 
 private:
@@ -455,7 +459,7 @@ public:
     BOOST_CONCEPT_USAGE(__Referenceable)
     {
         _Tp& r = t_;
-        __detail::__ignore_unused_variable_warning(r);
+        __detail::__unuse(r);
     }
 };
 
@@ -489,8 +493,9 @@ struct __Referenceable<R(A0, A1, A2, A3, A4, A5, A6, A7, A8, A9)> {};
  * @class stl_concept::Swappable
  * @brief Specifies that lvalues of type T are swappable.
  *
- * <b>Requirements</b>
  * <p>
+ * <b>Requirements</b>
+ * </p><p>
  * The type T satisfies <i>Swappable</i> if<br/>
  * Given
  * <ul style="list-style-type:disc">
@@ -517,8 +522,9 @@ BOOST_concept(Swappable, (T)) : __detail::__Referenceable<T>
  * @brief Two objects of this type can be dereferenced and the resulting values can be swapped using
  * unqualified function call swap() in the context where both std::swap and the user-defined swap()s are visible.
  *
- * <b>Requirements</b>
  * <p>
+ * <b>Requirements</b>
+ * </p><p>
  * The type T satisfies <i>ValueSwappable</i> if<br/>
  * Given
  * <ul style="list-style-type:disc">
@@ -552,8 +558,9 @@ BOOST_concept(ValueSwappable, (T)) : Iterator<T>
  * <i>Iterator</i> is the base set of requirements used by other iterator types: <i>InputIterator</i>,
  * <i>OutputIterator</i>, <i>ForwardIterator</i>, <i>BidirectionalIterator</i>, and <i>RandomAccessIterator</i>.
  * <i>Iterator</i>s can be thought of as an abstraction of pointers.
- * <br/>
+ * </p><p>
  * <b>Requirements</b>
+ * </p><p>
  * The type It satisfies <i>Iterator</i> if<br/>
  * <ul style="list-style-type:disc">
  *   <li>The type It satisfies <i>CopyConstructible</i>, and</li>
@@ -583,13 +590,6 @@ BOOST_concept(Iterator, (It))
     , Destructible<It>
     , Swappable<It>
 {
-    BOOST_CONCEPT_USAGE(Iterator)
-    {
-        It r(it_);
-        __detail::__ignore_unused_variable_warning(*r);
-        __detail::__require_exact_type<decltype(++r), It&>();
-    }
-
 private:
     typedef typename boost::iterator_value<It>::type value_type;
     typedef typename boost::iterator_difference<It>::type difference_type;
@@ -597,7 +597,68 @@ private:
     typedef typename boost::iterator_pointer<It>::type pointer_type;
     typedef typename boost::iterator_category<It>::type iterator_category;
 
-    It it_;
+    It r_;
+
+public:
+    BOOST_CONCEPT_USAGE(Iterator)
+    {
+        __detail::__require_expr_convertible_to<value_type>(*r_);
+        __detail::__require_same_type<decltype(++r_), It&>();
+    }
+};
+
+/**
+ * @class stl_concept::InputIterator
+ * @brief An <i>InputIterator</i> is an <i>Iterator</i> that can read from the pointed-to element.
+ *
+ * <p>
+ * <i>InputIterator</i>s only guarantee validity for single pass algorithms: once an <i>InputIterator</i> i has been
+ * incremented, all copies of its previous value may be invalidated.
+ * </p><p>
+ * <b>Requirements</b>
+ * </p><p>
+ * The type It satisfies <i>InputIterator</i> if<br/>
+ * <ul style="list-style-type:disc">
+ *   <li>The type It satisfies <i>Iterator</i>, and</li>
+ *   <li>The type It satisfies <i>EqualityComparable</i>, and</li>
+ * </ul>
+ * Given
+ * <ul style="list-style-type:disc">
+ *   <li>i and j, values of type It or const It</li>
+ *   <li>reference, the type denoted by std::iterator_traits<It>::reference</li>
+ *   <li>value_type, the type denoted by std::iterator_traits<It>::value_type</li>
+ * </ul>
+ * The following expressions must be valid and have their specified effects
+ * <table>
+ *   <tr><th>Expression<th>Return                              <th>Equivalent expression <th>Precondition
+ *   <tr><td>i != j    <td>contextually convertible to bool    <td>!(i == j)             <td>i, j is in the domain of ==
+ *   <tr><td>*i        <td>reference, convertible to value_type<td>                      <td>i is dereferenceable
+ *   <tr><td>i->m      <td>                                    <td>(*i).m                <td>i is dereferenceable
+ *   <tr><td>++i       <td>It&                                 <td>                      <td>i is incrementable
+ *   <tr><td>(void)++i <td>                                    <td>                      <td>i is incrementable
+ *   <tr><td>*i++      <td>convertible to value_type           <td>value_type x = *i;<br/>++i;<br/>return x;<td>
+ * </table>
+ * </p>
+ * @tparam T - type to be checked
+ * @see https://en.cppreference.com/w/cpp/named_req/InputIterator
+ */
+BOOST_concept(InputIterator, (It))
+    : Iterator<It>
+    , EqualityComparable<It>
+{
+private:
+    typedef typename boost::iterator_value<It>::type value_type;
+    It i_;
+    It j_;
+
+public:
+    BOOST_CONCEPT_USAGE(InputIterator)
+    {
+        __detail::__require_expr_convertible_to<bool>(i_ != j_);
+        __detail::__require_expr_convertible_to<bool>(i_ == j_);
+        (void)++i_;
+        __detail::__require_expr_convertible_to<value_type>(*i_++);
+    }
 };
 
 /** @} */ // end of iterator_group
