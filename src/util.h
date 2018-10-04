@@ -29,6 +29,7 @@ struct LessType
 };
 
 void default_constructible_check();
+void move_constructible_check();
 
 } // namespace test
 } // namespace stl_concept
