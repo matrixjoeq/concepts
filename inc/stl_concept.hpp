@@ -362,20 +362,22 @@ BOOST_concept(Destructible, (T))
  */
 BOOST_concept(EqualityComparable, (T))
 {
-    BOOST_CONCEPT_USAGE(EqualityComparable)
-    {
-        constraints(a_, b_);
-    }
-
 private:
-    void constraints(const T&x, const T& y)
+    using _Tp = boost::remove_const_t<T>;
+    _Tp a_;
+    _Tp b_;
+
+    void constraints(const _Tp& x, const _Tp& y)
     {
         __detail::__require_expr_convertible_to<bool>(x == y);
     }
 
-private:
-    T a_;
-    T b_;
+public:
+    BOOST_CONCEPT_USAGE(EqualityComparable)
+    {
+        __detail::__require_expr_convertible_to<bool>(a_ == b_);
+        constraints(a_, b_);
+    }
 };
 
 /**
@@ -409,21 +411,22 @@ private:
  */
 BOOST_concept(LessThanComparable, (T))
 {
+private:
+    using _Tp = boost::remove_const_t<T>;
+    _Tp a_;
+    _Tp b_;
+
+    void constraints(const _Tp& x, const _Tp& y)
+    {
+        __detail::__require_expr_convertible_to<bool>(x < y);
+    }
+
+public:
     BOOST_CONCEPT_USAGE(LessThanComparable)
     {
         __detail::__require_expr_convertible_to<bool>(a_ < b_);
         constraints(a_, b_);
     }
-
-private:
-    void constraints(const T&x, const T& y)
-    {
-        __detail::__require_expr_convertible_to<bool>(x < y);
-    }
-
-private:
-    T a_;
-    T b_;
 };
 
 namespace __detail {

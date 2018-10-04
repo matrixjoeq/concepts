@@ -9,7 +9,7 @@ bool operator==(const EqualType&, const EqualType&)
     return true;
 }
 
-bool operator<(const LessType&, const LessType&)
+bool operator!=(const EqualType&, const EqualType&)
 {
     return true;
 }
