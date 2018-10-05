@@ -1,6 +1,7 @@
 
 #include <exception>
 #include <memory>
+#include <scoped_allocator>
 #include "util.h"
 
 namespace stl_concept {
@@ -20,6 +21,10 @@ using PointerTL = mpl::vector<
     std::shared_ptr<DefaultType>,
     std::allocator<DefaultType>::pointer,
     std::allocator<DefaultType>::const_pointer,
+    std::scoped_allocator_adaptor<std::allocator<DefaultType>>::pointer,
+    std::scoped_allocator_adaptor<std::allocator<DefaultType>>::const_pointer,
+    std::scoped_allocator_adaptor<std::allocator<DefaultType>>::void_pointer,
+    std::scoped_allocator_adaptor<std::allocator<DefaultType>>::const_void_pointer,
     std::exception_ptr
 >;
 
