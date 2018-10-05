@@ -18,5 +18,9 @@ int main()
     swappable_check();
     value_swappable_check();
 
+    // iterator group
+    iterator_check();
+    input_iterator_check();
+
     return 0;
 }
