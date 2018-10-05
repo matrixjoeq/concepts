@@ -17,9 +17,11 @@
 #include <utility>
 #endif // __cplusplus < 201103L
 
+#include <boost/type_traits/add_lvalue_reference.hpp>
 #include <boost/type_traits/declval.hpp>
 #include <boost/type_traits/integral_constant.hpp>
 #include <boost/type_traits/is_constructible.hpp>
+#include <boost/type_traits/is_void.hpp>
 #include <boost/type_traits/remove_cv_ref.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/concept/assert.hpp>
@@ -440,6 +442,47 @@ struct __is_referenceable_impl
 template <class T>
 struct __is_referenceable : boost::integral_constant<bool,
     !boost::is_same<decltype(__is_referenceable_impl::__test<T>(0)), boost::type_traits::no_type>::value> {};
+
+struct __na_type
+{
+    __na_type() = delete;
+    __na_type(const __na_type&) = delete;
+    __na_type& operator=(const __na_type&) = delete;
+    ~__na_type() = delete;
+};
+
+template <class T, class U = T, bool NotVoid = !boost::is_void<T>::value && !boost::is_void<U>::value>
+struct __swappable_with
+{
+    template <class LHS, class RHS>
+    static auto __test(int) -> decltype(std::swap(boost::declval<LHS>(), boost::declval<RHS>()));
+
+    template <class LHS, class RHS>
+    static __na_type __test(...);
+
+    typedef decltype((__test<T, U>(0))) __swap1;
+    typedef decltype((__test<U ,T>(0))) __swap2;
+
+    static constexpr bool value = !boost::is_same<__swap1, __na_type>::value
+                               && !boost::is_same<__swap2, __na_type>::value;
+};
+
+template <class T, class U>
+struct __swappable_with<T, U, false> : boost::integral_constant<bool, false> {};
+
+template <class T, class U>
+struct __is_swappable_with : boost::integral_constant<bool, __swappable_with<T, U>::value> {};
+
+template <class T>
+struct __is_swappable
+    : boost::conditional<
+        __is_referenceable<T>::value,
+        __is_swappable_with<
+            typename boost::add_lvalue_reference<T>::type,
+            typename boost::add_lvalue_reference<T>::type>,
+        boost::integral_constant<bool, false>
+    >::type
+{};
 
 BOOST_concept(__Referenceable, (T))
 {

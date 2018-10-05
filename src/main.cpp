@@ -15,6 +15,8 @@ int main()
     // library-wide group
     equality_comparable_check();
     less_comparable_check();
+    swappable_check();
+    value_swappable_check();
 
     return 0;
 }

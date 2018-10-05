@@ -29,6 +29,18 @@ struct LessType
     friend bool operator<(const LessType&, const LessType&);
 };
 
+template <class T>
+struct HashFunctor;
+
+template <>
+struct HashFunctor<DefaultType>
+{
+    std::size_t operator()(const DefaultType&) const
+    {
+        return 0;
+    }
+};
+
 // basic group
 void default_constructible_check();
 void move_constructible_check();
@@ -39,6 +51,12 @@ void copy_assignable_check();
 // library-wide group
 void equality_comparable_check();
 void less_comparable_check();
+void swappable_check();
+void value_swappable_check();
+
+// iterator group
+void iterator_check();
+void input_iterator_check();
 
 } // namespace test
 } // namespace stl_concept

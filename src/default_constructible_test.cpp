@@ -1,5 +1,5 @@
 
-#include <boost/type_traits/is_default_constructible.hpp>
+#include <type_traits>
 #include "util.h"
 
 namespace stl_concept {
@@ -64,7 +64,7 @@ struct ConceptChecker
     void operator()(T&)
     {
         using Type = typename T::type;
-        BOOST_STATIC_ASSERT(boost::is_default_constructible<Type>::value);
+        BOOST_STATIC_ASSERT(std::is_default_constructible<Type>::value);
         BOOST_CONCEPT_ASSERT((boost::DefaultConstructible<Type>));
         BOOST_CONCEPT_ASSERT((stl_concept::DefaultConstructible<Type>));
     };
