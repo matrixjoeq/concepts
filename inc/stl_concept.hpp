@@ -559,6 +559,67 @@ BOOST_concept(ValueSwappable, (T)) : Iterator<T>
     }
 };
 
+/**
+ * @class stl_concept::NullablePointer
+ * @brief Specifies that the type is a pointer-like object which can be compared to std::nullptr_t objects.
+ *
+ * <p>
+ * <b>Requirements</b>
+ * </p><p>
+ * The type must meet all of the following requirements:
+ * <ul style="list-style-type:disc">
+ *   <li><i>EqualityComparable</i></li>
+ *   <li><i>DefaultConstructible</i></li>
+ *   <li><i>CopyConstructible</i></li>
+ *   <li><i>CopyAssignable</i></li>
+ *   <li><i>Destructible</i></li>
+ * </ul>
+ * In addition, a value-initialized object of the type must produce a null value of that type.
+ * This null value shall only be equivalent to itself. Default initialization of the type may have an indeterminate
+ * value.<br/>
+ * An object of the type must be contextually convertible to bool. The effect of this conversion returns false if the
+ * value is equivalent to its null value and true otherwise.<br/>
+ * None of the operations that this type performs may throw exceptions.<br/>
+ * The type must satisfy the following additional expressions, given two values p and q that are of the type, and that
+ * np is a value of std::nullptr_t type (possibly const qualified):
+ * <table>
+ *   <tr><th>Expression                  <th>Effects
+ *   <tr><td>Type p(np);<br/>Type p = np;<td>Afterwards, p is equivalent to nullptr
+ *   <tr><td>Type(np)                    <td>A temporary object that is equivalent to nullptr
+ *   <tr><td>p = np                      <td>Must return a Type&, and afterwards, p is equivalent to nullptr
+ *   <tr><td>p != q                      <td>Must return a value that is contextually convertible to bool.<br/>The effect is !(p == q)
+ *   <tr><td>p == np<br/>np == p         <td>Must return a value that is contextually convertible to bool.<br/>The effect is (p == Type())
+ *   <tr><td>p != np<br/>np != p         <td>Must return a value that is contextually convertible to bool.<br/>The effect is !(p == np)
+ * </table>
+ * </p>
+ * @tparam T - type to be checked
+ * @see https://en.cppreference.com/w/cpp/named_req/NullablePointer
+ */
+BOOST_concept(NullablePointer, (T))
+    : EqualityComparable<T>
+    , DefaultConstructible<T>
+    , CopyConstructible<T>
+    , CopyAssignable<T>
+    , Destructible<T>
+{
+    BOOST_CONCEPT_USAGE(NullablePointer)
+    {
+        T p(nullptr);
+        T q = nullptr;
+        __detail::__unuse(T(nullptr));
+
+        __detail::__require_expr_convertible_to<bool>(p == q);
+        __detail::__require_expr_convertible_to<bool>(p != q);
+        __detail::__require_expr_convertible_to<bool>(p == nullptr);
+        __detail::__require_expr_convertible_to<bool>(nullptr == p);
+        __detail::__require_expr_convertible_to<bool>(p != nullptr);
+        __detail::__require_expr_convertible_to<bool>(nullptr != p);
+
+        p = nullptr;
+        __detail::__require_same_type<decltype(p = nullptr), T&>();
+    }
+};
+
 /** @} */ // end of library_wide_group
 
 /**

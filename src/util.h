@@ -20,13 +20,43 @@ struct DefaultType {};
 
 struct EqualType
 {
-    friend bool operator==(const EqualType&, const EqualType&);
-    friend bool operator!=(const EqualType&, const EqualType&);
+    friend bool operator==(const EqualType&, const EqualType&)
+    {
+        return true;
+    }
+
+    friend bool operator!=(const EqualType&, const EqualType&)
+    {
+        return true;
+    }
 };
 
 struct LessType
 {
-    friend bool operator<(const LessType&, const LessType&);
+    friend bool operator<(const LessType&, const LessType&)
+    {
+       return true;
+    }
+};
+
+struct NullablePointerType
+{
+    NullablePointerType(std::nullptr_t = nullptr) {}
+
+    explicit operator bool()
+    {
+        return true;
+    }
+
+    friend bool operator==(const NullablePointerType&, const NullablePointerType&)
+    {
+        return true;
+    }
+
+    friend bool operator!=(const NullablePointerType&, const NullablePointerType&)
+    {
+        return true;
+    }
 };
 
 template <class T>
@@ -53,6 +83,7 @@ void equality_comparable_check();
 void less_comparable_check();
 void swappable_check();
 void value_swappable_check();
+void nullable_pointer_check();
 
 // iterator group
 void iterator_check();

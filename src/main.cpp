@@ -17,6 +17,7 @@ int main()
     less_comparable_check();
     swappable_check();
     value_swappable_check();
+    nullable_pointer_check();
 
     // iterator group
     iterator_check();
