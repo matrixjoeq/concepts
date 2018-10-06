@@ -1,6 +1,7 @@
 
 #include <boost/type_traits/has_less.hpp>
 #include "util.h"
+#include "concept/less_than_comparable.hpp"
 
 namespace stl_concept {
 namespace test {

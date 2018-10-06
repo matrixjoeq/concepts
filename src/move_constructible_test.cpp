@@ -1,6 +1,7 @@
 
 #include <type_traits>
 #include "util.h"
+#include "concept/move_constructible.hpp"
 
 namespace stl_concept {
 namespace test {

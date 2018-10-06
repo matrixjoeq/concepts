@@ -1,6 +1,7 @@
 
 #include <functional>
 #include "util.h"
+#include "concept/function_object.hpp"
 
 namespace stl_concept {
 namespace test {

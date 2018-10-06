@@ -3,6 +3,7 @@
 #include <memory>
 #include <scoped_allocator>
 #include "util.h"
+#include "concept/nullable_pointer.hpp"
 
 namespace stl_concept {
 namespace test {

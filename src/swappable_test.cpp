@@ -25,8 +25,9 @@
 #include <boost/any.hpp>
 #include <boost/optional.hpp>
 #include <boost/variant.hpp>
-#include "concept/detail/is_swappable.hpp"
 #include "util.h"
+#include "concept/detail/is_swappable.hpp"
+#include "concept/swappable.hpp"
 
 namespace stl_concept {
 namespace test {

@@ -9,6 +9,7 @@
 #include <unordered_set>
 #include <vector>
 #include "util.h"
+#include "concept/iterator.hpp"
 
 namespace stl_concept {
 namespace test {

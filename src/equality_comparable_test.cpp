@@ -1,6 +1,7 @@
 
 #include <boost/type_traits/has_equal_to.hpp>
 #include "util.h"
+#include "concept/equality_comparable.hpp"
 
 namespace stl_concept {
 namespace test {
