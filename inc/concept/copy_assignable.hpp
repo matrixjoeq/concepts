@@ -63,7 +63,6 @@ private:
         t_ = boost::declval<const T>();
     }
 
-private:
     T t_;
     T v_;
 };

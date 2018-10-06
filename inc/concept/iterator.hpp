@@ -61,6 +61,12 @@ BOOST_concept(Iterator, (It))
     , Destructible<It>
     , Swappable<It>
 {
+    BOOST_CONCEPT_USAGE(Iterator)
+    {
+        __detail::__require_expr_convertible_to<value_type>(*r_);
+        __detail::__require_same_type<decltype(++r_), It&>();
+    }
+
 private:
     typedef typename boost::iterator_value<It>::type value_type;
     typedef typename boost::iterator_difference<It>::type difference_type;
@@ -69,13 +75,6 @@ private:
     typedef typename boost::iterator_category<It>::type iterator_category;
 
     It r_;
-
-public:
-    BOOST_CONCEPT_USAGE(Iterator)
-    {
-        __detail::__require_expr_convertible_to<value_type>(*r_);
-        __detail::__require_same_type<decltype(++r_), It&>();
-    }
 };
 
 } // namespace stl_concept

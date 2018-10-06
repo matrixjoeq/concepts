@@ -46,6 +46,14 @@ namespace stl_concept {
  */
 BOOST_concept(CopyConstructible, (T)) : MoveConstructible<T>
 {
+    BOOST_CONCEPT_USAGE(CopyConstructible)
+    {
+        _Tp u(v_);
+        __detail::__unuse(_Tp(v_));
+        const_lvalue_constraints(u);
+        const_rvalue_constraints();
+    }
+
 private:
     using _Tp = boost::remove_const_t<T>;
     _Tp v_;
@@ -62,15 +70,6 @@ private:
         _Tp u(boost::declval<const _Tp>());
         __detail::__unuse(_Tp(boost::declval<const _Tp>()));
         __detail::__unuse(u);
-    }
-
-public:
-    BOOST_CONCEPT_USAGE(CopyConstructible)
-    {
-        _Tp u(v_);
-        __detail::__unuse(_Tp(v_));
-        const_lvalue_constraints(u);
-        const_rvalue_constraints();
     }
 };
 

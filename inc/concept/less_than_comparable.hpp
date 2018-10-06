@@ -47,22 +47,23 @@ namespace stl_concept {
  */
 BOOST_concept(LessThanComparable, (T))
 {
+    BOOST_CONCEPT_USAGE(LessThanComparable)
+    {
+        __detail::__require_expr_convertible_to<bool>(a_ < b_);
+        constraints(a_, b_);
+    }
+
 private:
     using _Tp = boost::remove_const_t<T>;
-    _Tp a_;
-    _Tp b_;
 
     void constraints(const _Tp& x, const _Tp& y)
     {
         __detail::__require_expr_convertible_to<bool>(x < y);
     }
 
-public:
-    BOOST_CONCEPT_USAGE(LessThanComparable)
-    {
-        __detail::__require_expr_convertible_to<bool>(a_ < b_);
-        constraints(a_, b_);
-    }
+    _Tp a_;
+    _Tp b_;
+
 };
 
 } // namespace stl_concept

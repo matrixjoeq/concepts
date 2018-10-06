@@ -43,16 +43,15 @@ namespace stl_concept {
  */
 BOOST_concept(FunctionObject, (T))
 {
-private:
-    typedef boost::remove_const_t<T> _Tp;
-
-    _Tp f_;
-
-public:
     BOOST_CONCEPT_USAGE(FunctionObject)
     {
         BOOST_STATIC_ASSERT_MSG(boost::is_object<_Tp>::value, "Type is not object");
     }
+
+private:
+    typedef boost::remove_const_t<T> _Tp;
+
+    _Tp f_;
 };
 
 template <class R, class... Args>

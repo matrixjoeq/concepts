@@ -57,12 +57,6 @@ BOOST_concept(InputIterator, (It))
     : Iterator<It>
     , EqualityComparable<It>
 {
-private:
-    typedef typename boost::iterator_value<It>::type value_type;
-    It i_;
-    It j_;
-
-public:
     BOOST_CONCEPT_USAGE(InputIterator)
     {
         __detail::__require_expr_convertible_to<bool>(i_ != j_);
@@ -70,6 +64,11 @@ public:
         (void)++i_;
         __detail::__require_expr_convertible_to<value_type>(*i_++);
     }
+
+private:
+    typedef typename boost::iterator_value<It>::type value_type;
+    It i_;
+    It j_;
 };
 
 } // namespace stl_concept
