@@ -20,7 +20,7 @@ namespace stl_concept {
 /**
  * @addtogroup iterator_group Iterator Requirements
  * @class stl_concept::InputIterator
- * @brief An <i>InputIterator</i> is an <i>Iterator</i> that can read from the pointed-to element.
+ * @brief Specifies that an instance of the type is an <i>Iterator</i> that can read from the pointed-to element.
  *
  * <p>
  * <i>InputIterator</i>s only guarantee validity for single pass algorithms: once an <i>InputIterator</i> i has been

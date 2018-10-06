@@ -23,7 +23,7 @@ namespace stl_concept {
 /**
  * @addtogroup iterator_group Iterator Requirements
  * @class stl_concept::Iterator
- * @brief Describes types that can be used to identify and traverse the elements of a container.
+ * @brief Specifies that an instance of the type can be used to identify and traverse the elements of a container.
  *
  * <p>
  * <i>Iterator</i> is the base set of requirements used by other iterator types: <i>InputIterator</i>,

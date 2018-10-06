@@ -5,6 +5,7 @@
 #include <boost/type_traits/remove_cv_ref.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
+#include "concept/detail/unuse.hpp"
 
 #if (defined _MSC_VER)
 #pragma warning(push)

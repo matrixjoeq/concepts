@@ -18,7 +18,7 @@ namespace stl_concept {
 /**
  * @addtogroup library_wide_group Library-wide Requirements
  * @class stl_concept::FunctionObject
- * @brief A <i>FunctionObject</i> type is the type of an object that can be used on the left of the function call operator.
+ * @brief Specifies that an instance of the type can be used on the left of the function call operator.
  *
  * <p>
  * <b>Requirements</b>
