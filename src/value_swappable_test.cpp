@@ -9,6 +9,7 @@
 #include <unordered_set>
 #include <vector>
 #include <iterator>
+#include "concept/detail/is_swappable.hpp"
 #include "util.h"
 
 namespace stl_concept {

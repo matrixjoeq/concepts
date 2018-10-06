@@ -1,5 +1,18 @@
 
+#include <utility>
 #include "util.h"
+
+struct Test
+{
+    void operator()() {}
+    void operator()(int) {}
+};
+
+template <class... Ts>
+using Op = auto(Ts...) -> decltype(std::declval<Test>()(std::declval<Ts>()...));
+
+using _Op = Op<>;
+using _Op_ = Op<int>;
 
 int main()
 {
@@ -18,6 +31,7 @@ int main()
     swappable_check();
     value_swappable_check();
     nullable_pointer_check();
+    function_object_check();
 
     // iterator group
     iterator_check();

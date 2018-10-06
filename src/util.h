@@ -84,6 +84,7 @@ void less_comparable_check();
 void swappable_check();
 void value_swappable_check();
 void nullable_pointer_check();
+void function_object_check();
 
 // iterator group
 void iterator_check();
