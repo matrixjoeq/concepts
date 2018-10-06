@@ -9,8 +9,6 @@
 #include <boost/concept/assert.hpp>
 #include <boost/concept_check.hpp>
 
-#include "stl_concept.hpp"
-
 namespace mpl = boost::mpl;
 
 namespace stl_concept {
@@ -85,6 +83,7 @@ void swappable_check();
 void value_swappable_check();
 void nullable_pointer_check();
 void function_object_check();
+void unary_predicate_check();
 
 // iterator group
 void iterator_check();
