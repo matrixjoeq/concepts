@@ -4,8 +4,6 @@
 
 #include <algorithm>
 #include <type_traits>
-#include <boost/type_traits/conditional.hpp>
-#include <boost/type_traits/is_reference.hpp>
 #include <boost/concept/requires.hpp>
 #include "concept/input_iterator.hpp"
 #include "concept/unary_predicate.hpp"
