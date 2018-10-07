@@ -2,7 +2,9 @@
 #ifndef __STL_CONCEPT_UNARY_PREDICATE_HPP__
 #define __STL_CONCEPT_UNARY_PREDICATE_HPP__
 
+#include <boost/static_assert.hpp>
 #include <boost/type_traits/declval.hpp>
+#include <boost/type_traits/is_object.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 #include "concept/detail/require_expr_convertible_to.hpp"
@@ -18,7 +20,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @class UnaryPredicate
+ * @class stl_concept::UnaryPredicate
  * @brief Specifies that an instance of the type is callable and returns a value testable as a bool.
  *
  * <p>
@@ -33,6 +35,7 @@ BOOST_concept(UnaryPredicate, (Func)(Arg))
 {
     BOOST_CONCEPT_USAGE(UnaryPredicate)
     {
+        BOOST_STATIC_ASSERT_MSG(boost::is_object<Func>::value, "Type is not object");
         __detail::__require_expr_convertible_to<bool>(f_(boost::declval<Arg>()));
     }
 

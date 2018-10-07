@@ -2,6 +2,7 @@
 #ifndef __STL_CONCEPT_TESTS_UTIL_H__
 #define __STL_CONCEPT_TESTS_UTIL_H__
 
+#include <boost/static_assert.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/for_each.hpp>
 #include <boost/mpl/identity.hpp>

@@ -2,6 +2,7 @@
 #ifndef __STL_CONCEPT_FUNCTION_OBJECT_HPP__
 #define __STL_CONCEPT_FUNCTION_OBJECT_HPP__
 
+#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_object.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/concept/usage.hpp>
