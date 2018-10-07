@@ -117,12 +117,12 @@ using ContainerTL = mpl::vector<
     mpl::identity<std::vector<DefaultType>>,
     mpl::identity<std::map<LessType, DefaultType>>,
     mpl::identity<std::multimap<LessType, DefaultType>>,
-    mpl::identity<std::unordered_map<DefaultType, DefaultType, HashFunctor<DefaultType>>>,
-    mpl::identity<std::unordered_multimap<DefaultType, DefaultType, HashFunctor<DefaultType>>>,
+    //mpl::identity<std::unordered_map<DefaultType, DefaultType, HashFunctor<DefaultType>>>,
+    //mpl::identity<std::unordered_multimap<DefaultType, DefaultType, HashFunctor<DefaultType>>>,
     mpl::identity<std::set<LessType>>,
     mpl::identity<std::multiset<LessType>>,
-    mpl::identity<std::unordered_set<DefaultType, DefaultType, HashFunctor<DefaultType>>>,
-    mpl::identity<std::unordered_multiset<DefaultType, DefaultType, HashFunctor<DefaultType>>>,
+    //mpl::identity<std::unordered_set<DefaultType, DefaultType, HashFunctor<DefaultType>>>,
+    //mpl::identity<std::unordered_multiset<DefaultType, DefaultType, HashFunctor<DefaultType>>>,
     mpl::identity<std::queue<DefaultType>>,
     mpl::identity<std::priority_queue<DefaultType>>,
     mpl::identity<std::stack<DefaultType>>,
@@ -143,7 +143,7 @@ struct ConceptChecker
         using Type = typename T::type;
         BOOST_STATIC_ASSERT(stl_concept::__detail::__is_swappable<Type>::value);
         BOOST_CONCEPT_ASSERT((stl_concept::Swappable<Type>));
-    };
+    }
 };
 
 } // namespace

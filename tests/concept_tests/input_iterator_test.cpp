@@ -38,7 +38,7 @@ struct ConceptChecker
     {
         BOOST_CONCEPT_ASSERT((boost::InputIterator<T>));
         BOOST_CONCEPT_ASSERT((stl_concept::InputIterator<T>));
-    };
+    }
 };
 
 } // namespace

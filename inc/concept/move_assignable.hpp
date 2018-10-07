@@ -8,6 +8,7 @@
 
 #if (defined _MSC_VER)
 #pragma warning(push)
+#pragma warning(disable : 4197) // topmost volatile ignored
 #pragma warning(disable : 4510) // default constructor could not be generated
 #pragma warning(disable : 4610) // object 'class' can never be instantiated - user-defined constructor required
 #endif

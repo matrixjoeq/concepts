@@ -63,7 +63,7 @@ struct HashFunctor;
 template <>
 struct HashFunctor<DefaultType>
 {
-    std::size_t operator()(const DefaultType&) const
+    std::size_t operator()(const DefaultType&) const noexcept
     {
         return 0;
     }

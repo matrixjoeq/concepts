@@ -68,7 +68,7 @@ struct ConceptChecker
         BOOST_STATIC_ASSERT(boost::has_less<Type>::value);
         BOOST_CONCEPT_ASSERT((boost::LessThanComparable<Type>));
         BOOST_CONCEPT_ASSERT((stl_concept::LessThanComparable<Type>));
-    };
+    }
 };
 
 } // namespace

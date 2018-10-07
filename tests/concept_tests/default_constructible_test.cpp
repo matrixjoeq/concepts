@@ -68,7 +68,7 @@ struct ConceptChecker
         BOOST_STATIC_ASSERT(std::is_default_constructible<Type>::value);
         BOOST_CONCEPT_ASSERT((boost::DefaultConstructible<Type>));
         BOOST_CONCEPT_ASSERT((stl_concept::DefaultConstructible<Type>));
-    };
+    }
 };
 
 } // namespace

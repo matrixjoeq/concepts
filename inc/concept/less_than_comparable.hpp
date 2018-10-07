@@ -9,6 +9,7 @@
 
 #if (defined _MSC_VER)
 #pragma warning(push)
+#pragma warning(disable : 4197) // topmost volatile ignored
 #pragma warning(disable : 4510) // default constructor could not be generated
 #pragma warning(disable : 4610) // object 'class' can never be instantiated - user-defined constructor required
 #endif
@@ -50,13 +51,13 @@ BOOST_concept(LessThanComparable, (T))
     BOOST_CONCEPT_USAGE(LessThanComparable)
     {
         __detail::__require_expr_convertible_to<bool>(a_ < b_);
-        constraints(a_, b_);
+        const_constraints(a_, b_);
     }
 
 private:
     using _Tp = boost::remove_const_t<T>;
 
-    void constraints(const _Tp& x, const _Tp& y)
+    void const_constraints(const _Tp& x, const _Tp& y)
     {
         __detail::__require_expr_convertible_to<bool>(x < y);
     }

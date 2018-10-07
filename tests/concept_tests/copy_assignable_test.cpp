@@ -68,7 +68,7 @@ struct ConceptChecker
         BOOST_STATIC_ASSERT(std::is_copy_assignable<Type>::value);
         BOOST_CONCEPT_ASSERT((boost::Assignable<Type>));
         BOOST_CONCEPT_ASSERT((stl_concept::CopyAssignable<Type>));
-    };
+    }
 };
 
 } // namespace

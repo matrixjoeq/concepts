@@ -41,7 +41,7 @@ struct ConceptChecker
         using ValueType = typename std::iterator_traits<T>::value_type;
         BOOST_STATIC_ASSERT(stl_concept::__detail::__is_swappable<ValueType>::value);
         BOOST_CONCEPT_ASSERT((stl_concept::ValueSwappable<T>));
-    };
+    }
 };
 
 } // namespace

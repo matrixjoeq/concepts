@@ -37,7 +37,7 @@ struct ConceptChecker
     void operator()(T&)
     {
         BOOST_CONCEPT_ASSERT((stl_concept::Iterator<T>));
-    };
+    }
 };
 
 } // namespace
