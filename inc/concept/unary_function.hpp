@@ -32,30 +32,31 @@ namespace stl_concept {
  * </ul>
  * </p>
  */
-BOOST_concept(UnaryFunction, (Func)(Return)(Arg))
+BOOST_concept(UnaryFunction, (Func)(Arg))
 {
     BOOST_CONCEPT_USAGE(UnaryFunction)
     {
         BOOST_STATIC_ASSERT_MSG(boost::is_object<Func>::value, "Type is not object");
-        test(boost::is_void<Return>());
+        using Return = decltype(f_(boost::declval<Arg&>()));
+        callable_test(boost::is_void<Return>());
     }
 
 private:
-    void test(boost::is_void<void>)
+    void callable_test(boost::is_void<void>)
     {
-        f_(boost::declval<Arg>());
+        f_(boost::declval<Arg&>());
     }
 
-    void test(...)
+    void callable_test(...)
     {
-        __detail::__unuse(f_(boost::declval<Arg>()));
+        __detail::__unuse(f_(boost::declval<Arg&>()));
     }
 
     Func f_;
 };
 
-template <class Func, class Return, class Arg>
-struct UnaryFunction<const Func, Return, Arg> : UnaryFunction<Func, Return, Arg> {};
+template <class Func, class Arg>
+struct UnaryFunction<const Func, Arg> : UnaryFunction<Func, Arg> {};
 
 } // namespace stl_concept
 

@@ -8,6 +8,7 @@ int main()
     all_of_check();
     any_of_check();
     none_of_check();
+    for_each_check();
 
     return 0;
 }

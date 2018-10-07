@@ -8,6 +8,7 @@ namespace test {
 void all_of_check();
 void any_of_check();
 void none_of_check();
+void for_each_check();
 
 } // namespace test
 } // namespace stl_algorithm
