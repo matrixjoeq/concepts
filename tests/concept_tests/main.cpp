@@ -20,6 +20,7 @@ int main()
     nullable_pointer_check();
     function_object_check();
     unary_predicate_check();
+    unary_function_check();
 
     // iterator group
     iterator_check();

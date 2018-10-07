@@ -85,6 +85,7 @@ void value_swappable_check();
 void nullable_pointer_check();
 void function_object_check();
 void unary_predicate_check();
+void unary_function_check();
 
 // iterator group
 void iterator_check();

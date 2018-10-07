@@ -23,6 +23,7 @@
 #include "concept/nullable_pointer.hpp"
 #include "concept/function_object.hpp"
 #include "concept/unary_predicate.hpp"
+#include "concept/unary_function.hpp"
 #include "concept/iterator.hpp"
 #include "concept/input_iterator.hpp"
 
