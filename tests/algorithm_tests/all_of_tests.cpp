@@ -1,6 +1,7 @@
 
 #include <cassert>
 #include <vector>
+#include <functional>
 #include "algorithm/all_of.hpp"
 
 namespace stl_algorithm {
@@ -25,8 +26,11 @@ struct IsPositive
 void all_of_check()
 {
     std::vector<int> v{1, 2, 3};
-    assert(std::all_of(v.begin(), v.end(), is_positive));
-    assert(std::all_of(v.begin(), v.end(), IsPositive()));
+    IsPositive pred;
+    assert(stl_algorithm::all_of(v.begin(), v.end(), is_positive));
+    assert(stl_algorithm::all_of(v.begin(), v.end(), IsPositive()));
+    assert(stl_algorithm::all_of(v.begin(), v.end(), std::bind(is_positive, std::placeholders::_1)));
+    assert(stl_algorithm::all_of(v.begin(), v.end(), std::bind(&IsPositive::operator(), &pred, std::placeholders::_1)));
 }
 
 } // namespace test

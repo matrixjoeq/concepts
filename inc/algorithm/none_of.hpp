@@ -1,6 +1,6 @@
 
-#ifndef __STL_ALGORITHM_ALL_OF_HPP__
-#define __STL_ALGORITHM_ALL_OF_HPP__
+#ifndef __STL_ALGORITHM_NONE_OF_HPP__
+#define __STL_ALGORITHM_NONE_OF_HPP__
 
 #include <algorithm>
 #include <type_traits>
@@ -12,15 +12,15 @@
 
 namespace stl_algorithm {
 
-/**
+/*s*s
  * @addtogroup non_mod_seq_group Non-modifying sequence operations
- * @fn stl_algorithm::all_of
- * @brief Checks if unary predicate p returns true for all elements in the range [first, last).
+ * @fn none_of
+ * @brief Checks if unary predicate p returns true for no elements in the range [first, last).
  *
  * <p>
  * ```
  * template <class InputIt, class UnaryPredicate>
- * constexpr inline bool all_of(InputIt&& first, Input&& last, UnaryPredicate&& p)
+ * constexpr inline bool none_of(InputIt&& first, Input&& last, UnaryPredicate&& p)
  * ```
  * </p>
  * @tparam InputIt - must meet the requirements of <i>stl_concept::InputIterator</i>.
@@ -45,13 +45,13 @@ template <class InputIt, class UnaryPredicate>
         // Return
         (bool)
     )
-constexpr inline all_of(InputIt&& first, InputIt&& last, UnaryPredicate&& p)
+constexpr inline none_of(InputIt&& first, InputIt&& last, UnaryPredicate&& p)
 {
-    return std::all_of(std::forward<InputIt>(first),
-                       std::forward<InputIt>(last),
-                       std::forward<UnaryPredicate>(p));
+    return std::none_of(std::forward<InputIt>(first),
+                        std::forward<InputIt>(last),
+                        std::forward<UnaryPredicate>(p));
 }
 
 } // namespace stl_algorithm
 
-#endif  // __STL_ALGORITHM_ALL_OF_HPP__
+#endif  // __STL_ALGORITHM_NONE_OF_HPP__
