@@ -29,7 +29,7 @@ namespace stl_algorithm {
  */
 #ifdef DOXYGEN_WORKING
 template <class InputIt, class UnaryPredicate>
-constexpr inline bool all_of(InputIt&& first, InputIt&& last, UnaryPredicate&& p);
+constexpr inline bool all_of(InputIt first, InputIt last, UnaryPredicate p);
 #else // DOXYGEN_WORKING
 template <class InputIt, class UnaryPredicate>
     BOOST_CONCEPT_REQUIRES(
@@ -42,11 +42,9 @@ template <class InputIt, class UnaryPredicate>
         // Return
         (bool)
     )
-constexpr inline all_of(InputIt&& first, InputIt&& last, UnaryPredicate&& p)
+constexpr inline all_of(InputIt first, InputIt last, UnaryPredicate p)
 {
-    return std::all_of(std::forward<InputIt>(first),
-                       std::forward<InputIt>(last),
-                       std::forward<UnaryPredicate>(p));
+    return std::all_of(first, last, p);
 }
 #endif // DOXYGEN_WORKING
 

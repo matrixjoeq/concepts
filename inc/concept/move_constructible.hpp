@@ -3,6 +3,7 @@
 #define __STL_CONCEPT_MOVE_CONSTRUCTIBLE_HPP__
 
 #include <boost/type_traits/declval.hpp>
+#include <boost/type_traits/add_rvalue_reference.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 #include "concept/detail/unuse.hpp"
@@ -50,7 +51,7 @@ BOOST_concept(MoveConstructible, (T))
 {
     BOOST_CONCEPT_USAGE(MoveConstructible)
     {
-        T u = boost::declval<T>(); // boost::declval works even before c++11
+        T u = boost::declval<T>();
         __detail::__unuse(u);
         __detail::__unuse(T(boost::declval<T>()));
     }

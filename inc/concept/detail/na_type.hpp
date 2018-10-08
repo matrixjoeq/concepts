@@ -15,6 +15,8 @@ struct __na_type
     __na_type() = delete;
     __na_type(const __na_type&) = delete;
     __na_type& operator=(const __na_type&) = delete;
+    __na_type(__na_type&&) = delete;
+    __na_type& operator=(__na_type&&) = delete;
     ~__na_type() = delete;
 };
 /// @endcond

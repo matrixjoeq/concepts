@@ -30,7 +30,7 @@ namespace stl_algorithm {
  */
 #ifdef DOXYGEN_WORKING
 template <class InputIt, class UnaryFunction>
-constexpr inline UnaryFunction for_each(InputIt&& first, InputIt&& last, UnaryFunction f);
+constexpr inline UnaryFunction for_each(InputIt first, InputIt last, UnaryFunction f);
 #else // DOXYGEN_WORKING
 template <class InputIt, class UnaryFunction>
     BOOST_CONCEPT_REQUIRES(
@@ -44,11 +44,9 @@ template <class InputIt, class UnaryFunction>
         // Return
         (UnaryFunction)
     )
-constexpr inline for_each(InputIt&& first, InputIt&& last, UnaryFunction f)
+constexpr inline for_each(InputIt first, InputIt last, UnaryFunction f)
 {
-    return std::for_each(std::forward<InputIt>(first),
-                         std::forward<InputIt>(last),
-                         f);
+    return std::for_each(first, last, f);
 }
 #endif // DOXYGEN_WORKING
 
