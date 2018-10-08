@@ -1,6 +1,6 @@
 /** @file */
-#ifndef __STL_CONCEPT_UNARY_PREDICATE_HPP__
-#define __STL_CONCEPT_UNARY_PREDICATE_HPP__
+#ifndef __STL_CONCEPT_BINARY_PREDICATE_HPP__
+#define __STL_CONCEPT_BINARY_PREDICATE_HPP__
 
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/add_const.hpp>
@@ -22,7 +22,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @struct stl_concept::UnaryPredicate
+ * @struct stl_concept::BinaryPredicate
  * @brief Specifies that an instance of the type is callable and returns a value testable as a bool.
  *
  * <p>
@@ -32,28 +32,30 @@ namespace stl_concept {
  *   <li><i>FunctionObject</i></li>
  * </ul>
  * @tparam Func - function object type
- * @tparam Arg - argument type
+ * @tparam First - first argument type
+ * @tparam Second - second argument type
  * </p>
  */
 #ifdef DOXYGEN_WORKING
-template <typename Func, typename Arg> struct UnaryPredicate {};
+template <typename Func, typename First, typename Second> struct BinaryPredicate {};
 #else // DOXYGEN_WORKING
-BOOST_concept(UnaryPredicate, (Func)(Arg))
+BOOST_concept(BinaryPredicate, (Func)(First)(Second))
 {
-    BOOST_CONCEPT_USAGE(UnaryPredicate)
+    BOOST_CONCEPT_USAGE(BinaryPredicate)
     {
         BOOST_STATIC_ASSERT_MSG(boost::is_object<Func>::value, "Type is not object");
-        __detail::__require_expr_convertible_to<bool>(f_(boost::declval<_Arg>()));
+        __detail::__require_expr_convertible_to<bool>(f_(boost::declval<_First>(), boost::declval<_Second>()));
     }
 
 private:
-    using _Arg = boost::add_lvalue_reference_t<boost::add_const_t<Arg>>;
+    using _First = boost::add_lvalue_reference_t<boost::add_const_t<First>>;
+    using _Second = boost::add_lvalue_reference_t<boost::add_const_t<Second>>;
     Func f_;
 };
 #endif // DOXYGEN_WORKING
 
-template <typename Func, typename Arg>
-struct UnaryPredicate<const Func, Arg> : UnaryPredicate<Func, Arg> {};
+template <typename Func, typename First, typename Second>
+struct BinaryPredicate<const Func, First, Second> : BinaryPredicate<Func, First, Second> {};
 
 } // namespace stl_concept
 
@@ -63,4 +65,4 @@ struct UnaryPredicate<const Func, Arg> : UnaryPredicate<Func, Arg> {};
 
 #include <boost/concept/detail/concept_undef.hpp>
 
-#endif  // __STL_CONCEPT_UNARY_PREDICATE_HPP__
+#endif  // __STL_CONCEPT_BINARY_PREDICATE_HPP__

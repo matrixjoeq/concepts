@@ -52,7 +52,7 @@ BOOST_concept(__Referenceable, (T))
     }
 
 private:
-    typedef typename boost::remove_cv_ref<T>::type _Tp;
+    using _Tp = typename boost::remove_cv_ref<T>::type;
     _Tp t_;
 };
 #endif // DOXYGEN_WORKING

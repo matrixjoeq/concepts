@@ -67,16 +67,16 @@ BOOST_concept(Iterator, (T))
 {
     BOOST_CONCEPT_USAGE(Iterator)
     {
-        __detail::__require_expr_convertible_to<value_type>(*r_);
+        __detail::__require_expr_convertible_to<_ValueType>(*r_);
         __detail::__require_same_type<decltype(++r_), T&>();
     }
 
 private:
-    typedef typename boost::iterator_value<T>::type value_type;
-    typedef typename boost::iterator_difference<T>::type difference_type;
-    typedef typename boost::iterator_reference<T>::type reference_type;
-    typedef typename boost::iterator_pointer<T>::type pointer_type;
-    typedef typename boost::iterator_category<T>::type iterator_category;
+    using _ValueType = typename boost::iterator_value<T>::type;
+    using _DifferenceType = typename boost::iterator_difference<T>::type;
+    using _ReferenceType = typename boost::iterator_reference<T>::type;
+    using _PointerType = typename boost::iterator_pointer<T>::type;
+    using _CategoryType = typename boost::iterator_category<T>::type;
 
     T r_;
 };

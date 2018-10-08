@@ -61,7 +61,7 @@ BOOST_concept(DefaultConstructible, (T))
 };
 #endif // DOXYGEN_WORKING
 
-template <class T, size_t N>
+template <typename T, size_t N>
 struct DefaultConstructible<T[N]> : DefaultConstructible<T> {};
 
 } // namespace stl_concept

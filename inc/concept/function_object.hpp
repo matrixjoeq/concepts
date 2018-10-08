@@ -54,16 +54,16 @@ BOOST_concept(FunctionObject, (T))
     }
 
 private:
-    typedef boost::remove_const_t<T> _Tp;
+    using _Tp = boost::remove_const_t<T>;
 
     _Tp f_;
 };
 #endif // DOXYGEN_WORKING
 
-template <class R, class... Args>
+template <typename R, typename... Args>
 struct FunctionObject<R(*)(Args...)> {};
 
-template <class R, class... Args>
+template <typename R, typename... Args>
 struct FunctionObject<R(* const)(Args...)> {};
 
 } // namespace stl_concept

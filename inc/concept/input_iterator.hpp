@@ -66,11 +66,11 @@ BOOST_concept(InputIterator, (T))
         __detail::__require_expr_convertible_to<bool>(i_ != j_);
         __detail::__require_expr_convertible_to<bool>(i_ == j_);
         (void)++i_;
-        __detail::__require_expr_convertible_to<value_type>(*i_++);
+        __detail::__require_expr_convertible_to<_ValueType>(*i_++);
     }
 
 private:
-    typedef typename boost::iterator_value<T>::type value_type;
+    using _ValueType = typename boost::iterator_value<T>::type;
     T i_;
     T j_;
 };

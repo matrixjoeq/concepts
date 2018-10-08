@@ -1,6 +1,6 @@
 /** @file */
-#ifndef __STL_CONCEPT_UNARY_FUNCTION_HPP__
-#define __STL_CONCEPT_UNARY_FUNCTION_HPP__
+#ifndef __STL_CONCEPT_BINARY_FUNCTION_HPP__
+#define __STL_CONCEPT_BINARY_FUNCTION_HPP__
 
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/add_lvalue_reference.hpp>
@@ -22,7 +22,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @struct stl_concept::UnaryFunction
+ * @struct stl_concept::BinaryFunction
  * @brief Specifies that an instance of the type is callable with one and only one argument.
  *
  * <p>
@@ -32,40 +32,42 @@ namespace stl_concept {
  *   <li><i>FunctionObject</i></li>
  * </ul>
  * @tparam Func - function object type
- * @tparam Arg - argument type
+ * @tparam First - first argument type
+ * @tparam Second - second argument type
  * </p>
  */
 #ifdef DOXYGEN_WORKING
-template <typename Func, typename Arg> struct UnaryFunction {};
+template <typename Func, typename First, typename Second> struct BinaryFunction {};
 #else // DOXYGEN_WORKING
-BOOST_concept(UnaryFunction, (Func)(Arg))
+BOOST_concept(BinaryFunction, (Func)(First)(Second))
 {
-    BOOST_CONCEPT_USAGE(UnaryFunction)
+    BOOST_CONCEPT_USAGE(BinaryFunction)
     {
         BOOST_STATIC_ASSERT_MSG(boost::is_object<Func>::value, "Type is not object");
-        using _Return = decltype(f_(boost::declval<_Arg>()));
+        using _Return = decltype(f_(boost::declval<_First>(), boost::declval<_Second>()));
         callable_test(boost::is_void<_Return>());
     }
 
 private:
-    using _Arg = boost::add_lvalue_reference_t<Arg>;
+    using _First = boost::add_lvalue_reference_t<First>;
+    using _Second = boost::add_lvalue_reference_t<Second>;
 
     void callable_test(boost::is_void<void>)
     {
-        f_(boost::declval<_Arg>());
+        f_(boost::declval<_First>(), boost::declval<_Second>());
     }
 
     void callable_test(...)
     {
-        __detail::__unuse(f_(boost::declval<_Arg>()));
+        __detail::__unuse(f_(boost::declval<_First>(), boost::declval<_Second>()));
     }
 
     Func f_;
 };
 #endif // DOXYGEN_WORKING
 
-template <typename Func, typename Arg>
-struct UnaryFunction<const Func, Arg> : UnaryFunction<Func, Arg> {};
+template <typename Func, typename First, typename Second>
+struct BinaryFunction<const Func, First, Second> : BinaryFunction<Func, First, Second> {};
 
 } // namespace stl_concept
 
@@ -75,4 +77,4 @@ struct UnaryFunction<const Func, Arg> : UnaryFunction<Func, Arg> {};
 
 #include <boost/concept/detail/concept_undef.hpp>
 
-#endif  // __STL_CONCEPT_UNARY_FUNCTION_HPP__
+#endif  // __STL_CONCEPT_BINARY_FUNCTION_HPP__

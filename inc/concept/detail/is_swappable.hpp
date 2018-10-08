@@ -32,8 +32,8 @@ struct __swappable_with
     template <class LHS, class RHS>
     static __na_type __test(...);
 
-    typedef decltype((__test<T, U>(0))) __swap1;
-    typedef decltype((__test<U ,T>(0))) __swap2;
+    using __swap1 = decltype((__test<T, U>(0)));
+    using __swap2 = decltype((__test<U ,T>(0)));
 
     static constexpr bool value = !boost::is_same<__swap1, __na_type>::value
                                && !boost::is_same<__swap2, __na_type>::value;
