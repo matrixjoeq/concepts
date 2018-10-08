@@ -43,6 +43,7 @@ namespace stl_concept {
  * @tparam T - type to be checked
  * @see https://en.cppreference.com/w/cpp/named_req/MoveConstructible
  * @see https://en.cppreference.com/w/cpp/concepts/MoveConstructible
+ * @bug This concept check fails with lambda functions, which should be move constructible.
  */
 #ifdef DOXYGEN_WORKING
 template <typename T> struct MoveConstructible {};
