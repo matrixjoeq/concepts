@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_MOVE_ASSIGNABLE_HPP__
 #define __STL_CONCEPT_MOVE_ASSIGNABLE_HPP__
 
@@ -17,7 +17,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup basic_group Basic Requirements
- * @class stl_concept::MoveAssignable
+ * @struct stl_concept::MoveAssignable
  * @brief Specifies that an instance of the type can be assigned from an rvalue argument.
  *
  * <p>
@@ -41,6 +41,9 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/MoveAssignable
  * @see https://en.cppreference.com/w/cpp/concepts/Movable
  */
+#ifdef DOXYGEN_WORKING
+template <typename T> struct MoveAssignable {};
+#else // DOXYGEN_WORKING
 BOOST_concept(MoveAssignable, (T))
 {
     BOOST_CONCEPT_USAGE(MoveAssignable)
@@ -51,6 +54,7 @@ BOOST_concept(MoveAssignable, (T))
 private:
     T t_;
 };
+#endif // DOXYGEN_WORKING
 
 } // namespace stl_concept
 

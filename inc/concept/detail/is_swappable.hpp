@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_DETAIL_IS_SWAPPABLE_HPP__
 #define __STL_CONCEPT_DETAIL_IS_SWAPPABLE_HPP__
 
@@ -22,6 +22,7 @@
 namespace stl_concept {
 namespace __detail {
 
+/// @cond DEV
 template <class T, class U = T, bool NotVoid = !boost::is_void<T>::value && !boost::is_void<U>::value>
 struct __swappable_with
 {
@@ -41,9 +42,22 @@ struct __swappable_with
 template <class T, class U>
 struct __swappable_with<T, U, false> : boost::integral_constant<bool, false> {};
 
+/**
+ * @struct stl_concept::__detail::__is_swappable_with
+ * @brief Check if type T is swappable with type U.
+ * @tparam T - first type
+ * @tparam U - second type, default to T
+ * @see https://en.cppreference.com/w/cpp/types/is_swappable
+ */
 template <class T, class U>
 struct __is_swappable_with : boost::integral_constant<bool, __swappable_with<T, U>::value> {};
 
+/**
+ * @struct stl_concept::__detail::__is_swappable
+ * @brief Check if object value of type T is swappable.
+ * @tparam T - type to be checked
+ * @see https://en.cppreference.com/w/cpp/types/is_swappable
+ */
 template <class T>
 struct __is_swappable
     : boost::conditional<
@@ -54,6 +68,7 @@ struct __is_swappable
         boost::integral_constant<bool, false>
     >::type
 {};
+/// @endcond
 
 } // namespace __detail
 } // namespace stl_concept

@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_EQUALITY_COMPARABLE_HPP__
 #define __STL_CONCEPT_EQUALITY_COMPARABLE_HPP__
 
@@ -18,7 +18,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @class stl_concept::EqualityComparable
+ * @struct stl_concept::EqualityComparable
  * @brief Specifies that an instance of the type must work with == operator and the result should have standard semantics.
  *
  * <p>
@@ -45,6 +45,9 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/EqualityComparable
  * @see https://en.cppreference.com/w/cpp/concepts/EqualityComparable
  */
+#ifdef DOXYGEN_WORKING
+template <typename T> struct EqualityComparable {};
+#else // DOXYGEN_WORKING
 BOOST_concept(EqualityComparable, (T))
 {
     BOOST_CONCEPT_USAGE(EqualityComparable)
@@ -64,6 +67,7 @@ private:
     _Tp a_;
     _Tp b_;
 };
+#endif // DOXYGEN_WORKING
 
 } // namespace stl_concept
 

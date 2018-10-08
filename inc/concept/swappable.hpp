@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_SWAPPABLE_HPP__
 #define __STL_CONCEPT_SWAPPABLE_HPP__
 
@@ -25,7 +25,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @class stl_concept::Swappable
+ * @struct stl_concept::Swappable
  * @brief Specifies that lvalues of type T are swappable.
  *
  * <p>
@@ -43,14 +43,20 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/Swappable
  * @see https://en.cppreference.com/w/cpp/concepts/Swappable
  */
-BOOST_concept(Swappable, (T)) : __detail::__Referenceable<T>
+#ifdef DOXYGEN_WORKING
+template <typename T> struct Swappable {};
+#else // DOXYGEN_WORKING
+BOOST_concept(Swappable, (T))
 {
     BOOST_CONCEPT_USAGE(Swappable)
     {
         using std::swap;
+
+        BOOST_CONCEPT_ASSERT((__detail::__Referenceable<T>));
         swap(boost::declval<T&>(), boost::declval<T&>());
     }
 };
+#endif // DOXYGEN_WORKING
 
 } // namespace stl_concept
 

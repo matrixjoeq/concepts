@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_DESTRUCTIBLE_HPP__
 #define __STL_CONCEPT_DESTRUCTIBLE_HPP__
 
@@ -16,7 +16,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup basic_group Basic Requirements
- * @class stl_concept::Destructible
+ * @struct stl_concept::Destructible
  * @brief Specifies that an instance of the type can be destructed.
  *
  * <p>
@@ -37,6 +37,9 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/Destructible
  * @see https://en.cppreference.com/w/cpp/concepts/Destructible
  */
+#ifdef DOXYGEN_WORKING
+template <typename T> struct Destructible {};
+#else // DOXYGEN_WORKING
 BOOST_concept(Destructible, (T))
 {
     BOOST_CONCEPT_USAGE(Destructible)
@@ -44,6 +47,7 @@ BOOST_concept(Destructible, (T))
         // ~T() is called in ~Destructible()
     }
 };
+#endif // DOXYGEN_WORKING
 
 } // namespace stl_concept
 

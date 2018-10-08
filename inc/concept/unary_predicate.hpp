@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_UNARY_PREDICATE_HPP__
 #define __STL_CONCEPT_UNARY_PREDICATE_HPP__
 
@@ -20,7 +20,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @class stl_concept::UnaryPredicate
+ * @struct stl_concept::UnaryPredicate
  * @brief Specifies that an instance of the type is callable and returns a value testable as a bool.
  *
  * <p>
@@ -29,8 +29,13 @@ namespace stl_concept {
  * <ul style="list-style-type:disc">
  *   <li><i>FunctionObject</i></li>
  * </ul>
+ * @tparam Func - function object type
+ * @tparam Arg - argument type
  * </p>
  */
+#ifdef DOXYGEN_WORKING
+template <typename Func, typename Arg> struct UnaryPredicate {};
+#else // DOXYGEN_WORKING
 BOOST_concept(UnaryPredicate, (Func)(Arg))
 {
     BOOST_CONCEPT_USAGE(UnaryPredicate)
@@ -42,6 +47,7 @@ BOOST_concept(UnaryPredicate, (Func)(Arg))
 private:
     Func f_;
 };
+#endif // DOXYGEN_WORKING
 
 template <class Func, class Arg>
 struct UnaryPredicate<const Func, Arg> : UnaryPredicate<Func, Arg> {};

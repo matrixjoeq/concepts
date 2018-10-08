@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef UnaryFunction__STL_ALGORITHM_FOR_EACH_HPP__
 #define UnaryFunction__STL_ALGORITHM_FOR_EACH_HPP__
 
@@ -14,27 +14,24 @@
 namespace stl_algorithm {
 
 /**
- * @addtogroup non_mod_seq_group Non-modifying sequence operations
- * @fn stl_algorithm::for_each
  * @brief Applies the given function object f to the result of dereferencing every iterator in the range [first, last), in order.
- *
- * <p>
- * ```
- * template <class InputIt, class UnaryFunction>
- * constexpr inline UnaryFunction for_each(InputIt&& first, Input&& last, UnaryFunction&& f)
- * ```
- * </p>
  * @tparam InputIt - must meet the requirements of <i>stl_concept::InputIterator</i>.
  * @tparam UnaryFunction - must meet the requirements of <i>stl_concept::UnaryFunction</i>.
  * @param first, last - the range of elements to examine
  * @param f - function object, to be applied to the result of dereferencing every iterator in the range [first, last)<br/>
  * The signature of the function should be equivalent to the following:
- * ```void fun(const Type &a);```
+ * ```
+ * void fun(const Type &a);
+ * ```
  * The signature does not need to have const &.<br/>
  * The type Type must be such that an object of type InputIt can be dereferenced and then implicitly converted to Type.
- * @return f (until C++11) std::move(f) (since C++11)
+ * @return f (until C++11), std::move(f) (since C++11)
  * @see https://en.cppreference.com/w/cpp/algorithm/for_each
  */
+#ifdef DOXYGEN_WORKING
+template <class InputIt, class UnaryFunction>
+constexpr inline UnaryFunction for_each(InputIt&& first, InputIt&& last, UnaryFunction f);
+#else // DOXYGEN_WORKING
 template <class InputIt, class UnaryFunction>
     BOOST_CONCEPT_REQUIRES(
         // Requirements
@@ -53,6 +50,7 @@ constexpr inline for_each(InputIt&& first, InputIt&& last, UnaryFunction f)
                          std::forward<InputIt>(last),
                          f);
 }
+#endif // DOXYGEN_WORKING
 
 } // namespace stl_algorithm
 

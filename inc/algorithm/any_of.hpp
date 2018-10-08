@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_ALGORITHM_ANY_OF_HPP__
 #define __STL_ALGORITHM_ANY_OF_HPP__
 
@@ -13,27 +13,24 @@
 namespace stl_algorithm {
 
 /**
- * @addtogroup non_mod_seq_group Non-modifying sequence operations
- * @fn stl_algorithm::any_of
  * @brief Checks if unary predicate p returns true for at least one element in the range [first, last).
- *
- * <p>
- * ```
- * template <class InputIt, class UnaryPredicate>
- * constexpr inline bool any_of(InputIt&& first, Input&& last, UnaryPredicate&& p)
- * ```
- * </p>
  * @tparam InputIt - must meet the requirements of <i>stl_concept::InputIterator</i>.
  * @tparam UnaryPredicate - must meet the requirements of <i>stl_concept::UnaryPredicate</i>.
  * @param first, last - the range of elements to examine
  * @param p - unary predicate<br/>
  * The signature of the predicate function should be equivalent to the following:
- * ```bool pred(const Type &a);```
+ * ```
+ * bool pred(const Type &a);
+ * ```
  * The signature does not need to have const &, but the function must not modify the objects passed to it.<br/>
  * The type Type must be such that an object of type InputIt can be dereferenced and then implicitly converted to Type.
  * @return true if unary predicate returns true for all elements in the range, false otherwise. Returns true if the range is empty.
  * @see https://en.cppreference.com/w/cpp/algorithm/all_any_none_of
  */
+#ifdef DOXYGEN_WORKING
+template <class InputIt, class UnaryPredicate>
+constexpr inline bool any_of(InputIt&& first, InputIt&& last, UnaryPredicate&& p);
+#else // DOXYGEN_WORKING
 template <class InputIt, class UnaryPredicate>
     BOOST_CONCEPT_REQUIRES(
         // Requirements
@@ -51,6 +48,7 @@ constexpr inline any_of(InputIt&& first, InputIt&& last, UnaryPredicate&& p)
                        std::forward<InputIt>(last),
                        std::forward<UnaryPredicate>(p));
 }
+#endif // DOXYGEN_WORKING
 
 } // namespace stl_algorithm
 

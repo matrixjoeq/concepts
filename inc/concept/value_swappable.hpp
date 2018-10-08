@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_VALUE_SWAPPABLE_HPP__
 #define __STL_CONCEPT_VALUE_SWAPPABLE_HPP__
 
@@ -19,7 +19,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @class stl_concept::ValueSwappable
+ * @struct stl_concept::ValueSwappable
  * @brief Specifies that two objects of this type can be dereferenced and the resulting values can be swapped using
  * unqualified function call swap() in the context where both std::swap and the user-defined swap()s are visible.
  *
@@ -37,6 +37,9 @@ namespace stl_concept {
  * @tparam T - type to be checked
  * @see https://en.cppreference.com/w/cpp/named_req/ValueSwappable
  */
+#ifdef DOXYGEN_WORKING
+template <typename T> struct ValueSwappable : Iterator<T> {};
+#else // DOXYGEN_WORKING
 BOOST_concept(ValueSwappable, (T)) : Iterator<T>
 {
     BOOST_CONCEPT_USAGE(ValueSwappable)
@@ -44,6 +47,7 @@ BOOST_concept(ValueSwappable, (T)) : Iterator<T>
         BOOST_CONCEPT_ASSERT((Swappable<decltype(*(boost::declval<T>()))>));
     }
 };
+#endif // DOXYGEN_WORKING
 
 } // namespace stl_concept
 

@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_LESS_THAN_COMPARABLE_HPP__
 #define __STL_CONCEPT_LESS_THAN_COMPARABLE_HPP__
 
@@ -18,7 +18,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @class stl_concept::LessThanComparable
+ * @struct stl_concept::LessThanComparable
  * @brief Specifies that an instance of the type must work with < operator and the result should have standard semantics.
  *
  * <p>
@@ -46,6 +46,9 @@ namespace stl_concept {
  * @tparam T - type to be checked
  * @see https://en.cppreference.com/w/cpp/named_req/LessThanComparable
  */
+#ifdef DOXYGEN_WORKING
+template <typename T> struct LessThanComparable {};
+#else // DOXYGEN_WORKING
 BOOST_concept(LessThanComparable, (T))
 {
     BOOST_CONCEPT_USAGE(LessThanComparable)
@@ -66,6 +69,7 @@ private:
     _Tp b_;
 
 };
+#endif // DOXYGEN_WORKING
 
 } // namespace stl_concept
 

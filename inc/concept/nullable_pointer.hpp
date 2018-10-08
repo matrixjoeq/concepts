@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_NULLABLE_POINTER_HPP__
 #define __STL_CONCEPT_NULLABLE_POINTER_HPP__
 
@@ -24,7 +24,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @class stl_concept::NullablePointer
+ * @struct stl_concept::NullablePointer
  * @brief Specifies that the type is a pointer-like object which can be compared to std::nullptr_t objects.
  *
  * <p>
@@ -59,6 +59,10 @@ namespace stl_concept {
  * @tparam T - type to be checked
  * @see https://en.cppreference.com/w/cpp/named_req/NullablePointer
  */
+#ifdef DOXYGEN_WORKING
+template <typename T> struct NullablePointer
+    : EqualityComparable<T>, DefaultConstructible<T>, CopyConstructible<T>, CopyAssignable<T>, Destructible<T> {};
+#else // DOXYGEN_WORKING
 BOOST_concept(NullablePointer, (T))
     : EqualityComparable<T>
     , DefaultConstructible<T>
@@ -83,6 +87,7 @@ BOOST_concept(NullablePointer, (T))
         __detail::__require_same_type<decltype(p = nullptr), T&>();
     }
 };
+#endif // DOXYGEN_WORKING
 
 } // namespace stl_concept
 

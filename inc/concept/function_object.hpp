@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_FUNCTION_OBJECT_HPP__
 #define __STL_CONCEPT_FUNCTION_OBJECT_HPP__
 
@@ -19,7 +19,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @class stl_concept::FunctionObject
+ * @struct stl_concept::FunctionObject
  * @brief Specifies that an instance of the type can be used on the left of the function call operator.
  *
  * <p>
@@ -43,6 +43,9 @@ namespace stl_concept {
  * @tparam T - type to be checked
  * @see https://en.cppreference.com/w/cpp/named_req/FunctionObject
  */
+#ifdef DOXYGEN_WORKING
+template <typename T> struct FunctionObject {};
+#else // DOXYGEN_WORKING
 BOOST_concept(FunctionObject, (T))
 {
     BOOST_CONCEPT_USAGE(FunctionObject)
@@ -55,6 +58,7 @@ private:
 
     _Tp f_;
 };
+#endif // DOXYGEN_WORKING
 
 template <class R, class... Args>
 struct FunctionObject<R(*)(Args...)> {};

@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_DETAIL_HAS_MEMBER_RESULT_TYPE_HPP__
 #define __STL_CONCEPT_DETAIL_HAS_MEMBER_RESULT_TYPE_HPP__
 
@@ -8,11 +8,13 @@
 namespace stl_concept {
 namespace __detail {
 
+/// @cond DEV
 template <class T, typename = typename T::result_type>
 struct __has_member_result_type : boost::integral_constant<bool, true> {};
 
 template <class T, typename = __na_type>
 struct __has_member_result_type : boost::integral_constant<bool, false> {};
+/// @endcond
 
 } // namespace __detail
 } // namespace stl_concept

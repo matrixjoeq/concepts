@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_UNARY_FUNCTION_HPP__
 #define __STL_CONCEPT_UNARY_FUNCTION_HPP__
 
@@ -21,7 +21,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @class stl_concept::UnaryFunction
+ * @struct stl_concept::UnaryFunction
  * @brief Specifies that an instance of the type is callable with one and only one argument.
  *
  * <p>
@@ -30,8 +30,13 @@ namespace stl_concept {
  * <ul style="list-style-type:disc">
  *   <li><i>FunctionObject</i></li>
  * </ul>
+ * @tparam Func - function object type
+ * @tparam Arg - argument type
  * </p>
  */
+#ifdef DOXYGEN_WORKING
+template <typename Func, typename Arg> struct UnaryFunction {};
+#else // DOXYGEN_WORKING
 BOOST_concept(UnaryFunction, (Func)(Arg))
 {
     BOOST_CONCEPT_USAGE(UnaryFunction)
@@ -54,6 +59,7 @@ private:
 
     Func f_;
 };
+#endif // DOXYGEN_WORKING
 
 template <class Func, class Arg>
 struct UnaryFunction<const Func, Arg> : UnaryFunction<Func, Arg> {};

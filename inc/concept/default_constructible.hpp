@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_DEFAULT_CONSTRUCTIBLE_HPP__
 #define __STL_CONCEPT_DEFAULT_CONSTRUCTIBLE_HPP__
 
@@ -19,7 +19,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup basic_group Basic Requirements
- * @class stl_concept::DefaultConstructible
+ * @struct stl_concept::DefaultConstructible
  * @brief Specifies that an instance of the type can be default constructed.
  *
  * <p>
@@ -43,6 +43,9 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/DefaultConstructible
  * @see https://en.cppreference.com/w/cpp/concepts/DefaultConstructible
  */
+#ifdef DOXYGEN_WORKING
+template <typename T> struct DefaultConstructible {};
+#else // DOXYGEN_WORKING
 BOOST_concept(DefaultConstructible, (T))
 {
     BOOST_CONCEPT_USAGE(DefaultConstructible)
@@ -56,15 +59,10 @@ BOOST_concept(DefaultConstructible, (T))
         __detail::__unuse(T{});
     }
 };
+#endif // DOXYGEN_WORKING
 
 template <class T, size_t N>
-struct DefaultConstructible<T[N]>
-{
-    BOOST_CONCEPT_USAGE(DefaultConstructible)
-    {
-        BOOST_CONCEPT_ASSERT((DefaultConstructible<T>));
-    }
-};
+struct DefaultConstructible<T[N]> : DefaultConstructible<T> {};
 
 } // namespace stl_concept
 

@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_MOVE_CONSTRUCTIBLE_HPP__
 #define __STL_CONCEPT_MOVE_CONSTRUCTIBLE_HPP__
 
@@ -18,7 +18,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup basic_group Basic Requirements
- * @class stl_concept::MoveConstructible
+ * @struct stl_concept::MoveConstructible
  * @brief Specifies that an instance of the type can be constructed from an rvalue argument.
  *
  * <p>
@@ -43,6 +43,9 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/MoveConstructible
  * @see https://en.cppreference.com/w/cpp/concepts/MoveConstructible
  */
+#ifdef DOXYGEN_WORKING
+template <typename T> struct MoveConstructible {};
+#else // DOXYGEN_WORKING
 BOOST_concept(MoveConstructible, (T))
 {
     BOOST_CONCEPT_USAGE(MoveConstructible)
@@ -52,6 +55,7 @@ BOOST_concept(MoveConstructible, (T))
         __detail::__unuse(T(boost::declval<T>()));
     }
 };
+#endif // DOXYGEN_WORKING
 
 } // namespace stl_concept
 

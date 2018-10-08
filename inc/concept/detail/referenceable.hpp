@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_DETAIL_REFERENCEABLE_HPP__
 #define __STL_CONCEPT_DETAIL_REFERENCEABLE_HPP__
 
@@ -17,6 +17,32 @@
 namespace stl_concept {
 namespace __detail {
 
+/// @cond DEV
+/**
+ * @struct stl_concept::__detail::__Referenceable
+ * @brief Specifies that an instance of the type can be referenced.
+ *
+ * <p>
+ * <b>Requirements</b>
+ * </p><p>
+ * The type T satisfies <i>__Referenceable</i> if
+ * Given
+ * <ul style="list-style-type:disc">
+ *   <li>t, an lvalue expression of type T</li>
+ *   <li>r, an lvalue reference of type T</li>
+ * </ul>
+ * The following expressions must be valid and have their specified effects
+ * <table>
+ *   <tr><th>Expression<th>Return type<th>Return value<th>Post-conditions
+ *   <tr><td>r = t     <td>T&         <td>t           <td>The value of r is equivalent to the value of t.<br/>
+ *                                                        The value of t is unchanged.
+ * </table>
+ * </p>
+ * @tparam T - type to be checked
+ */
+#ifdef DOXYGEN_WORKING
+template <typename T> struct __Referenceable {};
+#else // DOXYGEN_WORKING
 BOOST_concept(__Referenceable, (T))
 {
     BOOST_CONCEPT_USAGE(__Referenceable)
@@ -29,6 +55,8 @@ private:
     typedef typename boost::remove_cv_ref<T>::type _Tp;
     _Tp t_;
 };
+#endif // DOXYGEN_WORKING
+/// @endcond
 
 template <class T> struct __Referenceable<T[]> {};
 template <class T, size_t N> struct __Referenceable<T[N]> {};

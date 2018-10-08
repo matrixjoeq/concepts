@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_ITERATOR_HPP__
 #define __STL_CONCEPT_ITERATOR_HPP__
 
@@ -23,7 +23,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup iterator_group Iterator Requirements
- * @class stl_concept::Iterator
+ * @struct stl_concept::Iterator
  * @brief Specifies that an instance of the type can be used to identify and traverse the elements of a container.
  *
  * <p>
@@ -56,27 +56,31 @@ namespace stl_concept {
  * @tparam T - type to be checked
  * @see https://en.cppreference.com/w/cpp/named_req/Iterator
  */
-BOOST_concept(Iterator, (It))
-    : CopyConstructible<It>
-    , CopyAssignable<It>
-    , Destructible<It>
-    , Swappable<It>
+#ifdef DOXYGEN_WORKING
+template <typename T> struct Iterator : CopyConstructible<T>, CopyAssignable<T>, Destructible<T>, Swappable<T> {};
+#else // DOXYGEN_WORKING
+BOOST_concept(Iterator, (T))
+    : CopyConstructible<T>
+    , CopyAssignable<T>
+    , Destructible<T>
+    , Swappable<T>
 {
     BOOST_CONCEPT_USAGE(Iterator)
     {
         __detail::__require_expr_convertible_to<value_type>(*r_);
-        __detail::__require_same_type<decltype(++r_), It&>();
+        __detail::__require_same_type<decltype(++r_), T&>();
     }
 
 private:
-    typedef typename boost::iterator_value<It>::type value_type;
-    typedef typename boost::iterator_difference<It>::type difference_type;
-    typedef typename boost::iterator_reference<It>::type reference_type;
-    typedef typename boost::iterator_pointer<It>::type pointer_type;
-    typedef typename boost::iterator_category<It>::type iterator_category;
+    typedef typename boost::iterator_value<T>::type value_type;
+    typedef typename boost::iterator_difference<T>::type difference_type;
+    typedef typename boost::iterator_reference<T>::type reference_type;
+    typedef typename boost::iterator_pointer<T>::type pointer_type;
+    typedef typename boost::iterator_category<T>::type iterator_category;
 
-    It r_;
+    T r_;
 };
+#endif // DOXYGEN_WORKING
 
 } // namespace stl_concept
 

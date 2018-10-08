@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_COPY_CONSTRUCTIBLE_HPP__
 #define __STL_CONCEPT_COPY_CONSTRUCTIBLE_HPP__
 
@@ -19,7 +19,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup basic_group Basic Requirements
- * @class stl_concept::CopyConstructible
+ * @struct stl_concept::CopyConstructible
  * @brief Specifies that an instance of the type can be copy-constructed from an lvalue expression.
  *
  * <p>
@@ -45,6 +45,9 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/CopyConstructible
  * @see https://en.cppreference.com/w/cpp/concepts/CopyConstructible
  */
+#ifdef DOXYGEN_WORKING
+template <typename T> struct CopyConstructible : MoveConstructible<T> {};
+#else // DOXYGEN_WORKING
 BOOST_concept(CopyConstructible, (T)) : MoveConstructible<T>
 {
     BOOST_CONCEPT_USAGE(CopyConstructible)
@@ -73,6 +76,7 @@ private:
         __detail::__unuse(u);
     }
 };
+#endif // DOXYGEN_WORKING
 
 } // namespace stl_concept
 

@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_INPUT_ITERATOR_HPP__
 #define __STL_CONCEPT_INPUT_ITERATOR_HPP__
 
@@ -20,7 +20,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup iterator_group Iterator Requirements
- * @class stl_concept::InputIterator
+ * @struct stl_concept::InputIterator
  * @brief Specifies that an instance of the type is an <i>Iterator</i> that can read from the pointed-to element.
  *
  * <p>
@@ -54,9 +54,12 @@ namespace stl_concept {
  * @tparam T - type to be checked
  * @see https://en.cppreference.com/w/cpp/named_req/InputIterator
  */
-BOOST_concept(InputIterator, (It))
-    : Iterator<It>
-    , EqualityComparable<It>
+#ifdef DOXYGEN_WORKING
+template <typename T> struct InputIterator : Iterator<T>, EqualityComparable<T> {};
+#else // DOXYGEN_WORKING
+BOOST_concept(InputIterator, (T))
+    : Iterator<T>
+    , EqualityComparable<T>
 {
     BOOST_CONCEPT_USAGE(InputIterator)
     {
@@ -67,10 +70,11 @@ BOOST_concept(InputIterator, (It))
     }
 
 private:
-    typedef typename boost::iterator_value<It>::type value_type;
-    It i_;
-    It j_;
+    typedef typename boost::iterator_value<T>::type value_type;
+    T i_;
+    T j_;
 };
+#endif // DOXYGEN_WORKING
 
 } // namespace stl_concept
 

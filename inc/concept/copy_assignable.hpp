@@ -1,4 +1,4 @@
-
+/** @file */
 #ifndef __STL_CONCEPT_COPY_ASSIGNABLE_HPP__
 #define __STL_CONCEPT_COPY_ASSIGNABLE_HPP__
 
@@ -18,7 +18,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup basic_group Basic Requirements
- * @class stl_concept::CopyAssignable
+ * @struct stl_concept::CopyAssignable
  * @brief Specifies that an instance of the type can be copy-assigned from an lvalue expression.
  *
  * <p>
@@ -44,6 +44,9 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/CopyAssignable
  * @see https://en.cppreference.com/w/cpp/concepts/Copyable
  */
+#ifdef DOXYGEN_WORKING
+template <typename T> struct CopyAssignable : MoveAssignable<T> {};
+#else // DOXYGEN_WORKING
 BOOST_concept(CopyAssignable, (T)) : MoveAssignable<T>
 {
     BOOST_CONCEPT_USAGE(CopyAssignable)
@@ -67,6 +70,7 @@ private:
     T t_;
     T v_;
 };
+#endif // DOXYGEN_WORKING
 
 } // namespace stl_concept
 
