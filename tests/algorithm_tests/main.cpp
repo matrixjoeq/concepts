@@ -9,6 +9,8 @@ int main()
     any_of_check();
     none_of_check();
     for_each_check();
+    count_check();
+    count_if_check();
 
     return 0;
 }
