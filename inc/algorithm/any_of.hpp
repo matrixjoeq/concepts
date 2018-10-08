@@ -3,7 +3,6 @@
 #define __STL_ALGORITHM_ANY_OF_HPP__
 
 #include <algorithm>
-#include <type_traits>
 #include <boost/concept/requires.hpp>
 #include "concept/input_iterator.hpp"
 #include "concept/unary_predicate.hpp"
