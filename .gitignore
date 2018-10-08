@@ -33,3 +33,4 @@
 /build/
 /docs/
 *.code-workspace
+/.vscode/settings.json
