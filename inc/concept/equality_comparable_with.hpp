@@ -1,9 +1,11 @@
 /** @file */
-#ifndef __STL_CONCEPT_EQUALITY_COMPARABLE_HPP__
-#define __STL_CONCEPT_EQUALITY_COMPARABLE_HPP__
+#ifndef __STL_CONCEPT_EQUALITY_COMPARABLE_WITH_HPP__
+#define __STL_CONCEPT_EQUALITY_COMPARABLE_WITH_HPP__
 
-#include "concept/equality_comparable_with.hpp"
+#include <boost/type_traits/remove_const.hpp>
+#include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
+#include "concept/detail/require_expr_convertible_to.hpp"
 
 #if (defined _MSC_VER)
 #pragma warning(push)
@@ -16,16 +18,18 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @struct stl_concept::EqualityComparable
- * @brief Specifies that an instance of the type must work with == operator and the result should have standard semantics.
+ * @struct stl_concept::EqualityComparableWith
+ * @brief Specifies that instances of the types must work with == operator and the result should have standard semantics.
  *
  * <p>
  * <b>Requirements</b>
  * </p><p>
- * The type T satisfies <i>EqualityComparable</i> if<br/>
+ * The type T and U satisfies <i>EqualityComparableWith</i> if<br/>
  * Given
  * <ul style="list-style-type:disc">
- *   <li>a, b, and c, expressions of type T or const T</li>
+ *   <li>a, expressions of type T or const T</li>
+ *   <li>b, expressions of type U or const U</li>
+ *   <li>c, expressions of type T or U or const T or const U</li>
  * </ul>
  * The following expressions must be valid and have their specified effects
  * <table>
@@ -44,9 +48,30 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/EqualityComparable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct EqualityComparable : EqualityComparableWith<T, T> {};
+template <typename T, typename U> struct EqualityComparableWith {};
 #else // DOXYGEN_WORKING
-BOOST_concept(EqualityComparable, (T)) : EqualityComparableWith<T, T> {};
+BOOST_concept(EqualityComparableWith, (T)(U))
+{
+    BOOST_CONCEPT_USAGE(EqualityComparableWith)
+    {
+        __detail::__require_expr_convertible_to<bool>(a_ == b_);
+        __detail::__require_expr_convertible_to<bool>(b_ == a_);
+        const_constraints(a_, b_);
+    }
+
+private:
+    using _Tp = boost::remove_const_t<T>;
+    using _Up = boost::remove_const_t<U>;
+
+    void const_constraints(const _Tp& x, const _Up& y)
+    {
+        __detail::__require_expr_convertible_to<bool>(x == y);
+        __detail::__require_expr_convertible_to<bool>(y == x);
+    }
+
+    _Tp a_;
+    _Up b_;
+};
 #endif // DOXYGEN_WORKING
 
 } // namespace stl_concept
@@ -57,4 +82,4 @@ BOOST_concept(EqualityComparable, (T)) : EqualityComparableWith<T, T> {};
 
 #include <boost/concept/detail/concept_undef.hpp>
 
-#endif  // __STL_CONCEPT_EQUALITY_COMPARABLE_HPP__
+#endif  // __STL_CONCEPT_EQUALITY_COMPARABLE_WITH_HPP__
