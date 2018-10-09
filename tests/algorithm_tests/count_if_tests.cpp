@@ -25,12 +25,14 @@ struct IsPositive
 
 void count_if_check()
 {
+    using namespace std::placeholders;
+
     std::vector<int> v{1, 2, 3};
 
     IsPositive pred;
     auto func = is_positive;
     auto functor = std::function<decltype(is_positive)>(is_positive);
-    auto binder = std::bind(is_positive, std::placeholders::_1);
+    auto binder = std::bind(is_positive, _1);
     auto first = v.begin();
     auto last = v.end();
     auto lambda = [](int i) { return is_positive(i); };
@@ -45,8 +47,8 @@ void count_if_check()
     assert(stl_algorithm::count_if(v.begin(), v.end(), is_positive) == number);
     assert(stl_algorithm::count_if(v.begin(), v.end(), IsPositive()) == number);
     assert(stl_algorithm::count_if(v.begin(), v.end(), std::function<decltype(is_positive)>(is_positive)) == number);
-    assert(stl_algorithm::count_if(v.begin(), v.end(), std::bind(is_positive, std::placeholders::_1)) == number);
-    assert(stl_algorithm::count_if(v.begin(), v.end(), std::bind(&IsPositive::operator(), &pred, std::placeholders::_1)) == number);
+    assert(stl_algorithm::count_if(v.begin(), v.end(), std::bind(is_positive, _1)) == number);
+    assert(stl_algorithm::count_if(v.begin(), v.end(), std::bind(&IsPositive::operator(), &pred, _1)) == number);
     assert(stl_algorithm::count_if(v.begin(), v.end(), [](int i){ return is_positive(i); }) == number);
 }
 

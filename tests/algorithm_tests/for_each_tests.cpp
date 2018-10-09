@@ -44,10 +44,12 @@ void dump_vector(const Vector& v)
 
 void for_each_check()
 {
+    using namespace std::placeholders;
+
     std::vector<int> v{1, 2, 3};
 
     Increase functor;
-    auto binder = std::bind(increase, std::placeholders::_1);
+    auto binder = std::bind(increase, _1);
     auto std_functor = std::function<decltype(increase)>(increase);
     auto lambda = [](int& i){ increase(i); };
     auto func_ptr = increase;
@@ -74,11 +76,11 @@ void for_each_check()
     dump_vector(v);
 
     std::cout << "third change: ";
-    (void)(stl_algorithm::for_each(v.begin(), v.end(), std::bind(increase, std::placeholders::_1)));
+    (void)(stl_algorithm::for_each(v.begin(), v.end(), std::bind(increase, _1)));
     dump_vector(v);
 
     std::cout << "fourth change: ";
-    (void)(stl_algorithm::for_each(v.begin(), v.end(), std::bind(&Increase::operator(), &functor, std::placeholders::_1)));
+    (void)(stl_algorithm::for_each(v.begin(), v.end(), std::bind(&Increase::operator(), &functor, _1)));
     dump_vector(v);
 
     std::cout << "fifth change: ";

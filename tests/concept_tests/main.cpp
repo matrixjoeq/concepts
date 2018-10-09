@@ -5,6 +5,9 @@ int main()
 {
     using namespace stl_concept::test;
 
+    // These check functions are not necessary to be called, not even to be public.
+    // However, linkage of these functions help to detect if certain concept check is missed.
+
     // basic group
     default_constructible_check();
     move_constructible_check();
@@ -21,6 +24,8 @@ int main()
     function_object_check();
     unary_predicate_check();
     unary_function_check();
+    binary_predicate_check();
+    binary_function_check();
 
     // iterator group
     iterator_check();
