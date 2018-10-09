@@ -45,13 +45,13 @@ BOOST_concept(BinaryPredicate, (Func)(First)(Second))
     {
         BOOST_STATIC_ASSERT_MSG(boost::is_object<Func>::value, "Type is not object");
         __detail::__require_expr_convertible_to<bool>(
-            function_object_(boost::declval<_FirstArg>(), boost::declval<_SecondArg>()));
+            predicate_(boost::declval<_FirstArg>(), boost::declval<_SecondArg>()));
     }
 
 private:
     using _FirstArg = boost::add_lvalue_reference_t<boost::add_const_t<First>>;
     using _SecondArg = boost::add_lvalue_reference_t<boost::add_const_t<Second>>;
-    Func function_object_;
+    Func predicate_;
 };
 #endif // DOXYGEN_WORKING
 
