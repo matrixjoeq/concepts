@@ -15,6 +15,9 @@ int main()
     mismatch_if_check();
     equal_check();
     equal_if_check();
+    find_check();
+    find_if_check();
+    find_if_not_check();
 
     return 0;
 }

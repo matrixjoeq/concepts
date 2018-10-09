@@ -19,5 +19,8 @@
 #include "algorithm/mismatch_if.hpp"
 #include "algorithm/equal.hpp"
 #include "algorithm/equal_if.hpp"
+#include "algorithm/find.hpp"
+#include "algorithm/find_if.hpp"
+#include "algorithm/find_if_not.hpp"
 
 #endif  // __STL_ALGORITHM_HPP__

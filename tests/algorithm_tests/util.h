@@ -15,6 +15,9 @@ void mismatch_check();
 void mismatch_if_check();
 void equal_check();
 void equal_if_check();
+void find_check();
+void find_if_check();
+void find_if_not_check();
 
 } // namespace test
 } // namespace stl_algorithm
