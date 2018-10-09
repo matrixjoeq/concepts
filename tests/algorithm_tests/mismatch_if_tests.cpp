@@ -3,20 +3,26 @@
 #include <vector>
 #include <list>
 #include <functional>
+#include <boost/type_traits/conditional.hpp>
 #include "algorithm/mismatch_if.hpp"
 
 namespace stl_algorithm {
 namespace test {
 namespace {
 
-bool is_equal(int i, int j)
+using FirstType = int;
+using SecondType = long;
+
+using DataType = boost::conditional_t<(sizeof(FirstType) > sizeof(SecondType)), FirstType, SecondType>;
+
+bool is_equal(DataType i, DataType j)
 {
     return i == j;
 }
 
 struct IsEqual
 {
-    bool operator()(int i, int j)
+    bool operator()(DataType i, DataType j)
     {
         return is_equal(i, j);
     }
@@ -34,8 +40,8 @@ void mismatch_if_check()
 {
     using namespace std::placeholders;
 
-    std::vector<int> v{1, 2, 3, 4, 5};
-    std::list<long> l{1l, 2l, 3l, 5l, 6l};
+    std::vector<FirstType> v{1, 2, 3, 4, 5};
+    std::list<SecondType> l{1l, 2l, 3l, 5l, 6l};
 
     IsEqual pred;
     auto func = is_equal;
@@ -45,7 +51,7 @@ void mismatch_if_check()
     auto vlast = v.end();
     auto lfirst = l.begin();
     auto llast = l.end();
-    auto lambda = [](int i, int j) { return is_equal(i, j); };
+    auto lambda = [](DataType i, DataType j) { return is_equal(i, j); };
 
     auto p1 = stl_algorithm::mismatch_if(vfirst, vlast, lfirst, func);
     assert_not_equal(p1);
@@ -77,7 +83,7 @@ void mismatch_if_check()
     auto p10 = stl_algorithm::mismatch_if(l.begin(), l.end(), v.begin(), std::bind(&IsEqual::operator(), &pred, _1, _2));
     assert_not_equal(p10);
 
-    auto p11 = stl_algorithm::mismatch_if(l.begin(), l.end(), v.begin(), [](int i, int j){ return is_equal(i, j); });
+    auto p11 = stl_algorithm::mismatch_if(l.begin(), l.end(), v.begin(), [](DataType i, DataType j){ return is_equal(i, j); });
     assert_not_equal(p11);
 }
 

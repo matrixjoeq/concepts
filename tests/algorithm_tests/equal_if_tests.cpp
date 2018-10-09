@@ -3,20 +3,26 @@
 #include <vector>
 #include <list>
 #include <functional>
+#include <boost/type_traits/conditional.hpp>
 #include "algorithm/equal_if.hpp"
 
 namespace stl_algorithm {
 namespace test {
 namespace {
 
-bool is_equal(int i, int j)
+using FirstType = int;
+using SecondType = long;
+
+using DataType = boost::conditional_t<(sizeof(FirstType) > sizeof(SecondType)), FirstType, SecondType>;
+
+bool is_equal(DataType i, DataType j)
 {
     return i == j;
 }
 
 struct IsEqual
 {
-    bool operator()(int i, int j)
+    bool operator()(DataType i, DataType j)
     {
         return is_equal(i, j);
     }
@@ -28,8 +34,8 @@ void equal_if_check()
 {
     using namespace std::placeholders;
 
-    std::vector<int> v{1, 2, 3, 4, 5};
-    std::list<long> l{1l, 2l, 3l, 4l, 5l};
+    std::vector<FirstType> v{1, 2, 3, 4, 5};
+    std::list<SecondType> l{1l, 2l, 3l, 4l, 5l};
 
     IsEqual pred;
     auto func = is_equal;
@@ -39,7 +45,7 @@ void equal_if_check()
     auto vlast = v.end();
     auto lfirst = l.begin();
     auto llast = l.end();
-    auto lambda = [](int i, int j) { return is_equal(i, j); };
+    auto lambda = [](DataType i, DataType j) { return is_equal(i, j); };
 
     assert(stl_algorithm::equal_if(vfirst, vlast, lfirst, func));
     assert(stl_algorithm::equal_if(vfirst, vlast, lfirst, pred));
@@ -51,7 +57,7 @@ void equal_if_check()
     assert(stl_algorithm::equal_if(v.begin(), v.end(), l.begin(), std::function<decltype(is_equal)>(is_equal)));
     assert(stl_algorithm::equal_if(l.begin(), l.end(), v.begin(), std::bind(is_equal, _1, _2)));
     assert(stl_algorithm::equal_if(l.begin(), l.end(), v.begin(), std::bind(&IsEqual::operator(), &pred, _1, _2)));
-    assert(stl_algorithm::equal_if(l.begin(), l.end(), v.begin(), [](int i, int j){ return is_equal(i, j); }));
+    assert(stl_algorithm::equal_if(l.begin(), l.end(), v.begin(), [](DataType i, DataType j){ return is_equal(i, j); }));
 }
 
 } // namespace test
