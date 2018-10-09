@@ -11,6 +11,8 @@ int main()
     for_each_check();
     count_check();
     count_if_check();
+    mismatch_check();
+    mismatch_if_check();
 
     return 0;
 }

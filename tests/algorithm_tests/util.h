@@ -11,6 +11,8 @@ void none_of_check();
 void for_each_check();
 void count_check();
 void count_if_check();
+void mismatch_check();
+void mismatch_if_check();
 
 } // namespace test
 } // namespace stl_algorithm
