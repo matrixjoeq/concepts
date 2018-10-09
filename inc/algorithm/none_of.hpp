@@ -21,7 +21,7 @@ namespace stl_algorithm {
  * ```
  * The signature does not need to have const &, but the function must not modify the objects passed to it.<br/>
  * The type Type must be such that an object of type InputIt can be dereferenced and then implicitly converted to Type.
- * @return true if unary predicate returns true for all elements in the range, false otherwise. Returns true if the 
+ * @return true if unary predicate returns true for all elements in the range, false otherwise. Returns true if the
  * range is empty.
  * @see https://en.cppreference.com/w/cpp/algorithm/all_any_none_of
  */
