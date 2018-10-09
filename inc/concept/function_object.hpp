@@ -56,7 +56,7 @@ BOOST_concept(FunctionObject, (T))
 private:
     using _Tp = boost::remove_const_t<T>;
 
-    _Tp f_;
+    _Tp function_object_;
 };
 #endif // DOXYGEN_WORKING
 

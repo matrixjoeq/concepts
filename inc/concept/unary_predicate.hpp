@@ -43,12 +43,12 @@ BOOST_concept(UnaryPredicate, (Func)(Arg))
     BOOST_CONCEPT_USAGE(UnaryPredicate)
     {
         BOOST_STATIC_ASSERT_MSG(boost::is_object<Func>::value, "Type is not object");
-        __detail::__require_expr_convertible_to<bool>(f_(boost::declval<_Arg>()));
+        __detail::__require_expr_convertible_to<bool>(function_object_(boost::declval<_ArgType>()));
     }
 
 private:
-    using _Arg = boost::add_lvalue_reference_t<boost::add_const_t<Arg>>;
-    Func f_;
+    using _ArgType = boost::add_lvalue_reference_t<boost::add_const_t<Arg>>;
+    Func function_object_;
 };
 #endif // DOXYGEN_WORKING
 

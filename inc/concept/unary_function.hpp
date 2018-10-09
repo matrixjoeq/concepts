@@ -43,24 +43,24 @@ BOOST_concept(UnaryFunction, (Func)(Arg))
     BOOST_CONCEPT_USAGE(UnaryFunction)
     {
         BOOST_STATIC_ASSERT_MSG(boost::is_object<Func>::value, "Type is not object");
-        using _Return = decltype(f_(boost::declval<_Arg>()));
-        callable_test(boost::is_void<_Return>());
+        using _ReturnType = decltype(function_object_(boost::declval<_ArgType>()));
+        callable_test(boost::is_void<_ReturnType>());
     }
 
 private:
-    using _Arg = boost::add_lvalue_reference_t<Arg>;
+    using _ArgType = boost::add_lvalue_reference_t<Arg>;
 
     void callable_test(boost::is_void<void>)
     {
-        f_(boost::declval<_Arg>());
+        function_object_(boost::declval<_ArgType>());
     }
 
     void callable_test(...)
     {
-        __detail::__unuse(f_(boost::declval<_Arg>()));
+        __detail::__unuse(function_object_(boost::declval<_ArgType>()));
     }
 
-    Func f_;
+    Func function_object_;
 };
 #endif // DOXYGEN_WORKING
 

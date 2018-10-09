@@ -44,25 +44,25 @@ BOOST_concept(BinaryFunction, (Func)(First)(Second))
     BOOST_CONCEPT_USAGE(BinaryFunction)
     {
         BOOST_STATIC_ASSERT_MSG(boost::is_object<Func>::value, "Type is not object");
-        using _Return = decltype(f_(boost::declval<_First>(), boost::declval<_Second>()));
-        callable_test(boost::is_void<_Return>());
+        using _ReturnType = decltype(function_object_(boost::declval<_FirstArg>(), boost::declval<_SecondArg>()));
+        callable_test(boost::is_void<_ReturnType>());
     }
 
 private:
-    using _First = boost::add_lvalue_reference_t<First>;
-    using _Second = boost::add_lvalue_reference_t<Second>;
+    using _FirstArg = boost::add_lvalue_reference_t<First>;
+    using _SecondArg = boost::add_lvalue_reference_t<Second>;
 
     void callable_test(boost::is_void<void>)
     {
-        f_(boost::declval<_First>(), boost::declval<_Second>());
+        function_object_(boost::declval<_FirstArg>(), boost::declval<_SecondArg>());
     }
 
     void callable_test(...)
     {
-        __detail::__unuse(f_(boost::declval<_First>(), boost::declval<_Second>()));
+        __detail::__unuse(function_object_(boost::declval<_FirstArg>(), boost::declval<_SecondArg>()));
     }
 
-    Func f_;
+    Func function_object_;
 };
 #endif // DOXYGEN_WORKING
 

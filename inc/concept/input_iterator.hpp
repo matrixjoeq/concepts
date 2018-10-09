@@ -8,6 +8,7 @@
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 #include "concept/detail/require_expr_convertible_to.hpp"
+#include "concept/detail/unuse.hpp"
 
 #if (defined _MSC_VER)
 #pragma warning(push)
@@ -63,16 +64,16 @@ BOOST_concept(InputIterator, (T))
 {
     BOOST_CONCEPT_USAGE(InputIterator)
     {
-        __detail::__require_expr_convertible_to<bool>(i_ != j_);
-        __detail::__require_expr_convertible_to<bool>(i_ == j_);
-        (void)++i_;
-        __detail::__require_expr_convertible_to<_ValueType>(*i_++);
+        __detail::__require_expr_convertible_to<bool>(iter_i_ != iter_j_);
+        __detail::__require_expr_convertible_to<bool>(iter_i_ == iter_j_);
+        __detail::__unuse(++iter_i_);
+        __detail::__require_expr_convertible_to<_ValueType>(*iter_i_++);
     }
 
 private:
     using _ValueType = typename boost::iterator_value<T>::type;
-    T i_;
-    T j_;
+    T iter_i_;
+    T iter_j_;
 };
 #endif // DOXYGEN_WORKING
 
