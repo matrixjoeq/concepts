@@ -13,5 +13,11 @@
 #include "algorithm/any_of.hpp"
 #include "algorithm/none_of.hpp"
 #include "algorithm/for_each.hpp"
+#include "algorithm/count.hpp"
+#include "algorithm/count_if.hpp"
+#include "algorithm/mismatch.hpp"
+#include "algorithm/mismatch_if.hpp"
+#include "algorithm/equal.hpp"
+#include "algorithm/equal_if.hpp"
 
 #endif  // __STL_ALGORITHM_HPP__

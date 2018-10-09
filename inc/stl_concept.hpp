@@ -16,6 +16,7 @@
 #include "concept/move_assignable.hpp"
 #include "concept/copy_assignable.hpp"
 #include "concept/destructible.hpp"
+#include "concept/equality_comparable_with.hpp"
 #include "concept/equality_comparable.hpp"
 #include "concept/less_than_comparable.hpp"
 #include "concept/swappable.hpp"
@@ -24,6 +25,8 @@
 #include "concept/function_object.hpp"
 #include "concept/unary_predicate.hpp"
 #include "concept/unary_function.hpp"
+#include "concept/binary_predicate.hpp"
+#include "concept/binary_function.hpp"
 #include "concept/iterator.hpp"
 #include "concept/input_iterator.hpp"
 

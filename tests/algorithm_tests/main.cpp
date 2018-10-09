@@ -13,6 +13,8 @@ int main()
     count_if_check();
     mismatch_check();
     mismatch_if_check();
+    equal_check();
+    equal_if_check();
 
     return 0;
 }
