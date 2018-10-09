@@ -31,7 +31,7 @@ template <class InputIt, class T>
         ((stl_concept::InputIterator<InputIt>))
         ((stl_concept::EqualityComparableWith<__detail::__iterator_value_t<InputIt>, T>)),
         // Return
-        (typename std::iterator_traits<InputIt>::difference_type)
+        (__detail::__std_iterator_difference_t<InputIt>)
     )
 constexpr inline count(InputIt first, InputIt last, const T& value)
 {

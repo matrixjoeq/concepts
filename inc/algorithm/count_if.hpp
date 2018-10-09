@@ -41,7 +41,7 @@ template <class InputIt, class UnaryPredicate>
             __detail::__iterator_value_t<InputIt>
         >)),
         // Return
-        (typename std::iterator_traits<InputIt>::difference_type)
+        (__detail::__std_iterator_difference_t<InputIt>)
     )
 constexpr inline count_if(InputIt first, InputIt last, UnaryPredicate p)
 {
