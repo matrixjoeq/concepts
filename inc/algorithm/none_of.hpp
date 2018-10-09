@@ -5,9 +5,7 @@
 #include <algorithm>
 #include <boost/concept/requires.hpp>
 #include "concept/input_iterator.hpp"
-#include "concept/unary_predicate.hpp"
-#include "algorithm/detail/function_object_adapter.hpp"
-#include "algorithm/detail/iterator_traits.hpp"
+#include "algorithm/detail/unary_predicate_proxy.hpp"
 
 namespace stl_algorithm {
 
@@ -34,10 +32,7 @@ template <class InputIt, class UnaryPredicate>
     BOOST_CONCEPT_REQUIRES(
         // Requirements
         ((stl_concept::InputIterator<InputIt>))
-        ((stl_concept::UnaryPredicate<
-            __detail::__FunctionObjectAdapter<UnaryPredicate>,
-            __detail::__iterator_value_t<InputIt>
-        >)),
+        ((__detail::__UnaryPredicateProxy<UnaryPredicate, InputIt>)),
         // Return
         (bool)
     )
