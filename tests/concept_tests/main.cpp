@@ -30,6 +30,7 @@ int main()
     // iterator group
     iterator_check();
     input_iterator_check();
+    output_iterator_check();
 
     return 0;
 }

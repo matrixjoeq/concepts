@@ -92,6 +92,7 @@ void binary_function_check();
 // iterator group
 void iterator_check();
 void input_iterator_check();
+void output_iterator_check();
 
 } // namespace test
 } // namespace stl_concept
