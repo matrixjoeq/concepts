@@ -43,7 +43,8 @@ namespace stl_concept {
  *                                                           </ul>
  * </table>
  * </p>
- * @tparam T - type to be checked
+ * @tparam T - first type to be equal compared
+ * @tparam U - second type to be equal compared
  * @see https://en.cppreference.com/w/cpp/named_req/EqualityComparable
  * @see https://en.cppreference.com/w/cpp/concepts/EqualityComparable
  */
