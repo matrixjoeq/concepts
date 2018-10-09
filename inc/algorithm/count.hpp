@@ -14,6 +14,7 @@ namespace stl_algorithm {
 /**
  * @brief Returns the number of elements in the range [first, last) that are equal to value.
  * @tparam InputIt - must meet the requirements of <i>stl_concept::InputIterator</i>.
+ * The dereference type of InputIt must meet the requirements of <i>stl_concept::EqualityComparableWith</i>.
  * @tparam T - must meet the requirements of <i>stl_concept::EqualityComparableWith</i>.
  * @param first, last - the range of elements to examine
  * @param value - the value to search for
