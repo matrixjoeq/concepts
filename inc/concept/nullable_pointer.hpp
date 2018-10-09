@@ -83,7 +83,7 @@ BOOST_concept(NullablePointer, (T))
         __detail::__require_expr_convertible_to<bool>(p != nullptr);
         __detail::__require_expr_convertible_to<bool>(nullptr != p);
 
-        p = nullptr;
+        __detail::__unuse(p = nullptr);
         __detail::__require_same_type<decltype(p = nullptr), T&>();
     }
 };

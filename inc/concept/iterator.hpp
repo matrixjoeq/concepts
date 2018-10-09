@@ -11,6 +11,7 @@
 #include <boost/concept/detail/concept_def.hpp>
 #include "concept/detail/require_expr_convertible_to.hpp"
 #include "concept/detail/require_same_type.hpp"
+#include "concept/detail/unuse.hpp"
 
 #if (defined _MSC_VER)
 #pragma warning(push)
@@ -69,6 +70,7 @@ BOOST_concept(Iterator, (T))
     {
         __detail::__require_expr_convertible_to<_ValueType>(*iter_);
         __detail::__require_same_type<decltype(++iter_), T&>();
+        __detail::__unuse(++iter_);
     }
 
 private:
