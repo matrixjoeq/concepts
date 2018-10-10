@@ -68,7 +68,7 @@ BOOST_concept(Iterator, (T))
 {
     BOOST_CONCEPT_USAGE(Iterator)
     {
-        __detail::__require_expr_convertible_to<_ValueType>(*iter_);
+        __detail::__unuse(*iter_);
         __detail::__require_same_type<decltype(++iter_), T&>();
         __detail::__unuse(++iter_);
     }

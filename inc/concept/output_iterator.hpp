@@ -5,6 +5,8 @@
 #include "concept/iterator.hpp"
 #include <boost/static_assert.hpp>
 #include <boost/iterator/iterator_traits.hpp>
+#include <boost/type_traits/add_const.hpp>
+#include <boost/type_traits/add_lvalue_reference.hpp>
 #include <boost/type_traits/is_object.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/concept/usage.hpp>
@@ -34,7 +36,7 @@ namespace stl_concept {
  * </p><p>
  * <b>Requirements</b>
  * </p><p>
- * The type It satisfies <i>OutputIterator</i> if<br/>
+ * The type It satisfies <i>OutputIterator</i> if
  * <ul style="list-style-type:disc">
  *   <li>The type It satisfies <i>Iterator</i>, and</li>
  *   <li>The type It is a class type or a pointer type, and</li>
@@ -50,16 +52,16 @@ namespace stl_concept {
  *   <tr><th>Expression<th>Return                  <th>Equivalent expression                 <th>Pre-condition     <th>Post-conditions
  *   <tr><td>*r = o    <td>(not used)              <td>                                      <td>r is dereferecable<td>r is incrementable
  *   <tr><td>++r       <td>It&                     <td>                                      <td>r is incrementable<td>&r == &++r, r is dereferencable or past-the-end
- *   <tr><td>r++       <td>convertible to const It&<td>It temp = r;<br/>++r;<br/>return temp;<td>
- *   <tr><td>*r++ = o  <td>(not used)              <td>*r = o;<br/>++r;                      <td>
+ *   <tr><td>r++       <td>convertible to const It&<td>It temp = r;<br/>++r;<br/>return temp;<td>                  <td>
+ *   <tr><td>*r++ = o  <td>(not used)              <td>*r = o;<br/>++r;                      <td>                  <td>
  * </table>
  * </p>
- * @tparam T - Iteratoer type
+ * @tparam T - iterator type
  * @tparam ValueType - value type to be written to iterator
  * @see https://en.cppreference.com/w/cpp/named_req/OutputIterator
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct OutputIterator : Iterator<T> {};
+template <typename T, typename ValueType> struct OutputIterator : Iterator<T> {};
 #else // DOXYGEN_WORKING
 BOOST_concept(OutputIterator, (T)(ValueType)) : Iterator<T>
 {
@@ -70,11 +72,12 @@ BOOST_concept(OutputIterator, (T)(ValueType)) : Iterator<T>
         __detail::__unuse(*iter_r_ = value_);
         __detail::__require_same_type<decltype(++iter_r_), T&>();
         __detail::__unuse(++iter_r_);
-        __detail::__require_expr_convertible_to<const T&>(iter_r_++);
+        __detail::__require_expr_convertible_to<_ConstItRefType>(iter_r_++);
         __detail::__unuse(*iter_r_++ = value_);
     }
 
 private:
+    using _ConstItRefType = boost::add_lvalue_reference_t<boost::add_const_t<T>>;
     T iter_r_;
     ValueType value_;
 };

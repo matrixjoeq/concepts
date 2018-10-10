@@ -2,6 +2,7 @@
 #ifndef __STL_CONCEPT_TESTS_UTIL_H__
 #define __STL_CONCEPT_TESTS_UTIL_H__
 
+#include <iostream>
 #include <boost/static_assert.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/for_each.hpp>
@@ -16,6 +17,19 @@ namespace stl_concept {
 namespace test {
 
 struct DefaultType {};
+
+struct StreamType
+{
+    friend std::ostream& operator<<(std::ostream& os, const StreamType&)
+    {
+        return os;
+    }
+
+    friend std::istream& operator>>(std::istream& is, StreamType&)
+    {
+        return is;
+    }
+};
 
 struct EqualType
 {
