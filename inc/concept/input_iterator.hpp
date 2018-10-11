@@ -52,15 +52,15 @@ namespace stl_concept {
  *   <tr><td>*i++      <td>convertible to value_type           <td>value_type x = *i;<br/>++i;<br/>return x;<td>
  * </table>
  * </p>
- * @tparam T - type to be checked
+ * @tparam It - type to be checked
  * @see https://en.cppreference.com/w/cpp/named_req/InputIterator
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct InputIterator : Iterator<T>, EqualityComparable<T> {};
+template <typename It> struct InputIterator : Iterator<It>, EqualityComparable<It> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(InputIterator, (T))
-    : Iterator<T>
-    , EqualityComparable<T>
+BOOST_concept(InputIterator, (It))
+    : Iterator<It>
+    , EqualityComparable<It>
 {
     BOOST_CONCEPT_USAGE(InputIterator)
     {
@@ -71,9 +71,9 @@ BOOST_concept(InputIterator, (T))
     }
 
 private:
-    using _ValueType = typename boost::iterator_value<T>::type;
-    T iter_i_;
-    T iter_j_;
+    using _ValueType = typename boost::iterator_value<It>::type;
+    It iter_i_;
+    It iter_j_;
 };
 #endif // DOXYGEN_WORKING
 

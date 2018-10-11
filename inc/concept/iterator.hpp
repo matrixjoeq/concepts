@@ -54,33 +54,33 @@ namespace stl_concept {
  *   <tr><td>++r       <td>It&        <td>r is incrementable (the behavior of the expression ++r is defined)
  * </table>
  * </p>
- * @tparam T - type to be checked
+ * @tparam It - type to be checked
  * @see https://en.cppreference.com/w/cpp/named_req/Iterator
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct Iterator : CopyConstructible<T>, CopyAssignable<T>, Destructible<T>, Swappable<T> {};
+template <typename It> struct Iterator : CopyConstructible<It>, CopyAssignable<It>, Destructible<It>, Swappable<It> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(Iterator, (T))
-    : CopyConstructible<T>
-    , CopyAssignable<T>
-    , Destructible<T>
-    , Swappable<T>
+BOOST_concept(Iterator, (It))
+    : CopyConstructible<It>
+    , CopyAssignable<It>
+    , Destructible<It>
+    , Swappable<It>
 {
     BOOST_CONCEPT_USAGE(Iterator)
     {
         __detail::__unuse(*iter_);
-        __detail::__require_same_type<decltype(++iter_), T&>();
+        __detail::__require_same_type<decltype(++iter_), It&>();
         __detail::__unuse(++iter_);
     }
 
 private:
-    using _ValueType = typename boost::iterator_value<T>::type;
-    using _DifferenceType = typename boost::iterator_difference<T>::type;
-    using _ReferenceType = typename boost::iterator_reference<T>::type;
-    using _PointerType = typename boost::iterator_pointer<T>::type;
-    using _CategoryType = typename boost::iterator_category<T>::type;
+    using _ValueType = typename boost::iterator_value<It>::type;
+    using _DifferenceType = typename boost::iterator_difference<It>::type;
+    using _ReferenceType = typename boost::iterator_reference<It>::type;
+    using _PointerType = typename boost::iterator_pointer<It>::type;
+    using _CategoryType = typename boost::iterator_category<It>::type;
 
-    T iter_;
+    It iter_;
 };
 #endif // DOXYGEN_WORKING
 

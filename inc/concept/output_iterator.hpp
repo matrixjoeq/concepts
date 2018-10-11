@@ -56,29 +56,29 @@ namespace stl_concept {
  *   <tr><td>*r++ = o  <td>(not used)              <td>*r = o;<br/>++r;                      <td>                  <td>
  * </table>
  * </p>
- * @tparam T - iterator type
+ * @tparam It - iterator type
  * @tparam ValueType - value type to be written to iterator
  * @see https://en.cppreference.com/w/cpp/named_req/OutputIterator
  */
 #ifdef DOXYGEN_WORKING
-template <typename T, typename ValueType> struct OutputIterator : Iterator<T> {};
+template <typename It, typename ValueType> struct OutputIterator : Iterator<It> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(OutputIterator, (T)(ValueType)) : Iterator<T>
+BOOST_concept(OutputIterator, (It)(ValueType)) : Iterator<It>
 {
     BOOST_CONCEPT_USAGE(OutputIterator)
     {
-        BOOST_STATIC_ASSERT_MSG(boost::is_object<T>::value || boost::is_pointer<T>::value,
+        BOOST_STATIC_ASSERT_MSG(boost::is_object<It>::value || boost::is_pointer<It>::value,
                                 "Type is neither object nor pointer");
         __detail::__unuse(*iter_r_ = value_);
-        __detail::__require_same_type<decltype(++iter_r_), T&>();
+        __detail::__require_same_type<decltype(++iter_r_), It&>();
         __detail::__unuse(++iter_r_);
         __detail::__require_expr_convertible_to<_ConstItRefType>(iter_r_++);
         __detail::__unuse(*iter_r_++ = value_);
     }
 
 private:
-    using _ConstItRefType = boost::add_lvalue_reference_t<boost::add_const_t<T>>;
-    T iter_r_;
+    using _ConstItRefType = boost::add_lvalue_reference_t<boost::add_const_t<It>>;
+    It iter_r_;
     ValueType value_;
 };
 #endif // DOXYGEN_WORKING
