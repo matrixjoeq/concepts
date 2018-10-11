@@ -3,6 +3,7 @@
 #define __STL_CONCEPT_COPY_CONSTRUCTIBLE_HPP__
 
 #include "concept/move_constructible.hpp"
+#include <boost/type_traits/declval.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 
@@ -52,28 +53,31 @@ BOOST_concept(CopyConstructible, (T)) : MoveConstructible<T>
 {
     BOOST_CONCEPT_USAGE(CopyConstructible)
     {
-        _Tp u(v_);
-        __detail::__unuse(_Tp(v_));
-        const_lvalue_constraints(u);
+        lvalue_constraints();
+        const_lvalue_constraints();
         const_rvalue_constraints();
     }
 
 private:
-    using _Tp = boost::remove_const_t<T>;
-    _Tp v_;
-
-    void const_lvalue_constraints(const _Tp& x)
+    void lvalue_constraints()
     {
-        _Tp u(x);
-        __detail::__unuse(_Tp(x));
+        T u = boost::declval<T&>();
         __detail::__unuse(u);
+        __detail::__unuse(T(boost::declval<T&>()));
+    }
+
+    void const_lvalue_constraints()
+    {
+        T u = boost::declval<const T&>();
+        __detail::__unuse(u);
+        __detail::__unuse(T(boost::declval<const T&>()));
     }
 
     void const_rvalue_constraints()
     {
-        _Tp u(boost::declval<const _Tp>());
-        __detail::__unuse(_Tp(boost::declval<const _Tp>()));
+        T u = boost::declval<const T&&>();
         __detail::__unuse(u);
+        __detail::__unuse(T(boost::declval<const T&&>()));
     }
 };
 #endif // DOXYGEN_WORKING

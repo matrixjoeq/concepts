@@ -14,6 +14,13 @@ using BasicTL = mpl::vector<
     //mpl::identity<const volatile DefaultType>
 >;
 
+using ReferenceTL = mpl::vector<
+    mpl::identity<DefaultType&>,
+    mpl::identity<const DefaultType&>,
+    mpl::identity<volatile DefaultType&>,
+    mpl::identity<const volatile DefaultType&>
+>;
+
 using PointerTL = mpl::vector<
     mpl::identity<DefaultType*>,
     mpl::identity<const DefaultType*>,
@@ -66,7 +73,8 @@ struct ConceptChecker
     {
         using Type = typename T::type;
         BOOST_STATIC_ASSERT(std::is_copy_constructible<Type>::value);
-        BOOST_CONCEPT_ASSERT((boost::CopyConstructible<Type>));
+        // boost::CopyConstructible has problem with lvalue reference check
+        //BOOST_CONCEPT_ASSERT((boost::CopyConstructible<Type>));
         BOOST_CONCEPT_ASSERT((stl_concept::CopyConstructible<Type>));
     }
 };
@@ -76,6 +84,7 @@ struct ConceptChecker
 void copy_constructible_check()
 {
     mpl::for_each<BasicTL>(ConceptChecker());
+    mpl::for_each<ReferenceTL>(ConceptChecker());
     mpl::for_each<PointerTL>(ConceptChecker());
     mpl::for_each<BasicArrayTL>(ConceptChecker());
     mpl::for_each<PointerArrayTL>(ConceptChecker());
