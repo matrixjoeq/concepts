@@ -2,6 +2,7 @@
 #ifndef __STL_CONCEPT_MOVE_CONSTRUCTIBLE_HPP__
 #define __STL_CONCEPT_MOVE_CONSTRUCTIBLE_HPP__
 
+#include "concept/convertible.hpp"
 #include <boost/type_traits/declval.hpp>
 #include <boost/type_traits/add_rvalue_reference.hpp>
 #include <boost/concept/usage.hpp>
@@ -52,6 +53,7 @@ BOOST_concept(MoveConstructible, (T))
 {
     BOOST_CONCEPT_USAGE(MoveConstructible)
     {
+        BOOST_CONCEPT_ASSERT((Convertible<T, T>));
         T u = boost::declval<T>();
         __detail::__unuse(u);
         __detail::__unuse(T(boost::declval<T>()));
