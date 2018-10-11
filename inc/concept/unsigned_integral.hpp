@@ -18,7 +18,7 @@
 namespace stl_concept {
 
 /**
- * @addtogroup integral_group Integral Requirements
+ * @addtogroup core_group Core Language Requirements
  * @struct stl_concept::UnsignedIntegral
  * @brief Specifies that an instance of the type is a signed integral.
  *

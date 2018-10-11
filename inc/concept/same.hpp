@@ -1,9 +1,9 @@
 /** @file */
-#ifndef __STL_CONCEPT_INTEGRAL_HPP__
-#define __STL_CONCEPT_INTEGRAL_HPP__
+#ifndef __STL_CONCEPT_SAME_HPP__
+#define __STL_CONCEPT_SAME_HPP__
 
 #include <boost/static_assert.hpp>
-#include <boost/type_traits/is_integral.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 
@@ -18,25 +18,21 @@ namespace stl_concept {
 
 /**
  * @addtogroup core_group Core Language Requirements
- * @struct stl_concept::Integral
- * @brief Specifies that an instance of the type is an integral.
+ * @struct stl_concept::Same
+ * @brief Specifies that type T and type U denote the same type.
  *
- * <p>
- * <b>Requirements</b>
- * </p><p>
- * The type T satisfies <i>Integral</i> if and only if boost::is_integral<T>::value is true.
- * </p>
- * @tparam T - type to be checked
- * @see https://en.cppreference.com/w/cpp/experimental/ranges/concepts/Integral
+ * @tparam T - first type to be checked
+ * @tparam U - second type to be checked
+ * @see https://en.cppreference.com/w/cpp/experimental/ranges/concepts/Same
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct Integral {};
+template <typename T> struct Same {};
 #else // DOXYGEN_WORKING
-BOOST_concept(Integral, (T))
+BOOST_concept(Same, (T)(U))
 {
-    BOOST_CONCEPT_USAGE(Integral)
+    BOOST_CONCEPT_USAGE(Same)
     {
-        BOOST_STATIC_ASSERT_MSG(boost::is_integral<T>::value, "T must be an integral type");
+        BOOST_STATIC_ASSERT_MSG(boost::is_same<U, T>::value, "T and U must be the same type");
     }
 };
 #endif // DOXYGEN_WORKING
@@ -49,4 +45,4 @@ BOOST_concept(Integral, (T))
 
 #include <boost/concept/detail/concept_undef.hpp>
 
-#endif  // __STL_CONCEPT_INTEGRAL_HPP__
+#endif  // __STL_CONCEPT_SAME_HPP__
