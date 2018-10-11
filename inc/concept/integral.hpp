@@ -17,7 +17,7 @@
 namespace stl_concept {
 
 /**
- * @addtogroup core_group Core Language Requirements
+ * @addtogroup core_group Core Language Concepts
  * @struct stl_concept::Integral
  * @brief Specifies that an instance of the type is an integral.
  *
@@ -27,7 +27,7 @@ namespace stl_concept {
  * The type T satisfies <i>Integral</i> if and only if boost::is_integral<T>::value is true.
  * </p>
  * @tparam T - type to be checked
- * @see https://en.cppreference.com/w/cpp/experimental/ranges/concepts/Integral
+ * @see https://en.cppreference.com/w/cpp/concepts/Integral
  */
 #ifdef DOXYGEN_WORKING
 template <typename T> struct Integral {};

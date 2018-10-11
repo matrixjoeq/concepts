@@ -3,7 +3,7 @@
 #define __STL_CONCEPT_COPY_CONSTRUCTIBLE_HPP__
 
 #include "concept/move_constructible.hpp"
-#include "concept/convertible.hpp"
+#include "concept/convertible_to.hpp"
 #include <boost/type_traits/declval.hpp>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
@@ -21,7 +21,7 @@
 namespace stl_concept {
 
 /**
- * @addtogroup basic_group Basic Requirements
+ * @addtogroup core_group Core Language Concepts
  * @struct stl_concept::CopyConstructible
  * @brief Specifies that an instance of the type can be copy-constructed from an lvalue expression.
  *
@@ -66,7 +66,7 @@ private:
         T u = boost::declval<T&>();
         __detail::__unuse(u);
         __detail::__unuse(T(boost::declval<T&>()));
-        BOOST_CONCEPT_ASSERT((Convertible<T&, T>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<T&, T>));
     }
 
     void const_lvalue_constraints()
@@ -74,8 +74,8 @@ private:
         T u = boost::declval<const T&>();
         __detail::__unuse(u);
         __detail::__unuse(T(boost::declval<const T&>()));
-        BOOST_CONCEPT_ASSERT((Convertible<const T&, T>));
-        BOOST_CONCEPT_ASSERT((Convertible<const T, T>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<const T&, T>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<const T, T>));
     }
 
     void const_rvalue_constraints()

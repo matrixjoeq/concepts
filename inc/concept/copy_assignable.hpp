@@ -17,7 +17,7 @@
 namespace stl_concept {
 
 /**
- * @addtogroup basic_group Basic Requirements
+ * @addtogroup core_group Core Language Concepts
  * @struct stl_concept::CopyAssignable
  * @brief Specifies that an instance of the type can be copy-assigned from an lvalue expression.
  *

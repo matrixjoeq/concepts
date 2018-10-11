@@ -19,12 +19,12 @@
 namespace stl_concept {
 
 /**
- * @addtogroup core_group Core Language Requirements
+ * @addtogroup core_group Core Language Concepts
  * @struct stl_concept::DerivedFrom
  * @brief Specifies that type U is a class type that is either T or a public and unambiguous base of T.
  *
  * @tparam T - type to be checked
- * @see https://en.cppreference.com/w/cpp/experimental/ranges/concepts/DerivedFrom
+ * @see https://en.cppreference.com/w/cpp/concepts/DerivedFrom
  */
 #ifdef DOXYGEN_WORKING
 template <typename T> struct DerivedFrom {};

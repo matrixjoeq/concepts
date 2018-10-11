@@ -1,6 +1,6 @@
 /** @file */
-#ifndef __STL_CONCEPT_CONVERTIBLE_HPP__
-#define __STL_CONCEPT_CONVERTIBLE_HPP__
+#ifndef __STL_CONCEPT_CONVERTIBLE_TO_HPP__
+#define __STL_CONCEPT_CONVERTIBLE_TO_HPP__
 
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/declval.hpp>
@@ -19,13 +19,13 @@
 namespace stl_concept {
 
 /**
- * @addtogroup basic_group Basic Requirements
- * @class stl_concept::Convertible
+ * @addtogroup core_group Core Language Concepts
+ * @class stl_concept::ConvertibleTo
  * @brief Specifies that an expression of the type and value category specified by From can be implicitly and explicitly
  * converted to the type To, and the two forms of conversion are equivalent.
  *
  * <p>
- * Specifically, <i>Convertible</i> is satisfied only if, given the invented function
+ * Specifically, <i>ConvertibleTo</i> is satisfied only if, given the invented function
  * ```
  * To test(From (&f)())
  * {
@@ -33,7 +33,7 @@ namespace stl_concept {
  * }
  * ```
  * and a function f of type From () such that the expression f() is equality-preserving,
- * The type T satisfies <i>Convertible</i> if
+ * The type T satisfies <i>ConvertibleTo</i> if
  * <ul style="list-style-type:disc">
  *   <li>Either</li>
  *     <ul style="list-style-type:disc">
@@ -53,14 +53,14 @@ namespace stl_concept {
  * </p>
  * @tparam From - type to be converted from
  * @tparam To - type to be converted to
- * @see https://en.cppreference.com/w/cpp/experimental/ranges/concepts/ConvertibleTo
+ * @see https://en.cppreference.com/w/cpp/concepts/ConvertibleTo
  */
 #ifdef DOXYGEN_WORKING
-template <typename From, typename To> struct Convertible {};
+template <typename From, typename To> struct ConvertibleTo {};
 #else // DOXYGEN_WORKING
-BOOST_concept(Convertible, (From)(To))
+BOOST_concept(ConvertibleTo, (From)(To))
 {
-    BOOST_CONCEPT_USAGE(Convertible)
+    BOOST_CONCEPT_USAGE(ConvertibleTo)
     {
         BOOST_STATIC_ASSERT(boost::is_convertible<From, To>::value);
         convertible_constraints(boost::declval<_ConvertibleFuncRef>());
@@ -83,4 +83,4 @@ private:
 
 #include <boost/concept/detail/concept_undef.hpp>
 
-#endif  // __STL_CONCEPT_CONVERTIBLE_HPP__
+#endif  // __STL_CONCEPT_CONVERTIBLE_TO_HPP__

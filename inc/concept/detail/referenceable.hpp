@@ -25,7 +25,7 @@ namespace __detail {
  * <p>
  * <b>Requirements</b>
  * </p><p>
- * The type T satisfies <i>__Referenceable</i> if
+ * The type T satisfies <i>__Referenceable</i> if<br/>
  * Given
  * <ul style="list-style-type:disc">
  *   <li>t, an lvalue expression of type T</li>

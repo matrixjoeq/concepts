@@ -18,7 +18,7 @@
 namespace stl_concept {
 
 /**
- * @addtogroup core_group Core Language Requirements
+ * @addtogroup core_group Core Language Concepts
  * @struct stl_concept::UnsignedIntegral
  * @brief Specifies that an instance of the type is a signed integral.
  *
@@ -32,7 +32,7 @@ namespace stl_concept {
  * </ul>
   * </p>
  * @tparam T - type to be checked
- * @see https://en.cppreference.com/w/cpp/experimental/ranges/concepts/UnsignedIntegral
+ * @see https://en.cppreference.com/w/cpp/concepts/UnsignedIntegral
  */
 #ifdef DOXYGEN_WORKING
 template <typename T> struct UnsignedIntegral : Integral<T> {};

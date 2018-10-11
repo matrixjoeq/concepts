@@ -17,13 +17,13 @@
 namespace stl_concept {
 
 /**
- * @addtogroup core_group Core Language Requirements
+ * @addtogroup core_group Core Language Concepts
  * @struct stl_concept::Same
  * @brief Specifies that type T and type U denote the same type.
  *
  * @tparam T - first type to be checked
  * @tparam U - second type to be checked
- * @see https://en.cppreference.com/w/cpp/experimental/ranges/concepts/Same
+ * @see https://en.cppreference.com/w/cpp/concepts/Same
  */
 #ifdef DOXYGEN_WORKING
 template <typename T> struct Same {};
