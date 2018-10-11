@@ -6,6 +6,7 @@
 #include "concept/copy_assignable.hpp"
 #include "concept/destructible.hpp"
 #include "concept/swappable.hpp"
+#include "concept/weakly_incrementable.hpp"
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -58,13 +59,20 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/Iterator
  */
 #ifdef DOXYGEN_WORKING
-template <typename It> struct Iterator : CopyConstructible<It>, CopyAssignable<It>, Destructible<It>, Swappable<It> {};
+template <typename It> struct Iterator
+    : CopyConstructible<It>
+    , CopyAssignable<It>
+    , Destructible<It>
+    , Swappable<It>
+    , WeaklyIncrementable<It>
+{};
 #else // DOXYGEN_WORKING
 BOOST_concept(Iterator, (It))
     : CopyConstructible<It>
     , CopyAssignable<It>
     , Destructible<It>
     , Swappable<It>
+    , WeaklyIncrementable<It>
 {
     BOOST_CONCEPT_USAGE(Iterator)
     {
