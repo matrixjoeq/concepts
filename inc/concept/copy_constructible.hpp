@@ -3,7 +3,9 @@
 #define __STL_CONCEPT_COPY_CONSTRUCTIBLE_HPP__
 
 #include "concept/move_constructible.hpp"
+#include "concept/convertible.hpp"
 #include <boost/type_traits/declval.hpp>
+#include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 
@@ -64,6 +66,7 @@ private:
         T u = boost::declval<T&>();
         __detail::__unuse(u);
         __detail::__unuse(T(boost::declval<T&>()));
+        BOOST_CONCEPT_ASSERT((Convertible<T&, T>));
     }
 
     void const_lvalue_constraints()
@@ -71,6 +74,8 @@ private:
         T u = boost::declval<const T&>();
         __detail::__unuse(u);
         __detail::__unuse(T(boost::declval<const T&>()));
+        BOOST_CONCEPT_ASSERT((Convertible<const T&, T>));
+        BOOST_CONCEPT_ASSERT((Convertible<const T, T>));
     }
 
     void const_rvalue_constraints()
