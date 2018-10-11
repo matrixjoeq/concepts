@@ -31,7 +31,7 @@ namespace stl_concept {
  *
  * <p>
  * An example of a type that implements <i>OutputIterator</i> is std::ostream_iterator.<br/>
- * When <i>ForwardIterator</i>, <i>BidirectionalIterator</i>, or <i>RandomAccessIterator<i> satisfies the
+ * When <i>ForwardIterator</i>, <i>BidirectionalIterator</i>, or <i>RandomAccessIterator</i> satisfies the
  * <i>OutputIterator</i> requirements in addition to its own requirements, it is described as mutable.
  * </p><p>
  * <b>Requirements</b>
