@@ -18,7 +18,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup iterator_group Iterator Requirements
- * @class stl_concept::WeaklyIncrementable
+ * @struct stl_concept::WeaklyIncrementable
  * @brief Specifies the requirements on a type that can be incremented (with the pre- and post-increment operators).
  *
  * <p>
