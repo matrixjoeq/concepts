@@ -28,9 +28,9 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/Semiregular
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct Semiregular : Semiregular<T>, DefaultConstructible<T> {};
+template <typename T> struct Semiregular : Copyable<T>, DefaultConstructible<T> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(Semiregular, (T)) : Semiregular<T>, DefaultConstructible<T> {};
+BOOST_concept(Semiregular, (T)) : Copyable<T>, DefaultConstructible<T> {};
 #endif // DOXYGEN_WORKING
 
 } // namespace stl_concept
