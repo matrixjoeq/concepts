@@ -2,10 +2,11 @@
 #ifndef __STL_CONCEPT_LESS_THAN_COMPARABLE_HPP__
 #define __STL_CONCEPT_LESS_THAN_COMPARABLE_HPP__
 
+#include "concept/convertible_to.hpp"
 #include <boost/type_traits/remove_const.hpp>
+#include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
-#include "concept/detail/require_expr_convertible_to.hpp"
 
 #if (defined _MSC_VER)
 #pragma warning(push)
@@ -53,7 +54,7 @@ BOOST_concept(LessThanComparable, (T))
 {
     BOOST_CONCEPT_USAGE(LessThanComparable)
     {
-        __detail::__require_expr_convertible_to<bool>(a_ < b_);
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(a_ < b_), bool>));
         const_constraints(a_, b_);
     }
 
@@ -62,7 +63,7 @@ private:
 
     void const_constraints(const _Tp& x, const _Tp& y)
     {
-        __detail::__require_expr_convertible_to<bool>(x < y);
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(x < y), bool>));
     }
 
     _Tp a_;

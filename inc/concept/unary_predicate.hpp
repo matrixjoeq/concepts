@@ -2,14 +2,15 @@
 #ifndef __STL_CONCEPT_UNARY_PREDICATE_HPP__
 #define __STL_CONCEPT_UNARY_PREDICATE_HPP__
 
+#include "concept/convertible_to.hpp"
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/add_lvalue_reference.hpp>
 #include <boost/type_traits/declval.hpp>
 #include <boost/type_traits/is_object.hpp>
+#include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
-#include "concept/detail/require_expr_convertible_to.hpp"
 
 #if (defined _MSC_VER)
 #pragma warning(push)
@@ -43,7 +44,7 @@ BOOST_concept(UnaryPredicate, (Func)(Arg))
     BOOST_CONCEPT_USAGE(UnaryPredicate)
     {
         BOOST_STATIC_ASSERT_MSG(boost::is_object<Func>::value, "Type is not object");
-        __detail::__require_expr_convertible_to<bool>(predicate_(boost::declval<_ArgType>()));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(predicate_(boost::declval<_ArgType>())), bool>));
     }
 
 private:

@@ -3,6 +3,7 @@
 #define __STL_CONCEPT_NULLABLE_POINTER_HPP__
 
 #include "concept/same.hpp"
+#include "concept/convertible_to.hpp"
 #include "concept/copy_assignable.hpp"
 #include "concept/copy_constructible.hpp"
 #include "concept/default_constructible.hpp"
@@ -12,7 +13,6 @@
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 #include "concept/detail/unuse.hpp"
-#include "concept/detail/require_expr_convertible_to.hpp"
 
 #if (defined _MSC_VER)
 #pragma warning(push)
@@ -73,12 +73,12 @@ BOOST_concept(NullablePointer, (T))
         T q = nullptr;
         __detail::__unuse(T(nullptr));
 
-        __detail::__require_expr_convertible_to<bool>(p == q);
-        __detail::__require_expr_convertible_to<bool>(p != q);
-        __detail::__require_expr_convertible_to<bool>(p == nullptr);
-        __detail::__require_expr_convertible_to<bool>(nullptr == p);
-        __detail::__require_expr_convertible_to<bool>(p != nullptr);
-        __detail::__require_expr_convertible_to<bool>(nullptr != p);
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(p == q), bool>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(p != q), bool>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(p == nullptr), bool>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(nullptr == p), bool>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(p != nullptr), bool>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(nullptr != p), bool>));
 
         __detail::__unuse(p = nullptr);
         BOOST_CONCEPT_ASSERT((Same<decltype(p = nullptr), T&>));
