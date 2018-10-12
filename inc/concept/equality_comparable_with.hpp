@@ -2,7 +2,7 @@
 #ifndef __STL_CONCEPT_EQUALITY_COMPARABLE_WITH_HPP__
 #define __STL_CONCEPT_EQUALITY_COMPARABLE_WITH_HPP__
 
-#include "concept/weakly_equality_comparable.hpp"
+#include "concept/weakly_equality_comparable_with.hpp"
 #include "concept/equality_comparable.hpp"
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/concept/assert.hpp>
