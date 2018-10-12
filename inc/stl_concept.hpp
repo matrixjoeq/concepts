@@ -43,6 +43,7 @@
 #include "concept/binary_predicate.hpp"
 #include "concept/binary_function.hpp"
 #include "concept/weakly_incrementable.hpp"
+#include "concept/incrementable.hpp"
 #include "concept/iterator.hpp"
 #include "concept/input_iterator.hpp"
 #include "concept/output_iterator.hpp"
