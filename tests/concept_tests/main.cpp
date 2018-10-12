@@ -36,6 +36,7 @@ int main()
     iterator_check();
     input_iterator_check();
     output_iterator_check();
+    forward_iterator_check();
 
     return 0;
 }
