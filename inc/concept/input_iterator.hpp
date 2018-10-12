@@ -71,8 +71,6 @@ BOOST_concept(InputIterator, (It)) : EqualityComparable<It>, Iterator<It>
 
         BOOST_CONCEPT_ASSERT((SignedIntegral<_DifferenceType>));
         BOOST_CONCEPT_ASSERT((DerivedFrom<_CategoryType, std::input_iterator_tag>));
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(iter_i_ != iter_j_), bool>));
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(iter_i_ == iter_j_), bool>));
         BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(*iter_i_), _ValueType>));
     }
 

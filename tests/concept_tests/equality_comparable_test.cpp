@@ -14,6 +14,11 @@ using BasicTL = mpl::vector<
     //mpl::identity<const volatile EqualType>
 >;
 
+using ReferenceTL = mpl::vector<
+    mpl::identity<EqualType&>,
+    mpl::identity<const EqualType&>
+>;
+
 using PointerTL = mpl::vector<
     mpl::identity<EqualType*>,
     mpl::identity<const EqualType*>,
@@ -76,6 +81,7 @@ struct ConceptChecker
 void equality_comparable_check()
 {
     mpl::for_each<BasicTL>(ConceptChecker());
+    mpl::for_each<ReferenceTL>(ConceptChecker());
     mpl::for_each<PointerTL>(ConceptChecker());
     mpl::for_each<BasicArrayTL>(ConceptChecker());
     mpl::for_each<PointerArrayTL>(ConceptChecker());

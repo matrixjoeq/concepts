@@ -2,7 +2,8 @@
 #ifndef __STL_CONCEPT_EQUALITY_COMPARABLE_WITH_HPP__
 #define __STL_CONCEPT_EQUALITY_COMPARABLE_WITH_HPP__
 
-#include "concept/convertible_to.hpp"
+#include "concept/weakly_equality_comparable.hpp"
+#include "concept/equality_comparable.hpp"
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
@@ -50,29 +51,15 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/EqualityComparable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T, typename U> struct EqualityComparableWith {};
+template <typename T, typename U> struct EqualityComparableWith : WeaklyEqualityComparableWith<T, U> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(EqualityComparableWith, (T)(U))
+BOOST_concept(EqualityComparableWith, (T)(U)) : WeaklyEqualityComparableWith<T, U>
 {
     BOOST_CONCEPT_USAGE(EqualityComparableWith)
     {
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(a_ == b_), bool>));
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(b_ == a_), bool>));
-        const_constraints(a_, b_);
+        BOOST_CONCEPT_ASSERT((EqualityComparable<T>));
+        BOOST_CONCEPT_ASSERT((EqualityComparable<U>));
     }
-
-private:
-    using _Tp = boost::remove_const_t<T>;
-    using _Up = boost::remove_const_t<U>;
-
-    void const_constraints(const _Tp& x, const _Up& y)
-    {
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(x == y), bool>));
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(y == x), bool>));
-    }
-
-    _Tp a_;
-    _Up b_;
 };
 #endif // DOXYGEN_WORKING
 

@@ -2,7 +2,7 @@
 #ifndef __STL_CONCEPT_EQUALITY_COMPARABLE_HPP__
 #define __STL_CONCEPT_EQUALITY_COMPARABLE_HPP__
 
-#include "concept/equality_comparable_with.hpp"
+#include "concept/weakly_equality_comparable_with.hpp"
 #include <boost/concept/detail/concept_def.hpp>
 
 #if (defined _MSC_VER)
@@ -44,9 +44,9 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/EqualityComparable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct EqualityComparable : EqualityComparableWith<T, T> {};
+template <typename T> struct EqualityComparable : WeaklyEqualityComparableWith<T, T> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(EqualityComparable, (T)) : EqualityComparableWith<T, T> {};
+BOOST_concept(EqualityComparable, (T)) : WeaklyEqualityComparableWith<T, T> {};
 #endif // DOXYGEN_WORKING
 
 } // namespace stl_concept

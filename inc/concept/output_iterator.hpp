@@ -71,9 +71,9 @@ BOOST_concept(OutputIterator, (It)(ValueType)) : Iterator<It>
         BOOST_STATIC_ASSERT_MSG(boost::is_object<It>::value || boost::is_pointer<It>::value,
                                 "Type is neither object nor pointer");
         BOOST_CONCEPT_ASSERT((Same<decltype(++iter_r_), It&>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(iter_r_++), _ConstItRefType>));
         __detail::__unuse(*iter_r_ = value_);
         __detail::__unuse(++iter_r_);
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(iter_r_++), _ConstItRefType>));
         __detail::__unuse(*iter_r_++ = value_);
     }
 
