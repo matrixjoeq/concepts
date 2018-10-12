@@ -6,10 +6,6 @@
 #include "concept/move_constructible.hpp"
 #include "concept/move_assignable.hpp"
 #include "concept/swappable.hpp"
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/is_object.hpp>
-#include <boost/concept/assert.hpp>
-#include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 
 #if (defined _MSC_VER)
