@@ -15,11 +15,14 @@ int main()
     move_assignable_check();
     copy_assignable_check();
     assignable_check();
+    swappable_check();
+
+    // object group
+    movable_check();
 
     // library-wide group
     equality_comparable_check();
     less_comparable_check();
-    swappable_check();
     value_swappable_check();
     nullable_pointer_check();
     function_object_check();

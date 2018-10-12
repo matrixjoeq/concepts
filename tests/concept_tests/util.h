@@ -91,11 +91,14 @@ void copy_constructible_check();
 void move_assignable_check();
 void copy_assignable_check();
 void assignable_check();
+void swappable_check();
+
+// object group
+void movable_check();
 
 // library-wide group
 void equality_comparable_check();
 void less_comparable_check();
-void swappable_check();
 void value_swappable_check();
 void nullable_pointer_check();
 void function_object_check();
