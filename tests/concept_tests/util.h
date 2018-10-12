@@ -95,6 +95,7 @@ void swappable_check();
 
 // object group
 void movable_check();
+void copyable_check();
 
 // library-wide group
 void equality_comparable_check();

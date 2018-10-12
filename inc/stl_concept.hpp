@@ -26,6 +26,7 @@
 #include "concept/swappable_with.hpp"
 #include "concept/swappable.hpp"
 #include "concept/movable.hpp"
+#include "concept/copyable.hpp"
 #include "concept/equality_comparable_with.hpp"
 #include "concept/equality_comparable.hpp"
 #include "concept/less_than_comparable.hpp"

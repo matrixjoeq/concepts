@@ -19,6 +19,7 @@ int main()
 
     // object group
     movable_check();
+    copyable_check();
 
     // library-wide group
     equality_comparable_check();
