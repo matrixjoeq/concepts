@@ -8,12 +8,13 @@ int main()
     // These check functions are not necessary to be called, not even to be public.
     // However, linkage of these functions help to detect if certain concept check is missed.
 
-    // basic group
+    // core group
     default_constructible_check();
     move_constructible_check();
     copy_constructible_check();
     move_assignable_check();
     copy_assignable_check();
+    assignable_check();
 
     // library-wide group
     equality_comparable_check();

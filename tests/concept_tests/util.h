@@ -84,12 +84,13 @@ struct HashFunctor<DefaultType>
     }
 };
 
-// basic group
+// core group
 void default_constructible_check();
 void move_constructible_check();
 void copy_constructible_check();
 void move_assignable_check();
 void copy_assignable_check();
+void assignable_check();
 
 // library-wide group
 void equality_comparable_check();
