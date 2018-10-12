@@ -48,7 +48,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL Windows)
     #/wd4244 - conversion' conversion from 'type1' to 'type2', possible loss of data
     #/wd4267 - var' : conversion from 'size_t' to 'type', possible loss of data
     #/wd4800 - forcing value to bool (performance warning)
-    SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4244 /wd4267 /wd4800")
+    #SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4244 /wd4267 /wd4800")
     add_definitions(-D_ENABLE_ATOMIC_ALIGNMENT_FIX)
 endif()
 
