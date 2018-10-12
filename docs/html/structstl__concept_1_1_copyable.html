@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>STL Concepts: stl_concept::Movable&lt; T &gt; Struct Template Reference</title>
+<title>STL Concepts: stl_concept::Copyable&lt; T &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,47 +61,51 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>stl_concept</b></li><li class="navelem"><a class="el" href="structstl__concept_1_1_movable.html">Movable</a></li>  </ul>
+<li class="navelem"><b>stl_concept</b></li><li class="navelem"><a class="el" href="structstl__concept_1_1_copyable.html">Copyable</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">stl_concept::Movable&lt; T &gt; Struct Template Reference</div>  </div>
+<div class="title">stl_concept::Copyable&lt; T &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Specifies that T is an object type that can moved (i.e. it can be move constructed, move assigned, and lvalues of type T can be swapped).  
- <a href="structstl__concept_1_1_movable.html#details">More...</a></p>
+<p>Specifies that T is an <em><a class="el" href="structstl__concept_1_1_movable.html" title="Specifies that T is an object type that can moved (i.e. it can be move constructed, move assigned, and lvalues of type T can be swapped). ">Movable</a></em> object type that can also copied (i.e. it supports copy construction and copy assignment).  
+ <a href="structstl__concept_1_1_copyable.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="movable_8hpp_source.html">movable.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="copyable_8hpp_source.html">copyable.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for stl_concept::Movable&lt; T &gt;:</div>
+Inheritance diagram for stl_concept::Copyable&lt; T &gt;:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="structstl__concept_1_1_movable.png" usemap="#stl_5Fconcept::Movable_3C_20T_20_3E_map" alt=""/>
-  <map id="stl_5Fconcept::Movable_3C_20T_20_3E_map" name="stl_5Fconcept::Movable_3C_20T_20_3E_map">
+  <img src="structstl__concept_1_1_copyable.png" usemap="#stl_5Fconcept::Copyable_3C_20T_20_3E_map" alt=""/>
+  <map id="stl_5Fconcept::Copyable_3C_20T_20_3E_map" name="stl_5Fconcept::Copyable_3C_20T_20_3E_map">
+<area href="structstl__concept_1_1_movable.html" title="Specifies that T is an object type that can moved (i.e. it can be move constructed, move assigned, and lvalues of type T can be swapped). " alt="stl_concept::Movable&lt; T &gt;" shape="rect" coords="343,112,562,136"/>
+<area href="structstl__concept_1_1_copy_constructible.html" title="Specifies that an instance of the type can be copy-constructed from an lvalue expression. " alt="stl_concept::CopyConstructible&lt; T &gt;" shape="rect" coords="916,112,1135,136"/>
+<area href="structstl__concept_1_1_copy_assignable.html" title="Specifies that an instance of the type can be copy-assigned from an lvalue expression. " alt="stl_concept::CopyAssignable&lt; T &gt;" shape="rect" coords="1145,112,1364,136"/>
 <area href="structstl__concept_1_1_object.html" title="Specifies that T is an object type. " alt="stl_concept::Object&lt; T &gt;" shape="rect" coords="0,56,219,80"/>
 <area href="structstl__concept_1_1_move_constructible.html" title="Specifies that an instance of the type can be constructed from an rvalue argument. " alt="stl_concept::MoveConstructible&lt; T &gt;" shape="rect" coords="229,56,448,80"/>
 <area href="structstl__concept_1_1_move_assignable.html" title="Specifies that an instance of the type can be assigned from an rvalue argument. " alt="stl_concept::MoveAssignable&lt; T &gt;" shape="rect" coords="458,56,677,80"/>
 <area href="structstl__concept_1_1_swappable.html" title="Specifies that lvalues of type T are swappable. " alt="stl_concept::Swappable&lt; T &gt;" shape="rect" coords="687,56,906,80"/>
+<area href="structstl__concept_1_1_move_constructible.html" title="Specifies that an instance of the type can be constructed from an rvalue argument. " alt="stl_concept::MoveConstructible&lt; T &gt;" shape="rect" coords="916,56,1135,80"/>
+<area href="structstl__concept_1_1_move_assignable.html" title="Specifies that an instance of the type can be assigned from an rvalue argument. " alt="stl_concept::MoveAssignable&lt; T &gt;" shape="rect" coords="1145,56,1364,80"/>
 <area href="structstl__concept_1_1_swappable_with.html" alt="stl_concept::SwappableWith&lt; T, T &gt;" shape="rect" coords="687,0,906,24"/>
-<area href="structstl__concept_1_1_copyable.html" title="Specifies that T is an Movable object type that can also copied (i.e. it supports copy construction a..." alt="stl_concept::Copyable&lt; T &gt;" shape="rect" coords="343,168,562,192"/>
 </map>
  </div></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
-struct stl_concept::Movable&lt; T &gt;</h3>
+struct stl_concept::Copyable&lt; T &gt;</h3>
 
-<p>Specifies that T is an object type that can moved (i.e. it can be move constructed, move assigned, and lvalues of type T can be swapped). </p>
+<p>Specifies that T is an <em><a class="el" href="structstl__concept_1_1_movable.html" title="Specifies that T is an object type that can moved (i.e. it can be move constructed, move assigned, and lvalues of type T can be swapped). ">Movable</a></em> object type that can also copied (i.e. it supports copy construction and copy assignment). </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>- type to be checked </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a href="https://en.cppreference.com/w/cpp/concepts/Movable">https://en.cppreference.com/w/cpp/concepts/Movable</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://en.cppreference.com/w/cpp/concepts/Copyable">https://en.cppreference.com/w/cpp/concepts/Copyable</a> </dd></dl>
 </div><hr/>The documentation for this struct was generated from the following file:<ul>
-<li>inc/concept/<a class="el" href="movable_8hpp_source.html">movable.hpp</a></li>
+<li>inc/concept/<a class="el" href="copyable_8hpp_source.html">copyable.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
