@@ -2,16 +2,17 @@
 #ifndef __STL_CONCEPT_NULLABLE_POINTER_HPP__
 #define __STL_CONCEPT_NULLABLE_POINTER_HPP__
 
+#include "concept/same.hpp"
 #include "concept/copy_assignable.hpp"
 #include "concept/copy_constructible.hpp"
 #include "concept/default_constructible.hpp"
 #include "concept/destructible.hpp"
 #include "concept/equality_comparable.hpp"
+#include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 #include "concept/detail/unuse.hpp"
 #include "concept/detail/require_expr_convertible_to.hpp"
-#include "concept/detail/require_same_type.hpp"
 
 #if (defined _MSC_VER)
 #pragma warning(push)
@@ -80,7 +81,7 @@ BOOST_concept(NullablePointer, (T))
         __detail::__require_expr_convertible_to<bool>(nullptr != p);
 
         __detail::__unuse(p = nullptr);
-        __detail::__require_same_type<decltype(p = nullptr), T&>();
+        BOOST_CONCEPT_ASSERT((Same<decltype(p = nullptr), T&>));
     }
 };
 #endif // DOXYGEN_WORKING

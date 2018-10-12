@@ -2,6 +2,7 @@
 #ifndef __STL_CONCEPT_OUTPUT_ITERATOR_HPP__
 #define __STL_CONCEPT_OUTPUT_ITERATOR_HPP__
 
+#include "concept/same.hpp"
 #include "concept/iterator.hpp"
 #include <boost/static_assert.hpp>
 #include <boost/iterator/iterator_traits.hpp>
@@ -9,10 +10,10 @@
 #include <boost/type_traits/add_lvalue_reference.hpp>
 #include <boost/type_traits/is_object.hpp>
 #include <boost/type_traits/is_pointer.hpp>
+#include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 #include "concept/detail/require_expr_convertible_to.hpp"
-#include "concept/detail/require_same_type.hpp"
 #include "concept/detail/unuse.hpp"
 
 #if (defined _MSC_VER)
@@ -69,8 +70,8 @@ BOOST_concept(OutputIterator, (It)(ValueType)) : Iterator<It>
     {
         BOOST_STATIC_ASSERT_MSG(boost::is_object<It>::value || boost::is_pointer<It>::value,
                                 "Type is neither object nor pointer");
+        BOOST_CONCEPT_ASSERT((Same<decltype(++iter_r_), It&>));
         __detail::__unuse(*iter_r_ = value_);
-        __detail::__require_same_type<decltype(++iter_r_), It&>();
         __detail::__unuse(++iter_r_);
         __detail::__require_expr_convertible_to<_ConstItRefType>(iter_r_++);
         __detail::__unuse(*iter_r_++ = value_);
