@@ -2,6 +2,7 @@
 #ifndef __STL_CONCEPT_FORWARD_ITERATOR_HPP__
 #define __STL_CONCEPT_FORWARD_ITERATOR_HPP__
 
+#include "concept/convertible_to.hpp"
 #include "concept/derived_from.hpp"
 #include "concept/input_iterator.hpp"
 #include "concept/incrementable.hpp"
@@ -38,6 +39,7 @@ namespace stl_concept {
  * </p>
  * @tparam It - type to be checked
  * @see https://en.cppreference.com/w/cpp/named_req/ForwardIterator
+ * @see https://en.cppreference.com/w/cpp/experimental/ranges/iterator/ForwardIterator
  */
 #ifdef DOXYGEN_WORKING
 template <typename It> struct ForwardIterator : InputIterator<It>, Incrementable<It> {};
@@ -46,7 +48,18 @@ BOOST_concept(ForwardIterator, (It)) : InputIterator<It>, Incrementable<It>
 {
     BOOST_CONCEPT_USAGE(ForwardIterator)
     {
+        using _ValueType = typename boost::iterator_value<It>::type;
+        using _ReferenceType = typename boost::iterator_reference<It>::type;
         using _CategoryType = typename boost::iterator_category<It>::type;
+        // According to C++ named requirements for ForwardIterator,
+        // if It satisfies OutputIterator as well, _ReferenceType should be exactly _ValueType&,
+        // otherwise, it should be exactly const _ValueType&.
+        // However, it is not possible for boost concept to be applied to enable_if for static dispatch.
+        // The only way to check if It satisfies OutputIterator is to use BOOST_CONCEPT_ASSERT macro,
+        // which will cause compile failure if it does not meet the requirement.
+        // So the compromising requirement for _ReferenceType is to check if it can be converted to const _ValueType&.
+        // And add another concept called MutableForwardIterator, which set strict requirements on it.
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<_ReferenceType, const _ValueType&>));
         BOOST_CONCEPT_ASSERT((DerivedFrom<_CategoryType, std::forward_iterator_tag>));
     }
 };
