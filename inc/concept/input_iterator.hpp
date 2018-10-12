@@ -2,10 +2,12 @@
 #ifndef __STL_CONCEPT_INPUT_ITERATOR_HPP__
 #define __STL_CONCEPT_INPUT_ITERATOR_HPP__
 
+#include "concept/derived_from.hpp"
 #include "concept/convertible_to.hpp"
 #include "concept/signed_integral.hpp"
 #include "concept/equality_comparable.hpp"
 #include "concept/iterator.hpp"
+#include <iterator>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
@@ -65,8 +67,10 @@ BOOST_concept(InputIterator, (It)) : EqualityComparable<It>, Iterator<It>
     {
         using _ValueType = typename boost::iterator_value<It>::type;
         using _DifferenceType = typename boost::iterator_difference<It>::type;
+        using _CategoryType = typename boost::iterator_category<It>::type;
 
         BOOST_CONCEPT_ASSERT((SignedIntegral<_DifferenceType>));
+        BOOST_CONCEPT_ASSERT((DerivedFrom<_CategoryType, std::input_iterator_tag>));
         BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(iter_i_ != iter_j_), bool>));
         BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(iter_i_ == iter_j_), bool>));
         BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(*iter_i_), _ValueType>));
