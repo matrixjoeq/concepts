@@ -33,8 +33,8 @@ namespace stl_concept {
  *   <li>If bool(a == b) then bool(a++ == b)</li>
  *   <li>If bool(a == b) then bool(void(a++), a) == ++b)</li>
  * </ul>
- * Unlike <i>Incrementable</i> concept in Ranges TS <i>Regular</i> concept requirement is moved to
- * <i>ForwardIterator</i> concept.
+ * Unlike <i>Incrementable</i> concept in Ranges TS, post-increment operator return type is It in C++ named requirements,
+ * not It&&.
  * </p>
  * @tparam It - iterator type to be checked
  * @see https://en.cppreference.com/w/cpp/experimental/ranges/iterator/Incrementable
@@ -46,7 +46,7 @@ BOOST_concept(Incrementable, (It)) : WeaklyIncrementable<It>
 {
     BOOST_CONCEPT_USAGE(Incrementable)
     {
-        BOOST_CONCEPT_ASSERT((Same<decltype(iter_++), It&&>));
+        BOOST_CONCEPT_ASSERT((Same<decltype(iter_++), It>));
     }
 
 private:
