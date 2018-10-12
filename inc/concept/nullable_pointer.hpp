@@ -64,11 +64,7 @@ template <typename T> struct NullablePointer
     : EqualityComparable<T>, DefaultConstructible<T>, CopyConstructible<T>, CopyAssignable<T>, Destructible<T> {};
 #else // DOXYGEN_WORKING
 BOOST_concept(NullablePointer, (T))
-    : EqualityComparable<T>
-    , DefaultConstructible<T>
-    , CopyConstructible<T>
-    , CopyAssignable<T>
-    , Destructible<T>
+    : EqualityComparable<T>, DefaultConstructible<T>, CopyConstructible<T>, CopyAssignable<T>, Destructible<T>
 {
     BOOST_CONCEPT_USAGE(NullablePointer)
     {

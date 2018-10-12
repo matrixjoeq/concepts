@@ -1,6 +1,6 @@
 /** @file */
-#ifndef __STL_CONCEPT_DETAIL_REFERENCEABLE_HPP__
-#define __STL_CONCEPT_DETAIL_REFERENCEABLE_HPP__
+#ifndef __STL_CONCEPT_REFERENCEABLE_HPP__
+#define __STL_CONCEPT_REFERENCEABLE_HPP__
 
 #include <boost/type_traits/remove_cv_ref.hpp>
 #include <boost/concept/usage.hpp>
@@ -15,17 +15,16 @@
 #endif
 
 namespace stl_concept {
-namespace __detail {
 
-/// @cond DEV
 /**
- * @struct stl_concept::__detail::__Referenceable
+ * @addtogroup core_group Core Language Concepts
+ * @struct stl_concept::Referenceable
  * @brief Specifies that an instance of the type can be referenced.
  *
  * <p>
  * <b>Requirements</b>
  * </p><p>
- * The type T satisfies <i>__Referenceable</i> if<br/>
+ * The type T satisfies <i>Referenceable</i> if<br/>
  * Given
  * <ul style="list-style-type:disc">
  *   <li>t, an lvalue expression of type T</li>
@@ -41,11 +40,11 @@ namespace __detail {
  * @tparam T - type to be checked
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct __Referenceable {};
+template <typename T> struct Referenceable {};
 #else // DOXYGEN_WORKING
-BOOST_concept(__Referenceable, (T))
+BOOST_concept(Referenceable, (T))
 {
-    BOOST_CONCEPT_USAGE(__Referenceable)
+    BOOST_CONCEPT_USAGE(Referenceable)
     {
         _Tp& r = t_;
         __detail::__unuse(r);
@@ -56,13 +55,11 @@ private:
     _Tp t_;
 };
 #endif // DOXYGEN_WORKING
-/// @endcond
 
-template <class T> struct __Referenceable<T[]> {};
-template <class T, size_t N> struct __Referenceable<T[N]> {};
-template <class R, class... Args> struct __Referenceable<R(Args...)> {};
+template <class T> struct Referenceable<T[]> {};
+template <class T, size_t N> struct Referenceable<T[N]> {};
+template <class R, class... Args> struct Referenceable<R(Args...)> {};
 
-} // namespace __detail
 } // namespace stl_concept
 
 #if (defined _MSC_VER)
@@ -71,4 +68,4 @@ template <class R, class... Args> struct __Referenceable<R(Args...)> {};
 
 #include <boost/concept/detail/concept_undef.hpp>
 
-#endif  // __STL_CONCEPT_DETAIL_REFERENCEABLE_HPP__
+#endif  // __STL_CONCEPT_REFERENCEABLE_HPP__

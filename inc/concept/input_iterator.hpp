@@ -2,8 +2,8 @@
 #ifndef __STL_CONCEPT_INPUT_ITERATOR_HPP__
 #define __STL_CONCEPT_INPUT_ITERATOR_HPP__
 
-#include "concept/equality_comparable.hpp"
 #include "concept/signed_integral.hpp"
+#include "concept/equality_comparable.hpp"
 #include "concept/iterator.hpp"
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/concept/usage.hpp>
@@ -56,11 +56,9 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/InputIterator
  */
 #ifdef DOXYGEN_WORKING
-template <typename It> struct InputIterator : Iterator<It>, EqualityComparable<It> {};
+template <typename It> struct InputIterator : EqualityComparable<It>, Iterator<It> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(InputIterator, (It))
-    : Iterator<It>
-    , EqualityComparable<It>
+BOOST_concept(InputIterator, (It)) : EqualityComparable<It>, Iterator<It>
 {
     BOOST_CONCEPT_USAGE(InputIterator)
     {

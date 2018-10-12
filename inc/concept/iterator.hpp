@@ -6,6 +6,7 @@
 #include "concept/copy_assignable.hpp"
 #include "concept/destructible.hpp"
 #include "concept/swappable.hpp"
+#include "concept/dereferenceable.hpp"
 #include "concept/weakly_incrementable.hpp"
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/concept/usage.hpp>
@@ -64,31 +65,23 @@ template <typename It> struct Iterator
     , CopyAssignable<It>
     , Destructible<It>
     , Swappable<It>
-    , WeaklyIncrementable<It>
-{};
+    , Dereferenceable<It>
+    , WeaklyIncrementable<It> {};
 #else // DOXYGEN_WORKING
 BOOST_concept(Iterator, (It))
     : CopyConstructible<It>
     , CopyAssignable<It>
     , Destructible<It>
     , Swappable<It>
+    , Dereferenceable<It>
     , WeaklyIncrementable<It>
 {
-    BOOST_CONCEPT_USAGE(Iterator)
-    {
-        __detail::__unuse(*iter_);
-        __detail::__require_same_type<decltype(++iter_), It&>();
-        __detail::__unuse(++iter_);
-    }
-
 private:
     using _ValueType = typename boost::iterator_value<It>::type;
     using _DifferenceType = typename boost::iterator_difference<It>::type;
     using _ReferenceType = typename boost::iterator_reference<It>::type;
     using _PointerType = typename boost::iterator_pointer<It>::type;
     using _CategoryType = typename boost::iterator_category<It>::type;
-
-    It iter_;
 };
 #endif // DOXYGEN_WORKING
 

@@ -9,7 +9,7 @@
 #include <utility>
 #endif // __cplusplus < 201103L
 
-#include "concept/detail/referenceable.hpp"
+#include "concept/referenceable.hpp"
 #include <boost/type_traits/declval.hpp>
 #include <boost/type_traits/remove_cv_ref.hpp>
 #include <boost/concept/usage.hpp>
@@ -54,8 +54,8 @@ BOOST_concept(SwappableWith, (T)(U))
     {
         using std::swap;
 
-        BOOST_CONCEPT_ASSERT((__detail::__Referenceable<T>));
-        BOOST_CONCEPT_ASSERT((__detail::__Referenceable<U>));
+        BOOST_CONCEPT_ASSERT((Referenceable<T>));
+        BOOST_CONCEPT_ASSERT((Referenceable<U>));
         swap(boost::declval<T&>(), boost::declval<T&>());
         swap(boost::declval<U&>(), boost::declval<U&>());
         swap(boost::declval<T&>(), boost::declval<U&>());

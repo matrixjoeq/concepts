@@ -2,9 +2,10 @@
 #ifndef __STL_CONCEPT_WEAKLY_INCREMENTABLE_HPP__
 #define __STL_CONCEPT_WEAKLY_INCREMENTABLE_HPP__
 
+#include "concept/same.hpp"
+#include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
-#include "concept/detail/require_same_type.hpp"
 #include "concept/detail/unuse.hpp"
 
 #if (defined _MSC_VER)
@@ -28,13 +29,19 @@ namespace stl_concept {
  * Let i be an object of type It. i is said to be incrementable if it is in the domain of both pre- and post-increment.
  * <i>WeaklyIncrementable</i> is satisfied only if:
  * <ul style="list-style-type:disc">
- *   <li>The type It satisfies <i>CopyConstructible</i>, and</li>
- *   <li>The type It satisfies <i>CopyAssignable</i>, and</li>
- *   <li>The type It satisfies <i>Destructible</i>, and</li>
- *   <li>lvalues of type It satisfy <i>Swappable</i>, and</li>
- *   <li>std::iterator_traits<It> has member typedefs value_type, difference_type, reference, pointer, and
- *       iterator_category , and</li>
+ *   <li>++i and i++ have the same domain</li>
+ *   <li>If i is incrementable, then:</li>
+ *     <ul style="list-style-type:disc">
+ *       <li>++i and i++ both advance i to the next element, and</li>
+ *       <li>++i refers to the same object as i</li>
+ *     </ul>
  * </ul>
+ * Unlike <i>WeaklyIncrementable</i> concept in Ranges TS, member type difference_type in iterator is not required to be
+ * <i>SignedIntegral</i>.<br/>
+ * Because output iterator may define void as difference_type, this requirment is moved to <i>InputIterator</i> concept.
+ * <br/>
+ * <i>Semiregular</i> concept requirement is also moved to <i>InputIterator</i> concept, because output iterator may not
+ * be copyable or default constructible.
  * </p>
  * @tparam It - iterator type to be checked
  * @see https://en.cppreference.com/w/cpp/experimental/ranges/iterator/WeaklyIncrementable
@@ -46,11 +53,8 @@ BOOST_concept(WeaklyIncrementable, (It))
 {
     BOOST_CONCEPT_USAGE(WeaklyIncrementable)
     {
-        // unlike WeaklyIncrementable concept in Ranges TS
-        // member type difference_type in iterator is not required to be signed integral
-        // because output iterators may define void as difference_type
-        // this requirment is moved to InputIterator concept
-        __detail::__require_same_type<decltype(++iter_), It&>();
+        BOOST_CONCEPT_ASSERT((Same<decltype(++iter_), It&>));
+        __detail::__unuse(++iter_);
         __detail::__unuse(iter_++);
     }
 
