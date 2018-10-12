@@ -48,5 +48,7 @@
 #include "concept/iterator.hpp"
 #include "concept/input_iterator.hpp"
 #include "concept/output_iterator.hpp"
+#include "concept/forward_iterator.hpp"
+#include "concept/mutable_forward_iterator.hpp"
 
 #endif  // __STL_CONCEPT_HPP__
