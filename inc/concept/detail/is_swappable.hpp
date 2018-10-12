@@ -43,7 +43,7 @@ template <class T, class U>
 struct __swappable_with<T, U, false> : boost::integral_constant<bool, false> {};
 
 /**
- * @struct stl_concept::__detail::__is_swappable_with
+ * @struct __is_swappable_with
  * @brief Check if type T is swappable with type U.
  * @tparam T - first type
  * @tparam U - second type, default to T
@@ -53,7 +53,7 @@ template <class T, class U>
 struct __is_swappable_with : boost::integral_constant<bool, __swappable_with<T, U>::value> {};
 
 /**
- * @struct stl_concept::__detail::__is_swappable
+ * @struct __is_swappable
  * @brief Check if object value of type T is swappable.
  * @tparam T - type to be checked
  * @see https://en.cppreference.com/w/cpp/types/is_swappable

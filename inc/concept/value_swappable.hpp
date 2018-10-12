@@ -19,7 +19,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @struct stl_concept::ValueSwappable
+ * @struct ValueSwappable
  * @brief Specifies that two objects of this type can be dereferenced and the resulting values can be swapped using
  * unqualified function call swap() in the context where both std::swap and the user-defined swap()s are visible.
  *

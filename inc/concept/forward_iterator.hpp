@@ -22,7 +22,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup iterator_group Iterator Requirements
- * @struct stl_concept::ForwardIterator
+ * @struct ForwardIterator
  * @brief Refines <i>InputIterator</i> by adding equality comparison and the multi-pass guarantee.
  *
  * <p>

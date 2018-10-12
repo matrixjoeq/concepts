@@ -18,7 +18,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup core_group Core Language Concepts
- * @struct stl_concept::Integral
+ * @struct Integral
  * @brief Specifies that an instance of the type is an integral.
  *
  * <p>

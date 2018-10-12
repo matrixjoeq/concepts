@@ -20,7 +20,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @struct stl_concept::WeaklyEqualityComparableWith
+ * @struct WeaklyEqualityComparableWith
  * @brief Specifies that an object of type T and an object of type U can be compared for equality with each other
  * (in either order) using both == and !=, and the results of the comparisons are consistent.
  *

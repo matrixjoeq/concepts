@@ -16,7 +16,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup core_group Core Language Concepts
- * @struct stl_concept::Destructible
+ * @struct Destructible
  * @brief Specifies that an instance of the type can be destructed.
  *
  * <p>

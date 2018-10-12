@@ -23,7 +23,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @struct stl_concept::BinaryPredicate
+ * @struct BinaryPredicate
  * @brief Specifies that an instance of the type is callable and returns a value testable as a bool.
  *
  * <p>

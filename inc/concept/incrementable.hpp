@@ -20,7 +20,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup iterator_group Iterator Requirements
- * @struct stl_concept::Incrementable
+ * @struct Incrementable
  * @brief Specifies the requirements on a type that can be incremented (with the pre- and post-increment operators).
  *
  * <p>

@@ -26,7 +26,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @struct stl_concept::SwappableWith
+ * @struct SwappableWith
  * @brief Specifies that lvalues of type T and type U are swappable.
  *
  * <p>

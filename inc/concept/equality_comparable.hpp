@@ -16,7 +16,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @struct stl_concept::EqualityComparable
+ * @struct EqualityComparable
  * @brief Specifies that an instance of the type must work with == operator and the result should have standard semantics.
  *
  * <p>

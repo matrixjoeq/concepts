@@ -27,7 +27,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup iterator_group Iterator Requirements
- * @struct stl_concept::OutputIterator
+ * @struct OutputIterator
  * @brief Specifies that an instance of the type is an <i>Iterator</i> that can write to the pointed-to element.
  *
  * <p>

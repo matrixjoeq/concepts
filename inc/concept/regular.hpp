@@ -17,7 +17,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup object_group Object Concepts
- * @struct stl_concept::Regular
+ * @struct Regular
  * @brief Specifies that a type is both regular and equality comparable.
  *
  * <p>

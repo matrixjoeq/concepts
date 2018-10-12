@@ -17,7 +17,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup core_group Core Language Concepts
- * @struct stl_concept::MoveAssignable
+ * @struct MoveAssignable
  * @brief Specifies that an instance of the type can be assigned from an rvalue argument.
  *
  * <p>

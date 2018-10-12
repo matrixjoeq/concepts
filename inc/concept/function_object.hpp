@@ -19,7 +19,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @struct stl_concept::FunctionObject
+ * @struct FunctionObject
  * @brief Specifies that an instance of the type can be used on the left of the function call operator.
  *
  * <p>

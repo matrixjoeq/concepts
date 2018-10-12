@@ -19,7 +19,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup core_group Core Language Concepts
- * @struct stl_concept::UnsignedIntegral
+ * @struct UnsignedIntegral
  * @brief Specifies that an instance of the type is a signed integral.
  *
  * <p>

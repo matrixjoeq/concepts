@@ -22,7 +22,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @struct stl_concept::UnaryFunction
+ * @struct UnaryFunction
  * @brief Specifies that an instance of the type is callable with one and only one argument.
  *
  * <p>

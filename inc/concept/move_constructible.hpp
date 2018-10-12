@@ -20,7 +20,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup core_group Core Language Concepts
- * @struct stl_concept::MoveConstructible
+ * @struct MoveConstructible
  * @brief Specifies that an instance of the type can be constructed from an rvalue argument.
  *
  * <p>

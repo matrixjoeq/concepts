@@ -7,7 +7,7 @@ namespace __detail {
 
 /// @cond DEV
 /**
- * @struct stl_concept::__detail::__na_type
+ * @struct __na_type
  * @brief Not available type for internal use.
  */
 struct __na_type

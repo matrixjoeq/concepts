@@ -18,7 +18,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup core_group Core Language Concepts
- * @struct stl_concept::Same
+ * @struct Same
  * @brief Specifies that type T and type U denote the same type.
  *
  * @tparam T - first type to be checked

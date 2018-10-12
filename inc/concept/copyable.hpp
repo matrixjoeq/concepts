@@ -18,7 +18,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup object_group Object Concepts
- * @struct stl_concept::Copyable
+ * @struct Copyable
  * @brief Specifies that T is an <i>Movable</i> object type that can also copied (i.e. it supports copy construction and
  * copy assignment).
  *

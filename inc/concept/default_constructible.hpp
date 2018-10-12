@@ -19,7 +19,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup core_group Core Language Concepts
- * @struct stl_concept::DefaultConstructible
+ * @struct DefaultConstructible
  * @brief Specifies that an instance of the type can be default constructed.
  *
  * <p>

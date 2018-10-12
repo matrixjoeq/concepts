@@ -21,7 +21,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup core_group Core Language Concepts
- * @struct stl_concept::Assignable
+ * @struct Assignable
  * @brief Specifies that an expression of the type and value category specified by RHS can be assigned to an lvalue
  * expression whose type is specified by LHS.
  *

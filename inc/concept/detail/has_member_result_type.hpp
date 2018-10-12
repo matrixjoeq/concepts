@@ -26,7 +26,7 @@ struct __has_member_result_type_impl
 
 /// @cond DEV
 /**
- * @struct stl_concept::__detail::__has_member_result_type
+ * @struct __has_member_result_type
  * @brief Check if type T has member type named result_type.
  *
  * This is useful for dealing with standard functional types like std::function, std::bind, std::mem_fn, etc..

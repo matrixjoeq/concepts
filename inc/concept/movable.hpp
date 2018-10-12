@@ -19,7 +19,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup object_group Object Concepts
- * @struct stl_concept::Movable
+ * @struct Movable
  * @brief Specifies that T is an object type that can moved (i.e. it can be move constructed, move assigned, and lvalues
  * of type T can be swapped).
  *

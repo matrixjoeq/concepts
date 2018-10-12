@@ -18,7 +18,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup core_group Core Language Concepts
- * @struct stl_concept::Dereferenceable
+ * @struct Dereferenceable
  * @brief Specifies that T is an object of operator* applicable.
  *
  * @tparam T - type to be checked

@@ -10,7 +10,7 @@ namespace __detail {
 
 /// @cond DEV
 /**
- * @struct stl_concept::__detail::__is_move_constructible
+ * @struct __is_move_constructible
  * @brief Check if type T is move constructible
  * @tparam T - type to be checked
  * @see https://en.cppreference.com/w/cpp/types/is_move_constructible

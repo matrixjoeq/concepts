@@ -17,7 +17,7 @@ struct __is_referenceable_impl
 };
 
 /**
- * @struct stl_concept::__detail::__is_referenceable
+ * @struct __is_referenceable
  * @brief Check if type T is referenceable.
  * @tparam T - type to be checked
  */

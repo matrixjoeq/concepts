@@ -18,7 +18,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup object_group Object Concepts
- * @struct stl_concept::Object
+ * @struct Object
  * @brief Specifies that T is an object type.
  *
  * @tparam T - type to be checked

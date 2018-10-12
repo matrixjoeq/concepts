@@ -20,7 +20,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup core_group Core Language Concepts
- * @struct stl_concept::DerivedFrom
+ * @struct DerivedFrom
  * @brief Specifies that type U is a class type that is either T or a public and unambiguous base of T.
  *
  * @tparam T - type to be checked

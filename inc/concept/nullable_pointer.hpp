@@ -25,7 +25,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup library_wide_group Library-wide Requirements
- * @struct stl_concept::NullablePointer
+ * @struct NullablePointer
  * @brief Specifies that the type is a pointer-like object which can be compared to std::nullptr_t objects.
  *
  * <p>

@@ -17,7 +17,7 @@ namespace stl_concept {
 
 /**
  * @addtogroup object_group Object Concepts
- * @struct stl_concept::Semiregular
+ * @struct Semiregular
  * @brief Specifies that a type is both copyable and default constructible.
  *
  * <p>
