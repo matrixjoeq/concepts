@@ -94,16 +94,19 @@ struct stl_concept::WeaklyIncrementable&lt; It &gt;</h3>
 <p>The increment operations need not be equality-preserving, and the type need not be <em><a class="el" href="structstl__concept_1_1_equality_comparable.html" title="Specifies that an instance of the type must work with == operator and the result should have standard...">EqualityComparable</a></em>.<br />
  Let i be an object of type It. i is said to be incrementable if it is in the domain of both pre- and post-increment. <em><a class="el" href="structstl__concept_1_1_weakly_incrementable.html" title="Specifies the requirements on a type that can be incremented (with the pre- and post-increment operat...">WeaklyIncrementable</a></em> is satisfied only if: </p><ul style="list-style-type:disc">
 <li>
-The type It satisfies <em><a class="el" href="structstl__concept_1_1_copy_constructible.html" title="Specifies that an instance of the type can be copy-constructed from an lvalue expression. ">CopyConstructible</a></em>, and </li>
+++i and i++ have the same domain </li>
 <li>
-The type It satisfies <em><a class="el" href="structstl__concept_1_1_copy_assignable.html" title="Specifies that an instance of the type can be copy-assigned from an lvalue expression. ">CopyAssignable</a></em>, and </li>
+If i is incrementable, then: <ul style="list-style-type:disc">
 <li>
-The type It satisfies <em><a class="el" href="structstl__concept_1_1_destructible.html" title="Specifies that an instance of the type can be destructed. ">Destructible</a></em>, and </li>
+++i and i++ both advance i to the next element, and </li>
 <li>
-lvalues of type It satisfy <em><a class="el" href="structstl__concept_1_1_swappable.html" title="Specifies that lvalues of type T are swappable. ">Swappable</a></em>, and </li>
-<li>
-std::iterator_traits&lt;It&gt; has member typedefs value_type, difference_type, reference, pointer, and iterator_category , and </li>
+++i refers to the same object as i </li>
 </ul>
+</li>
+</ul>
+<p>Unlike <em><a class="el" href="structstl__concept_1_1_weakly_incrementable.html" title="Specifies the requirements on a type that can be incremented (with the pre- and post-increment operat...">WeaklyIncrementable</a></em> concept in Ranges TS, member type difference_type in iterator is not required to be <em><a class="el" href="structstl__concept_1_1_signed_integral.html" title="Specifies that an instance of the type is a signed integral. ">SignedIntegral</a></em>.<br />
+ Because output iterator may define void as difference_type, this requirment is moved to <em><a class="el" href="structstl__concept_1_1_input_iterator.html" title="Specifies that an instance of the type is an Iterator that can read from the pointed-to element...">InputIterator</a></em> concept. <br />
+ <em><a class="el" href="structstl__concept_1_1_semiregular.html" title="Specifies that a type is both copyable and default constructible. ">Semiregular</a></em> concept requirement is also moved to <em><a class="el" href="structstl__concept_1_1_input_iterator.html" title="Specifies that an instance of the type is an Iterator that can read from the pointed-to element...">InputIterator</a></em> concept, because output iterator may not be copyable or default constructible. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">It</td><td>- iterator type to be checked </td></tr>

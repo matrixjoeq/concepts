@@ -6,6 +6,5 @@ var searchData=
   ['_5f_5fis_5fswappable',['__is_swappable',['../structstl__concept_1_1____detail_1_1____is__swappable.html',1,'stl_concept::__detail']]],
   ['_5f_5fis_5fswappable_5fwith',['__is_swappable_with',['../structstl__concept_1_1____detail_1_1____is__swappable__with.html',1,'stl_concept::__detail']]],
   ['_5f_5fna_5ftype',['__na_type',['../structstl__concept_1_1____detail_1_1____na__type.html',1,'stl_concept::__detail']]],
-  ['_5f_5freferenceable',['__Referenceable',['../structstl__concept_1_1____detail_1_1_____referenceable.html',1,'stl_concept::__detail']]],
   ['_5f_5frequire_5fsame_5ftype',['__require_same_type',['../structstl__concept_1_1____detail_1_1____require__same__type.html',1,'stl_concept::__detail']]]
 ];
