@@ -9,8 +9,7 @@
 #include <utility>
 #endif // __cplusplus < 201103L
 
-#include "concept/detail/referenceable.hpp"
-#include <boost/type_traits/declval.hpp>
+#include "concept/swappable_with.hpp"
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 
@@ -44,18 +43,9 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/Swappable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct Swappable {};
+template <typename T> struct Swappable : SwappableWith<T, T> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(Swappable, (T))
-{
-    BOOST_CONCEPT_USAGE(Swappable)
-    {
-        using std::swap;
-
-        BOOST_CONCEPT_ASSERT((__detail::__Referenceable<T>));
-        swap(boost::declval<T&>(), boost::declval<T&>());
-    }
-};
+BOOST_concept(Swappable, (T)) : SwappableWith<T, T> {};
 #endif // DOXYGEN_WORKING
 
 } // namespace stl_concept
