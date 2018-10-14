@@ -55,5 +55,6 @@
 #include "concept/random_access_iterator.hpp"
 #include "concept/mutable_random_access_iterator.hpp"
 #include "concept/default_insertable.hpp"
+#include "concept/move_insertable.hpp"
 
 #endif  // __STL_CONCEPT_HPP__

@@ -1,10 +1,11 @@
 /** @file */
-#ifndef __STL_CONCEPT_DEFAULT_INSERTABLE_HPP__
-#define __STL_CONCEPT_DEFAULT_INSERTABLE_HPP__
+#ifndef __STL_CONCEPT_MOVE_INSERTABLE_HPP__
+#define __STL_CONCEPT_MOVE_INSERTABLE_HPP__
 
 #include "concept/same.hpp"
 #include <memory>
 #include <boost/container/allocator_traits.hpp>
+#include <boost/type_traits/declval.hpp>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -20,18 +21,20 @@ namespace stl_concept {
 
 /**
  * @addtogroup container_element_group Container Element Requirements
- * @struct DefaultInsertable
- * @brief Specifies that an instance of the type can be default-constructed in-place by a given allocator.
+ * @struct MoveInsertable
+ * @brief Specifies that an object of the type can be constructed into uninitialized storage from an rvalue of that type
+ * by a given allocator.
  *
  * <p>
  * <b>Requirements</b>
  * </p><p>
- * The type T is <i>DefaultInsertable</i> into the <i>Container</i> X whose value_type is identical to T if, given<br/>
+ * The type T is <i>MoveInsertable</i> into the <i>Container</i> X whose value_type is identical to T if, given<br/>
  * Given
  * <ul style="list-style-type:disc">
  *   <li>A, an allocator type</li>
  *   <li>m, an lvalue of type A</li>
  *   <li>p, the pointer of type T* prepared by the container</li>
+ *   <li>rv, rvalue expression of type T</li>
  * </ul>
  * where X::allocator_type is identical to boost::allocator_traits<A>::rebind_alloc<T>, the following expression is
  * well-formed:
@@ -43,19 +46,19 @@ namespace stl_concept {
  * </p>
  * @tparam T - value type
  * @tparam X - container type
- * @see https://en.cppreference.com/w/cpp/named_req/DefaultInsertable
+ * @see https://en.cppreference.com/w/cpp/named_req/MoveInsertable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T, typename X> struct DefaultInsertable {};
+template <typename T, typename X> struct MoveInsertable {};
 #else // DOXYGEN_WORKING
-BOOST_concept(DefaultInsertable, (T)(X))
+BOOST_concept(MoveInsertable, (T)(X))
 {
-    BOOST_CONCEPT_USAGE(DefaultInsertable)
+    BOOST_CONCEPT_USAGE(MoveInsertable)
     {
         BOOST_CONCEPT_ASSERT((Same<T, _ValueType>));
         using _RebindAllocType = typename boost::container::allocator_traits<_AllocatorType>::template rebind_alloc<T>;
         BOOST_CONCEPT_ASSERT((Same<_RebindAllocType, _AllocatorType>));
-        boost::container::allocator_traits<_AllocatorType>::construct(alloc_, pointer_);
+        boost::container::allocator_traits<_AllocatorType>::construct(alloc_, pointer_, boost::declval<T>());
     }
 
 private:
@@ -80,4 +83,4 @@ private:
 
 #include <boost/concept/detail/concept_undef.hpp>
 
-#endif  // __STL_CONCEPT_DEFAULT_INSERTABLE_HPP__
+#endif  // __STL_CONCEPT_MOVE_INSERTABLE_HPP__
