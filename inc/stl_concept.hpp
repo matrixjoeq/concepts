@@ -50,5 +50,6 @@
 #include "concept/output_iterator.hpp"
 #include "concept/forward_iterator.hpp"
 #include "concept/mutable_forward_iterator.hpp"
+#include "concept/bidirectional_iterator.hpp"
 
 #endif  // __STL_CONCEPT_HPP__
