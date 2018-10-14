@@ -118,6 +118,9 @@ void bidirectional_iterator_check();
 void mutable_bidirectional_iterator_check();
 void random_access_iterator_check();
 
+// container element group
+void default_insertable_check();
+
 } // namespace test
 } // namespace stl_concept
 

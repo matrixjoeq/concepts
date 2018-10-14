@@ -42,5 +42,8 @@ int main()
     mutable_bidirectional_iterator_check();
     random_access_iterator_check();
 
+    // container element group
+    default_insertable_check();
+
     return 0;
 }
