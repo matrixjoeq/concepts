@@ -24,18 +24,32 @@ namespace stl_concept {
 /**
  * @addtogroup iterator_group Iterator Requirements
  * @struct ForwardIterator
- * @brief Refines <i>InputIterator</i> by adding equality comparison and the multi-pass guarantee.
+ * @brief A <i>ForwardIterator</i> is an <i>Iterator</i> that can read data from the pointed-to element.
  *
  * <p>
+ * Unlike <i>InputIterator</i> and <i>OutputIterator</i>, it can be used in multipass algorithms.<br/>
  * <b>Requirements</b>
  * </p><p>
- * Let a and b be two deferenceable iterators of type I. <i>ForwardIterator</i> is satisfied only if:
+ * The type It satisfies <i>ForwardIterator</i> if
  * <ul style="list-style-type:disc">
- *   <li>a == b implies ++a == ++b; and</li>
- *   <li>The expression ([](X x){++x;}(a), *a) is equivalent to *a, i.e., incrementing a copy of a has no effect on the
- *       result of dereferencing a.</li>
+ *   <li>The type It satisfies <i>InputIterator</i></li>
+ *   <li>The type It satisfies <i>DefaultConstructible</i></li>
+ *   <li>Objects of the type It provide multipass guarantee described below</li>
+ *   <li>The type boost::iterator_reference<It>::type must be convertible to const T&, where T is the type denoted by
+ *       boost::iterator_value<It>::type</li>
+ *   <li></li>
  * </ul>
- * This is known as the multi-pass guarantee.
+ * And, given
+ * <ul style="list-style-type:disc">
+ *   <li>i, dereferenceable iterator of type It</li>
+ *   <li>reference, the type denoted by boost::iterator_reference<It>::type</li>
+ * </ul>
+ * The following expressions must be valid and have their specified effects
+ * <table>
+ *   <tr><th>Expression<th>Return type<th>Equivalent expression
+ *   <tr><td>i++       <td>It         <td>It ip = i;<br/>++i;<br/>return ip;
+ *   <tr><td>*i++      <td>reference  <td>
+ * </table>
  * </p>
  * @tparam It - type to be checked
  * @see https://en.cppreference.com/w/cpp/named_req/ForwardIterator
