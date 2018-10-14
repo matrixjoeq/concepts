@@ -68,15 +68,15 @@ BOOST_concept(OutputIterator, (It)(ValueType)) : Iterator<It>
     {
         BOOST_STATIC_ASSERT_MSG(boost::is_object<It>::value || boost::is_pointer<It>::value,
                                 "Type is neither object nor pointer");
-        BOOST_CONCEPT_ASSERT((Same<decltype(++iter_r_), It&>));
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(iter_r_++), const It&>));
-        __detail::__unuse(*iter_r_ = value_);
-        __detail::__unuse(++iter_r_);
-        __detail::__unuse(*iter_r_++ = value_);
+        BOOST_CONCEPT_ASSERT((Same<decltype(++iter_), It&>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(iter_++), const It&>));
+        __detail::__unuse(*iter_ = value_);
+        __detail::__unuse(++iter_);
+        __detail::__unuse(*iter_++ = value_);
     }
 
 private:
-    It iter_r_;
+    It iter_;
     ValueType value_;
 };
 #endif // DOXYGEN_WORKING
