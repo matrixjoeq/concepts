@@ -3,11 +3,8 @@
 #define __STL_CONCEPT_BINARY_PREDICATE_HPP__
 
 #include "concept/convertible_to.hpp"
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/add_const.hpp>
-#include <boost/type_traits/add_lvalue_reference.hpp>
+#include "concept/binary_function.hpp"
 #include <boost/type_traits/declval.hpp>
-#include <boost/type_traits/is_object.hpp>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -38,27 +35,17 @@ namespace stl_concept {
  * </p>
  */
 #ifdef DOXYGEN_WORKING
-template <typename Func, typename First, typename Second> struct BinaryPredicate {};
+template <typename Func, typename First, typename Second> struct BinaryPredicate : BinaryFunction<Func, First, Second> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(BinaryPredicate, (Func)(First)(Second))
+BOOST_concept(BinaryPredicate, (Func)(First)(Second)) : BinaryFunction<Func, First, Second>
 {
     BOOST_CONCEPT_USAGE(BinaryPredicate)
     {
-        BOOST_STATIC_ASSERT_MSG(boost::is_object<Func>::value, "Type is not object");
         BOOST_CONCEPT_ASSERT((ConvertibleTo<
-            decltype(predicate_(boost::declval<_FirstArg>(), boost::declval<_SecondArg>())),
-            bool>));
+            decltype(boost::declval<Func>()(boost::declval<First&>(), boost::declval<Second&>())), bool>));
     }
-
-private:
-    using _FirstArg = boost::add_lvalue_reference_t<boost::add_const_t<First>>;
-    using _SecondArg = boost::add_lvalue_reference_t<boost::add_const_t<Second>>;
-    Func predicate_;
 };
 #endif // DOXYGEN_WORKING
-
-template <typename Func, typename First, typename Second>
-struct BinaryPredicate<const Func, First, Second> : BinaryPredicate<Func, First, Second> {};
 
 } // namespace stl_concept
 

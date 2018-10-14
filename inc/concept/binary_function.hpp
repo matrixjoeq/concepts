@@ -2,14 +2,8 @@
 #ifndef __STL_CONCEPT_BINARY_FUNCTION_HPP__
 #define __STL_CONCEPT_BINARY_FUNCTION_HPP__
 
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/add_lvalue_reference.hpp>
-#include <boost/type_traits/declval.hpp>
-#include <boost/type_traits/is_object.hpp>
-#include <boost/type_traits/is_void.hpp>
-#include <boost/concept/usage.hpp>
+#include "concept/function_object.hpp"
 #include <boost/concept/detail/concept_def.hpp>
-#include "concept/detail/unuse.hpp"
 
 #if (defined _MSC_VER)
 #pragma warning(push)
@@ -37,37 +31,10 @@ namespace stl_concept {
  * </p>
  */
 #ifdef DOXYGEN_WORKING
-template <typename Func, typename First, typename Second> struct BinaryFunction {};
+template <typename Func, typename First, typename Second> struct BinaryFunction : FunctionObject<Func, First, Second> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(BinaryFunction, (Func)(First)(Second))
-{
-    BOOST_CONCEPT_USAGE(BinaryFunction)
-    {
-        BOOST_STATIC_ASSERT_MSG(boost::is_object<Func>::value, "Type is not object");
-        using _ReturnType = decltype(function_object_(boost::declval<_FirstArg>(), boost::declval<_SecondArg>()));
-        callable_test(boost::is_void<_ReturnType>());
-    }
-
-private:
-    using _FirstArg = boost::add_lvalue_reference_t<First>;
-    using _SecondArg = boost::add_lvalue_reference_t<Second>;
-
-    void callable_test(boost::is_void<void>)
-    {
-        function_object_(boost::declval<_FirstArg>(), boost::declval<_SecondArg>());
-    }
-
-    void callable_test(...)
-    {
-        __detail::__unuse(function_object_(boost::declval<_FirstArg>(), boost::declval<_SecondArg>()));
-    }
-
-    Func function_object_;
-};
+BOOST_concept(BinaryFunction, (Func)(First)(Second)) : FunctionObject<Func, First, Second> {};
 #endif // DOXYGEN_WORKING
-
-template <typename Func, typename First, typename Second>
-struct BinaryFunction<const Func, First, Second> : BinaryFunction<Func, First, Second> {};
 
 } // namespace stl_concept
 

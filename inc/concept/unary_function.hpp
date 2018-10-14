@@ -2,14 +2,8 @@
 #ifndef __STL_CONCEPT_UNARY_FUNCTION_HPP__
 #define __STL_CONCEPT_UNARY_FUNCTION_HPP__
 
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/add_lvalue_reference.hpp>
-#include <boost/type_traits/declval.hpp>
-#include <boost/type_traits/is_object.hpp>
-#include <boost/type_traits/is_void.hpp>
-#include <boost/concept/usage.hpp>
+#include "concept/function_object.hpp"
 #include <boost/concept/detail/concept_def.hpp>
-#include "concept/detail/unuse.hpp"
 
 #if (defined _MSC_VER)
 #pragma warning(push)
@@ -36,36 +30,10 @@ namespace stl_concept {
  * </p>
  */
 #ifdef DOXYGEN_WORKING
-template <typename Func, typename Arg> struct UnaryFunction {};
+template <typename Func, typename Arg> struct UnaryFunction : FunctionObject<Func, Arg> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(UnaryFunction, (Func)(Arg))
-{
-    BOOST_CONCEPT_USAGE(UnaryFunction)
-    {
-        BOOST_STATIC_ASSERT_MSG(boost::is_object<Func>::value, "Type is not object");
-        using _ReturnType = decltype(function_object_(boost::declval<_ArgType>()));
-        callable_test(boost::is_void<_ReturnType>());
-    }
-
-private:
-    using _ArgType = boost::add_lvalue_reference_t<Arg>;
-
-    void callable_test(boost::is_void<void>)
-    {
-        function_object_(boost::declval<_ArgType>());
-    }
-
-    void callable_test(...)
-    {
-        __detail::__unuse(function_object_(boost::declval<_ArgType>()));
-    }
-
-    Func function_object_;
-};
+BOOST_concept(UnaryFunction, (Func)(Arg)) : FunctionObject<Func, Arg> {};
 #endif // DOXYGEN_WORKING
-
-template <typename Func, typename Arg>
-struct UnaryFunction<const Func, Arg> : UnaryFunction<Func, Arg> {};
 
 } // namespace stl_concept
 

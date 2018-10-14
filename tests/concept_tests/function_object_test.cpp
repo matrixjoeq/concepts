@@ -7,29 +7,38 @@ namespace stl_concept {
 namespace test {
 namespace {
 
-struct ClassWithMemberFunction
-{
-    void foo() {}
-    void bar(int, long) {}
-};
-
-using FunctorTL = mpl::vector<
-    void(*)(void),
-    void(*)(int, long),
-    void(* const)(void),
-    void(* const)(int, long),
-    std::function<void()>,
-    std::function<void(int, long)>/*,
-    decltype(std::mem_fn(&ClassWithMemberFunction::foo)),
-    decltype(std::mem_fn(&ClassWithMemberFunction::bar))*/
+using UnaryFunctorTL = mpl::vector<
+    mpl::vector<void(*)(int), int>,
+    mpl::vector<void(* const)(int), int>,
+    mpl::vector<std::function<void(int)>, int>
 >;
 
-struct ConceptChecker
+using BinaryFunctorTL = mpl::vector<
+    mpl::vector<void(*)(int, long), int, long>,
+    mpl::vector<void(* const)(int, long), int, long>,
+    mpl::vector<std::function<void(int, long)>, int, long>
+>;
+
+struct UnaryConceptChecker
 {
     template <class T>
     void operator()(T&)
     {
-        BOOST_CONCEPT_ASSERT((stl_concept::FunctionObject<T>));
+        using _FunctorType = typename mpl::at<T, mpl::int_<0>>::type;
+        using _ArgType = typename mpl::at<T, mpl::int_<1>>::type;
+        BOOST_CONCEPT_ASSERT((stl_concept::FunctionObject<_FunctorType, _ArgType>));
+    }
+};
+
+struct BinaryConceptChecker
+{
+    template <class T>
+    void operator()(T&)
+    {
+        using _FunctorType = typename mpl::at<T, mpl::int_<0>>::type;
+        using _FirstType = typename mpl::at<T, mpl::int_<1>>::type;
+        using _SecondType = typename mpl::at<T, mpl::int_<2>>::type;
+        BOOST_CONCEPT_ASSERT((stl_concept::FunctionObject<_FunctorType, _FirstType, _SecondType>));
     }
 };
 
@@ -37,7 +46,8 @@ struct ConceptChecker
 
 void function_object_check()
 {
-    mpl::for_each<FunctorTL>(ConceptChecker());
+    mpl::for_each<UnaryFunctorTL>(UnaryConceptChecker());
+    mpl::for_each<BinaryFunctorTL>(BinaryConceptChecker());
 }
 
 } // namespace test

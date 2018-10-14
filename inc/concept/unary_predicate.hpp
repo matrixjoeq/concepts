@@ -3,11 +3,8 @@
 #define __STL_CONCEPT_UNARY_PREDICATE_HPP__
 
 #include "concept/convertible_to.hpp"
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/add_const.hpp>
-#include <boost/type_traits/add_lvalue_reference.hpp>
+#include "concept/unary_function.hpp"
 #include <boost/type_traits/declval.hpp>
-#include <boost/type_traits/is_object.hpp>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -37,24 +34,16 @@ namespace stl_concept {
  * </p>
  */
 #ifdef DOXYGEN_WORKING
-template <typename Func, typename Arg> struct UnaryPredicate {};
+template <typename Func, typename Arg> struct UnaryPredicate : UnaryFunction<Func, Arg> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(UnaryPredicate, (Func)(Arg))
+BOOST_concept(UnaryPredicate, (Func)(Arg)) : UnaryFunction<Func, Arg>
 {
     BOOST_CONCEPT_USAGE(UnaryPredicate)
     {
-        BOOST_STATIC_ASSERT_MSG(boost::is_object<Func>::value, "Type is not object");
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(predicate_(boost::declval<_ArgType>())), bool>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(boost::declval<Func>()(boost::declval<Arg&>())), bool>));
     }
-
-private:
-    using _ArgType = boost::add_lvalue_reference_t<boost::add_const_t<Arg>>;
-    Func predicate_;
 };
 #endif // DOXYGEN_WORKING
-
-template <typename Func, typename Arg>
-struct UnaryPredicate<const Func, Arg> : UnaryPredicate<Func, Arg> {};
 
 } // namespace stl_concept
 
