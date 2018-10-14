@@ -51,5 +51,7 @@
 #include "concept/forward_iterator.hpp"
 #include "concept/mutable_forward_iterator.hpp"
 #include "concept/bidirectional_iterator.hpp"
+#include "concept/mutable_bidirectional_iterator.hpp"
+#include "concept/random_access_iterator.hpp"
 
 #endif  // __STL_CONCEPT_HPP__
