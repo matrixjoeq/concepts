@@ -39,6 +39,7 @@ int main()
     forward_iterator_check();
     mutable_forward_iterator_check();
     bidirectional_iterator_check();
+    mutable_bidirectional_iterator_check();
 
     return 0;
 }

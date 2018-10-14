@@ -35,7 +35,6 @@ namespace stl_concept {
  *   <li>The type It satisfies <i>OutputIterator</i></li>
  *   <li>The type boost::iterator_reference<It>::type must be exactly T&, where T is the type denoted by
  *       boost::iterator_value<It>::type</li>
- *   <li></li>
  * </ul>
  * </p>
  * @tparam It - type to be checked

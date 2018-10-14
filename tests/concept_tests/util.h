@@ -115,6 +115,7 @@ void output_iterator_check();
 void forward_iterator_check();
 void mutable_forward_iterator_check();
 void bidirectional_iterator_check();
+void mutable_bidirectional_iterator_check();
 
 } // namespace test
 } // namespace stl_concept
