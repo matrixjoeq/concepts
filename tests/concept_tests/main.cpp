@@ -46,6 +46,7 @@ int main()
     default_insertable_check();
     move_insertable_check();
     copy_insertable_check();
+    emplace_insertable_check();
 
     return 0;
 }

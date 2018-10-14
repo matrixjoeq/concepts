@@ -28,7 +28,7 @@ namespace stl_concept {
  * <p>
  * <b>Requirements</b>
  * </p><p>
- * The type T is <i>MoveInsertable</i> into the <i>Container</i> X whose value_type is identical to T if, given<br/>
+ * The type T is <i>MoveInsertable</i> into the <i>Container</i> X whose value_type is identical to T if<br/>
  * Given
  * <ul style="list-style-type:disc">
  *   <li>A, an allocator type</li>
