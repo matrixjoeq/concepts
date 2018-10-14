@@ -121,6 +121,7 @@ void random_access_iterator_check();
 // container element group
 void default_insertable_check();
 void move_insertable_check();
+void copy_insertable_check();
 
 } // namespace test
 } // namespace stl_concept

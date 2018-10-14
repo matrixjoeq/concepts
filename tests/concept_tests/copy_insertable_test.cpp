@@ -11,7 +11,7 @@
 #include <unordered_set>
 #include <vector>
 #include "util.h"
-#include "concept/default_insertable.hpp"
+#include "concept/copy_insertable.hpp"
 
 namespace stl_concept {
 namespace test {
@@ -43,13 +43,13 @@ struct ConceptChecker
     {
         using _ValueType = typename mpl::at<T, mpl::int_<0>>::type;
         using _ContainerType = typename mpl::at<T, mpl::int_<1>>::type;
-        BOOST_CONCEPT_ASSERT((stl_concept::DefaultInsertable<_ValueType, _ContainerType>));
+        BOOST_CONCEPT_ASSERT((stl_concept::CopyInsertable<_ValueType, _ContainerType>));
     }
 };
 
 } // namespace
 
-void default_insertable_check()
+void copy_insertable_check()
 {
     mpl::for_each<TL>(ConceptChecker());
 }

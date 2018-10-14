@@ -45,6 +45,7 @@ int main()
     // container element group
     default_insertable_check();
     move_insertable_check();
+    copy_insertable_check();
 
     return 0;
 }

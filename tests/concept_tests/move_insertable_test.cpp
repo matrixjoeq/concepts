@@ -4,7 +4,9 @@
 #include <forward_list>
 #include <list>
 #include <map>
+#include <queue>
 #include <set>
+#include <stack>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -20,6 +22,9 @@ using TL = mpl::vector<
     mpl::vector<DefaultType, std::deque<DefaultType>>,
     mpl::vector<DefaultType, std::forward_list<DefaultType>>,
     mpl::vector<DefaultType, std::list<DefaultType>>,
+    mpl::vector<DefaultType, std::queue<DefaultType>>,
+    mpl::vector<LessType, std::priority_queue<LessType>>,
+    mpl::vector<DefaultType, std::stack<DefaultType>>,
     mpl::vector<std::pair<const LessType, DefaultType>, std::map<LessType, DefaultType>>,
     mpl::vector<std::pair<const LessType, DefaultType>, std::multimap<LessType, DefaultType>>,
     mpl::vector<std::pair<const DefaultType, DefaultType>, std::unordered_map<DefaultType, DefaultType, HashFunctor<DefaultType>>>,
