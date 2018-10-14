@@ -7,8 +7,6 @@
 #include "concept/iterator.hpp"
 #include <boost/static_assert.hpp>
 #include <boost/iterator/iterator_traits.hpp>
-#include <boost/type_traits/add_const.hpp>
-#include <boost/type_traits/add_lvalue_reference.hpp>
 #include <boost/type_traits/is_object.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/concept/assert.hpp>
@@ -71,14 +69,13 @@ BOOST_concept(OutputIterator, (It)(ValueType)) : Iterator<It>
         BOOST_STATIC_ASSERT_MSG(boost::is_object<It>::value || boost::is_pointer<It>::value,
                                 "Type is neither object nor pointer");
         BOOST_CONCEPT_ASSERT((Same<decltype(++iter_r_), It&>));
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(iter_r_++), _ConstItRefType>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(iter_r_++), const It&>));
         __detail::__unuse(*iter_r_ = value_);
         __detail::__unuse(++iter_r_);
         __detail::__unuse(*iter_r_++ = value_);
     }
 
 private:
-    using _ConstItRefType = boost::add_lvalue_reference_t<boost::add_const_t<It>>;
     It iter_r_;
     ValueType value_;
 };
