@@ -10,6 +10,7 @@
 #include <vector>
 #include "util.h"
 #include "concept/random_access_iterator.hpp"
+#include "concept/mutable_random_access_iterator.hpp"
 
 namespace stl_concept {
 namespace test {
@@ -37,7 +38,9 @@ struct ConceptChecker
     void operator()(T&)
     {
         BOOST_CONCEPT_ASSERT((boost::RandomAccessIterator<T>));
+        BOOST_CONCEPT_ASSERT((boost::Mutable_RandomAccessIterator<T>));
         BOOST_CONCEPT_ASSERT((stl_concept::RandomAccessIterator<T>));
+        BOOST_CONCEPT_ASSERT((stl_concept::MutableRandomAccessIterator<T>));
     }
 };
 
