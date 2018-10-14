@@ -4,8 +4,7 @@
 
 #include "concept/same.hpp"
 #include "concept/derived_from.hpp"
-#include "concept/input_iterator.hpp"
-#include "concept/incrementable.hpp"
+#include "concept/forward_iterator.hpp"
 #include "concept/output_iterator.hpp"
 #include <iterator>
 #include <boost/iterator/iterator_traits.hpp>
@@ -25,25 +24,36 @@ namespace stl_concept {
 /**
  * @addtogroup iterator_group Iterator Requirements
  * @struct MutableForwardIterator
- * @brief Refines <i>ForwardIterator</i> by adding output iterator concept check.
+ * @brief A <i>MutableForwardIterator</i> is a <i>ForwardIterator</i> that additionally satisfies the
+ * <i>OutputIterator</i> requirements.
  *
+ * <p>
+ * <b>Requirements</b>
+ * </p><p>
+ * The type It satisfies <i>MutableForwardIterator</i> if
+ * <ul style="list-style-type:disc">
+ *   <li>The type It satisfies <i>ForwardIterator</i></li>
+ *   <li>The type It satisfies <i>OutputIterator</i></li>
+ *   <li>The type boost::iterator_reference<It>::type must be exactly T&, where T is the type denoted by
+ *       boost::iterator_value<It>::type</li>
+ *   <li></li>
+ * </ul>
+ * </p>
  * @tparam It - type to be checked
  * @see https://en.cppreference.com/w/cpp/named_req/ForwardIterator
  */
 #ifdef DOXYGEN_WORKING
 template <typename It> struct MutableForwardIterator
-    : InputIterator<It>, Incrementable<It>, OutputIterator<It, typename boost::iterator_value<It>::type> {};
+    : ForwardIterator<It>, OutputIterator<It, typename boost::iterator_value<It>::type> {};
 #else // DOXYGEN_WORKING
 BOOST_concept(MutableForwardIterator, (It))
-    : InputIterator<It>, Incrementable<It>, OutputIterator<It, typename boost::iterator_value<It>::type>
+    : ForwardIterator<It>, OutputIterator<It, typename boost::iterator_value<It>::type>
 {
     BOOST_CONCEPT_USAGE(MutableForwardIterator)
     {
         using _ValueType = typename boost::iterator_value<It>::type;
         using _ReferenceType = typename boost::iterator_reference<It>::type;
-        using _CategoryType = typename boost::iterator_category<It>::type;
         BOOST_CONCEPT_ASSERT((Same<_ReferenceType, _ValueType&>));
-        BOOST_CONCEPT_ASSERT((DerivedFrom<_CategoryType, std::forward_iterator_tag>));
     }
 };
 #endif // DOXYGEN_WORKING
