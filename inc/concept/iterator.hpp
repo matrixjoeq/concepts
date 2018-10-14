@@ -8,10 +8,10 @@
 #include "concept/swappable.hpp"
 #include "concept/dereferenceable.hpp"
 #include "concept/weakly_incrementable.hpp"
-#include <boost/iterator/iterator_traits.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 #include "concept/detail/unuse.hpp"
+#include "concept/detail/iterator_traits.hpp"
 
 #if (defined _MSC_VER)
 #pragma warning(push)
@@ -75,11 +75,11 @@ BOOST_concept(Iterator, (It))
     , WeaklyIncrementable<It>
 {
 private:
-    using _ValueType = typename boost::iterator_value<It>::type;
-    using _DifferenceType = typename boost::iterator_difference<It>::type;
-    using _ReferenceType = typename boost::iterator_reference<It>::type;
-    using _PointerType = typename boost::iterator_pointer<It>::type;
-    using _CategoryType = typename boost::iterator_category<It>::type;
+    using _ValueType = __detail::__iterator_value_t<It>;
+    using _DifferenceType = __detail::__iterator_difference_t<It>;
+    using _ReferenceType = __detail::__iterator_reference_t<It>;
+    using _PointerType = __detail::__iterator_pointer_t<It>;
+    using _CategoryType = __detail::__iterator_category_t<It>;
 };
 #endif // DOXYGEN_WORKING
 

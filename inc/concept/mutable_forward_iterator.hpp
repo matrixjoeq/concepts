@@ -6,11 +6,10 @@
 #include "concept/derived_from.hpp"
 #include "concept/forward_iterator.hpp"
 #include "concept/output_iterator.hpp"
-#include <iterator>
-#include <boost/iterator/iterator_traits.hpp>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
+#include "concept/detail/iterator_traits.hpp"
 
 #if (defined _MSC_VER)
 #pragma warning(push)
@@ -47,12 +46,12 @@ template <typename It> struct MutableForwardIterator
     : ForwardIterator<It>, OutputIterator<It, typename boost::iterator_value<It>::type> {};
 #else // DOXYGEN_WORKING
 BOOST_concept(MutableForwardIterator, (It))
-    : ForwardIterator<It>, OutputIterator<It, typename boost::iterator_value<It>::type>
+    : ForwardIterator<It>, OutputIterator<It, __detail::__iterator_value_t<It>>
 {
     BOOST_CONCEPT_USAGE(MutableForwardIterator)
     {
-        using _ValueType = typename boost::iterator_value<It>::type;
-        using _ReferenceType = typename boost::iterator_reference<It>::type;
+        using _ValueType = __detail::__iterator_value_t<It>;
+        using _ReferenceType = __detail::__iterator_reference_t<It>;
         BOOST_CONCEPT_ASSERT((Same<_ReferenceType, _ValueType&>));
     }
 };

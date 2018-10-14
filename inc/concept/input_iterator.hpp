@@ -7,11 +7,10 @@
 #include "concept/signed_integral.hpp"
 #include "concept/equality_comparable.hpp"
 #include "concept/iterator.hpp"
-#include <iterator>
-#include <boost/iterator/iterator_traits.hpp>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
+#include "concept/detail/iterator_traits.hpp"
 
 #if (defined _MSC_VER)
 #pragma warning(push)
@@ -65,9 +64,9 @@ BOOST_concept(InputIterator, (It)) : EqualityComparable<It>, Iterator<It>
 {
     BOOST_CONCEPT_USAGE(InputIterator)
     {
-        using _ValueType = typename boost::iterator_value<It>::type;
-        using _DifferenceType = typename boost::iterator_difference<It>::type;
-        using _CategoryType = typename boost::iterator_category<It>::type;
+        using _ValueType = __detail::__iterator_value_t<It>;
+        using _DifferenceType = __detail::__iterator_difference_t<It>;
+        using _CategoryType = __detail::__iterator_category_t<It>;
 
         BOOST_CONCEPT_ASSERT((SignedIntegral<_DifferenceType>));
         BOOST_CONCEPT_ASSERT((DerivedFrom<_CategoryType, std::input_iterator_tag>));
