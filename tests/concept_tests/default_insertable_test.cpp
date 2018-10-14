@@ -12,6 +12,7 @@
 #include <vector>
 #include "util.h"
 #include "concept/default_insertable.hpp"
+#include "concept/erasable.hpp"
 
 namespace stl_concept {
 namespace test {
@@ -44,6 +45,7 @@ struct ConceptChecker
         using _ValueType = typename mpl::at<T, mpl::int_<0>>::type;
         using _ContainerType = typename mpl::at<T, mpl::int_<1>>::type;
         BOOST_CONCEPT_ASSERT((stl_concept::DefaultInsertable<_ValueType, _ContainerType>));
+        BOOST_CONCEPT_ASSERT((stl_concept::Erasable<_ValueType, _ContainerType>));
     }
 };
 

@@ -58,5 +58,6 @@
 #include "concept/move_insertable.hpp"
 #include "concept/copy_insertable.hpp"
 #include "concept/emplace_insertable.hpp"
+#include "concept/erasable.hpp"
 
 #endif  // __STL_CONCEPT_HPP__
