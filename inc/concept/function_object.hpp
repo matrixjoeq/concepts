@@ -55,20 +55,24 @@ struct FunctionObject
     BOOST_CONCEPT_USAGE(FunctionObject)
     {
         BOOST_STATIC_ASSERT_MSG(boost::is_object<F>::value, "Type is not an object");
-        using _ReturnType = decltype(boost::declval<F>()(boost::declval<Args&>()...));
+        using _ReturnType = decltype(f_(boost::declval<Args&>()...));
         callable_test(boost::is_void<_ReturnType>());
     }
 
 private:
+    using _F = boost::remove_const_t<F>;
+
     void callable_test(boost::is_void<void>)
     {
-        boost::declval<F>()(boost::declval<Args&>()...);
+        f_(boost::declval<Args&>()...);
     }
 
     void callable_test(...)
     {
-        __detail::__unuse(boost::declval<F>()(boost::declval<Args&>()...));
+        __detail::__unuse(f_(boost::declval<Args&>()...));
     }
+
+    _F f_;
 };
 #endif // DOXYGEN_WORKING
 
