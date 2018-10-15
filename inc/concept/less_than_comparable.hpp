@@ -7,6 +7,7 @@
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
+#include "concept/detail/unuse.hpp"
 
 #if (defined _MSC_VER)
 #pragma warning(push)
@@ -63,6 +64,8 @@ private:
 
     void const_constraints(const _Tp& x, const _Tp& y)
     {
+        __detail::__unuse(x);
+        __detail::__unuse(y);
         BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(x < y), bool>));
     }
 

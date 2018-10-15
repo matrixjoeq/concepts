@@ -8,6 +8,7 @@
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
+#include "concept/detail/unuse.hpp"
 
 #if (defined _MSC_VER)
 #pragma warning(push)
@@ -61,6 +62,8 @@ private:
 
     void equality_constraints(const _Tp& t, const _Up& u)
     {
+        __detail::__unuse(t);
+        __detail::__unuse(u);
         BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(t == u), bool>));
         BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(t != u), bool>));
         BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(u == t), bool>));

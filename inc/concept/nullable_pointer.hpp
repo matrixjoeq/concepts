@@ -71,6 +71,7 @@ BOOST_concept(NullablePointer, (T))
     {
         T p(nullptr);
         T q = nullptr;
+        __detail::__unuse(q);
         __detail::__unuse(T(nullptr));
 
         BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(p == q), bool>));
