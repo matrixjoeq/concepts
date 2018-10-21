@@ -55,4 +55,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(CMAKE_SYSTEM_NAME STREQUAL Windows)
     add_definitions(-D_USE_MATH_DEFINES)
 endif()
+
+add_definitions(-DBOOST_NO_OLD_CONCEPT_SUPPORT)
 ###############################################################################
