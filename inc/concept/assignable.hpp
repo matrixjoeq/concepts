@@ -5,8 +5,8 @@
 #include "concept/same.hpp"
 #include <utility>
 #include <boost/static_assert.hpp>
-#include <boost/type_traits/declval.hpp>
 #include <boost/type_traits/is_lvalue_reference.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 
@@ -61,19 +61,22 @@ BOOST_concept(Assignable, (LHS)(RHS))
     BOOST_CONCEPT_USAGE(Assignable)
     {
         BOOST_STATIC_ASSERT_MSG(boost::is_lvalue_reference<LHS>::value, "LHS must be an lvalue reference");
-        LHS lhs = boost::declval<LHS>();
-        RHS rhs = boost::declval<RHS>();
-        assignable_constraints(lhs, rhs);
-        assignable_constraints(lhs, boost::declval<RHS>());
+        assignable_constraints(lhs_, rhs_);
+        assignable_constraints(lhs_, std::move(rhs_));
     }
 
 private:
+    Assignable();
+
     template <typename _LHS, typename _RHS>
     void assignable_constraints(_LHS& lhs, _RHS&& rhs)
     {
         lhs = std::forward<_RHS>(rhs);
         BOOST_CONCEPT_ASSERT((Same<decltype(lhs = std::forward<_RHS>(rhs)), _LHS&>));
     }
+
+    LHS lhs_;
+    RHS rhs_;
 };
 #endif // DOXYGEN_WORKING
 

@@ -3,7 +3,6 @@
 #define __STL_CONCEPT_CONVERTIBLE_TO_HPP__
 
 #include <boost/static_assert.hpp>
-#include <boost/type_traits/declval.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -63,15 +62,19 @@ BOOST_concept(ConvertibleTo, (From)(To))
     BOOST_CONCEPT_USAGE(ConvertibleTo)
     {
         BOOST_STATIC_ASSERT(boost::is_convertible<From, To>::value);
-        convertible_constraints(boost::declval<_ConvertibleFuncRef>());
+        convertible_constraints(func_);
     }
 
 private:
+    ConvertibleTo();
+
     using _ConvertibleFuncRef = From (&)();
     void convertible_constraints(_ConvertibleFuncRef f)
     {
         __detail::__unuse(static_cast<To>(f()));
     }
+
+    _ConvertibleFuncRef func_;
 };
 #endif // DOXYGEN_WORKING
 

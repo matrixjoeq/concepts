@@ -3,6 +3,7 @@
 #define __STL_CONCEPT_COMPARE_HPP__
 
 #include "concept/same.hpp"
+#include "concept/convertible_to.hpp"
 #include "concept/binary_predicate.hpp"
 #include <boost/type_traits/declval.hpp>
 #include <boost/concept/assert.hpp>
@@ -61,10 +62,11 @@ BOOST_concept(Compare, (Func)(First)(Second)) : BinaryPredicate<Func, First, Sec
 {
     BOOST_CONCEPT_USAGE(Compare)
     {
-        auto r = !boost::declval<Func>()(boost::declval<First&>(), boost::declval<Second&>()) &&
-                 !boost::declval<Func>()(boost::declval<Second&>(), boost::declval<First&>());
-        BOOST_CONCEPT_ASSERT((Same<decltype(r), bool>));
-        __detail::__unuse(r);
+        using _CompRet1 = decltype(boost::declval<Func>()(boost::declval<First&>(), boost::declval<Second&>()));
+        using _CompRet2 = decltype(boost::declval<Func>()(boost::declval<Second&>(), boost::declval<First&>()));
+        BOOST_CONCETP_ASSERT((ConvertibleTo<_CompRet1, bool>));
+        BOOST_CONCETP_ASSERT((ConvertibleTo<_CompRet2, bool>));
+        BOOST_CONCEPT_ASSERT((Same<decltype(!boost::declval<_CompRet1>() && !boost::declval<_CompRet2>()), bool>));
     }
 };
 #endif // DOXYGEN_WORKING

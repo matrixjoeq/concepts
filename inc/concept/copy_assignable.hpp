@@ -3,7 +3,7 @@
 #define __STL_CONCEPT_COPY_ASSIGNABLE_HPP__
 
 #include "concept/move_assignable.hpp"
-#include <boost/type_traits/declval.hpp>
+#include <utility>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 
@@ -53,18 +53,18 @@ BOOST_concept(CopyAssignable, (T)) : MoveAssignable<T>
     {
         t_ = v_;
         const_lvalue_constraints(v_);
-        const_rvalue_constraints();
     }
 
 private:
     void const_lvalue_constraints(const T& x)
     {
         t_ = x;
+        const_rvalue_constraints(std::move(x));
     }
 
-    void const_rvalue_constraints()
+    void const_rvalue_constraints(const T&& x)
     {
-        t_ = boost::declval<const T>();
+        t_ = std::move(x);
     }
 
     T t_;
