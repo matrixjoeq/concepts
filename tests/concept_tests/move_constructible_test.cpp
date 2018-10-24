@@ -86,7 +86,7 @@ struct ConceptChecker
 void move_constructible_check()
 {
     mpl::for_each<BasicTL>(ConceptChecker());
-    mpl::for_each<ReferenceTL>(ConceptChecker());
+    //mpl::for_each<ReferenceTL>(ConceptChecker());
     mpl::for_each<PointerTL>(ConceptChecker());
     mpl::for_each<BasicArrayTL>(ConceptChecker());
     mpl::for_each<PointerArrayTL>(ConceptChecker());

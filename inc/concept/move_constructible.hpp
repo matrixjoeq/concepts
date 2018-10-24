@@ -3,8 +3,8 @@
 #define __STL_CONCEPT_MOVE_CONSTRUCTIBLE_HPP__
 
 #include "concept/convertible_to.hpp"
-#include <boost/type_traits/declval.hpp>
-#include <boost/type_traits/add_rvalue_reference.hpp>
+#include <utility>
+#include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 #include "concept/detail/unuse.hpp"
@@ -51,13 +51,24 @@ template <typename T> struct MoveConstructible {};
 #else // DOXYGEN_WORKING
 BOOST_concept(MoveConstructible, (T))
 {
+    BOOST_CONCEPT_ASSERT((ConvertibleTo<T, T>));
+
     BOOST_CONCEPT_USAGE(MoveConstructible)
     {
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<T, T>));
-        T u = boost::declval<T>();
-        __detail::__unuse(u);
-        __detail::__unuse(T(boost::declval<T>()));
+        rvalue_constraints(std::move(v_));
     }
+
+private:
+    MoveConstructible();
+
+    void rvalue_constraints(T&& v)
+    {
+        T u = std::move(v);
+        __detail::__unuse(u);
+        __detail::__unuse(T(std::move(v)));
+    }
+
+    T v_;
 };
 #endif // DOXYGEN_WORKING
 

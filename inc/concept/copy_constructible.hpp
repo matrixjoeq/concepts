@@ -4,7 +4,6 @@
 
 #include "concept/move_constructible.hpp"
 #include "concept/convertible_to.hpp"
-#include <boost/type_traits/declval.hpp>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -53,37 +52,42 @@ template <typename T> struct CopyConstructible : MoveConstructible<T> {};
 #else // DOXYGEN_WORKING
 BOOST_concept(CopyConstructible, (T)) : MoveConstructible<T>
 {
+    BOOST_CONCEPT_ASSERT((ConvertibleTo<T&, T>));
+    BOOST_CONCEPT_ASSERT((ConvertibleTo<const T&, T>));
+    BOOST_CONCEPT_ASSERT((ConvertibleTo<const T, T>));
+
     BOOST_CONCEPT_USAGE(CopyConstructible)
     {
         lvalue_constraints();
-        const_lvalue_constraints();
-        const_rvalue_constraints();
+        const_lvalue_constraints(v_);
     }
 
 private:
+    CopyConstructible();
+
     void lvalue_constraints()
     {
-        T u = boost::declval<T&>();
+        T u = v_;
         __detail::__unuse(u);
-        __detail::__unuse(T(boost::declval<T&>()));
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<T&, T>));
+        __detail::__unuse(T(v_));
     }
 
-    void const_lvalue_constraints()
+    void const_lvalue_constraints(const T& v)
     {
-        T u = boost::declval<const T&>();
+        T u = v;
         __detail::__unuse(u);
-        __detail::__unuse(T(boost::declval<const T&>()));
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<const T&, T>));
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<const T, T>));
+        __detail::__unuse(T(v));
+        const_rvalue_constraints(std::move(v));
     }
 
-    void const_rvalue_constraints()
+    void const_rvalue_constraints(const T&& v)
     {
-        T u = boost::declval<const T&&>();
+        T u = v;
         __detail::__unuse(u);
-        __detail::__unuse(T(boost::declval<const T&&>()));
+        __detail::__unuse(T(v));
     }
+
+    T v_;
 };
 #endif // DOXYGEN_WORKING
 
