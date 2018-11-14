@@ -41,7 +41,7 @@ namespace stl_concept {
  * </ul>
  * Given
  * <ul style="list-style-type:disc">
- *   <li><i>comp, an object of type T</li>
+ *   <li>comp, an object of type T</li>
  *   <li>equiv(a, b), an expression equivalent to !comp(a, b) && !comp(b, a)</li>
  * </ul>
  * The following expressions must be valid and have their specified effects
