@@ -5,7 +5,6 @@
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
-
 #include "concept/detail/unuse.hpp"
 
 #if (defined _MSC_VER)
@@ -44,7 +43,8 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/DefaultConstructible
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct DefaultConstructible {};
+template <typename T>
+struct DefaultConstructible {};
 #else // DOXYGEN_WORKING
 BOOST_concept(DefaultConstructible, (T))
 {
@@ -62,7 +62,8 @@ BOOST_concept(DefaultConstructible, (T))
 #endif // DOXYGEN_WORKING
 
 template <typename T, size_t N>
-struct DefaultConstructible<T[N]> : DefaultConstructible<T> {};
+struct DefaultConstructible<T[N]>
+    : DefaultConstructible<T> {};
 
 } // namespace stl_concept
 

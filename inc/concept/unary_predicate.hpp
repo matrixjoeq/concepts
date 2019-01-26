@@ -4,7 +4,7 @@
 
 #include "concept/convertible_to.hpp"
 #include "concept/unary_function.hpp"
-#include <boost/type_traits/declval.hpp>
+#include <utility>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -34,13 +34,18 @@ namespace stl_concept {
  * </p>
  */
 #ifdef DOXYGEN_WORKING
-template <typename Func, typename Arg> struct UnaryPredicate : UnaryFunction<Func, Arg> {};
+template <typename Func, typename Arg>
+struct UnaryPredicate
+    : UnaryFunction<Func, Arg> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(UnaryPredicate, (Func)(Arg)) : UnaryFunction<Func, Arg>
+BOOST_concept(UnaryPredicate, (Func)(Arg))
+    : UnaryFunction<Func, Arg>
 {
     BOOST_CONCEPT_USAGE(UnaryPredicate)
     {
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(boost::declval<Func>()(boost::declval<Arg&>())), bool>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<
+            decltype(std::declval<Func>()(std::declval<Arg>())),
+            bool>));
     }
 };
 #endif // DOXYGEN_WORKING

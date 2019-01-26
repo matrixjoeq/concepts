@@ -3,7 +3,6 @@
 #define __STL_CONCEPT_TESTS_UTIL_H__
 
 #include <iostream>
-#include <boost/static_assert.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/for_each.hpp>
 #include <boost/mpl/identity.hpp>
@@ -92,6 +91,7 @@ void move_assignable_check();
 void copy_assignable_check();
 void assignable_check();
 void swappable_check();
+void dereferenceable_check();
 
 // object group
 void movable_check();

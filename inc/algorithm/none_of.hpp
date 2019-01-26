@@ -27,7 +27,7 @@ namespace stl_algorithm {
  */
 #ifdef DOXYGEN_WORKING
 template <class InputIt, class UnaryPredicate>
-constexpr inline bool none_of(InputIt first, InputIt last, UnaryPredicate p);
+inline bool none_of(InputIt first, InputIt last, UnaryPredicate p);
 #else // DOXYGEN_WORKING
 template <class InputIt, class UnaryPredicate>
     BOOST_CONCEPT_REQUIRES(
@@ -37,7 +37,7 @@ template <class InputIt, class UnaryPredicate>
         // Return
         (bool)
     )
-constexpr inline none_of(InputIt first, InputIt last, UnaryPredicate p)
+inline none_of(InputIt first, InputIt last, UnaryPredicate p)
 {
     return std::none_of(first, last, p);
 }

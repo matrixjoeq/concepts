@@ -4,8 +4,7 @@
 
 #include "concept/same.hpp"
 #include <memory>
-#include <boost/container/allocator_traits.hpp>
-#include <boost/type_traits/declval.hpp>
+#include <utility>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -51,7 +50,8 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/EmplaceInsertable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T, typename X, typename... Args> struct EmplaceInsertable {};
+template <typename T, typename X, typename... Args>
+struct EmplaceInsertable {};
 #else // DOXYGEN_WORKING
 template <typename T, typename X, typename... Args>
 struct EmplaceInsertable
@@ -59,9 +59,12 @@ struct EmplaceInsertable
     BOOST_CONCEPT_USAGE(EmplaceInsertable)
     {
         BOOST_CONCEPT_ASSERT((Same<T, _ValueType>));
-        using _RebindAllocType = typename boost::container::allocator_traits<_AllocatorType>::template rebind_alloc<T>;
+        using _RebindAllocType =
+            typename std::allocator_traits<_AllocatorType>::template rebind_alloc<T>;
+
         BOOST_CONCEPT_ASSERT((Same<_RebindAllocType, _AllocatorType>));
-        boost::container::allocator_traits<_AllocatorType>::construct(alloc_, pointer_, boost::declval<Args>()...);
+        // FIXME: declval out of unevaluation context
+        std::allocator_traits<_AllocatorType>::construct(alloc_, pointer_, std::declval<Args>()...);
     }
 
 private:

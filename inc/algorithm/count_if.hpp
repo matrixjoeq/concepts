@@ -27,7 +27,7 @@ namespace stl_algorithm {
  */
 #ifdef DOXYGEN_WORKING
 template <class InputIt, class UnaryPredicate>
-constexpr inline auto count_if(InputIt first, InputIt last, UnaryPredicate p)
+inline auto count_if(InputIt first, InputIt last, UnaryPredicate p)
     -> decltype(typename std::iterator_traits<InputIt>::difference_type);
 #else // DOXYGEN_WORKING
 template <class InputIt, class UnaryPredicate>
@@ -36,9 +36,9 @@ template <class InputIt, class UnaryPredicate>
         ((stl_concept::InputIterator<InputIt>))
         ((__detail::__UnaryPredicateProxy<UnaryPredicate, InputIt>)),
         // Return
-        (__detail::__std_iterator_difference_t<InputIt>)
+        (__detail::__iterator_difference_t<InputIt>)
     )
-constexpr inline count_if(InputIt first, InputIt last, UnaryPredicate p)
+inline count_if(InputIt first, InputIt last, UnaryPredicate p)
 {
     return std::count_if(first, last, p);
 }

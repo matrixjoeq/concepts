@@ -35,14 +35,18 @@ namespace stl_concept {
  * </p>
  */
 #ifdef DOXYGEN_WORKING
-template <typename Func, typename First, typename Second> struct BinaryPredicate : BinaryFunction<Func, First, Second> {};
+template <typename Func, typename First, typename Second>
+struct BinaryPredicate
+    : BinaryFunction<Func, First, Second> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(BinaryPredicate, (Func)(First)(Second)) : BinaryFunction<Func, First, Second>
+BOOST_concept(BinaryPredicate, (Func)(First)(Second))
+    : BinaryFunction<Func, First, Second>
 {
     BOOST_CONCEPT_USAGE(BinaryPredicate)
     {
         BOOST_CONCEPT_ASSERT((ConvertibleTo<
-            decltype(boost::declval<Func>()(boost::declval<First&>(), boost::declval<Second&>())), bool>));
+            decltype(boost::declval<Func>()(
+                boost::declval<First&>(), boost::declval<Second&>())), bool>));
     }
 };
 #endif // DOXYGEN_WORKING

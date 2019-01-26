@@ -2,8 +2,7 @@
 #ifndef __STL_CONCEPT_CONVERTIBLE_TO_HPP__
 #define __STL_CONCEPT_CONVERTIBLE_TO_HPP__
 
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/is_convertible.hpp>
+#include <type_traits>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 #include "concept/detail/unuse.hpp"
@@ -55,13 +54,14 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/ConvertibleTo
  */
 #ifdef DOXYGEN_WORKING
-template <typename From, typename To> struct ConvertibleTo {};
+template <typename From, typename To>
+struct ConvertibleTo {};
 #else // DOXYGEN_WORKING
 BOOST_concept(ConvertibleTo, (From)(To))
 {
     BOOST_CONCEPT_USAGE(ConvertibleTo)
     {
-        BOOST_STATIC_ASSERT(boost::is_convertible<From, To>::value);
+        static_assert(std::is_convertible<From, To>::value, "");
         convertible_constraints(func_);
     }
 

@@ -31,9 +31,12 @@ namespace stl_concept {
  * </p>
  */
 #ifdef DOXYGEN_WORKING
-template <typename Func, typename First, typename Second> struct BinaryFunction : FunctionObject<Func, First, Second> {};
+template <typename Func, typename First, typename Second>
+struct BinaryFunction
+    : FunctionObject<Func, First, Second> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(BinaryFunction, (Func)(First)(Second)) : FunctionObject<Func, First, Second> {};
+BOOST_concept(BinaryFunction, (Func)(First)(Second))
+    : FunctionObject<Func, First, Second> {};
 #endif // DOXYGEN_WORKING
 
 } // namespace stl_concept

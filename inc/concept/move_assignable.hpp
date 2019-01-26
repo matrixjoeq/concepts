@@ -2,7 +2,7 @@
 #ifndef __STL_CONCEPT_MOVE_ASSIGNABLE_HPP__
 #define __STL_CONCEPT_MOVE_ASSIGNABLE_HPP__
 
-#include <boost/type_traits/declval.hpp>
+#include <utility>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 
@@ -42,17 +42,19 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/Movable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct MoveAssignable {};
+template <typename T>
+struct MoveAssignable {};
 #else // DOXYGEN_WORKING
 BOOST_concept(MoveAssignable, (T))
 {
     BOOST_CONCEPT_USAGE(MoveAssignable)
     {
-        t_ = boost::declval<T>();
+        t_ = std::move(u_);
     }
 
 private:
     T t_;
+    T u_;
 };
 #endif // DOXYGEN_WORKING
 

@@ -40,9 +40,12 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/experimental/ranges/iterator/Incrementable
  */
 #ifdef DOXYGEN_WORKING
-template <typename It> struct Incrementable : WeaklyIncrementable<It> {};
+template <typename It>
+struct Incrementable
+    : WeaklyIncrementable<It> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(Incrementable, (It)) : WeaklyIncrementable<It>
+BOOST_concept(Incrementable, (It))
+    : WeaklyIncrementable<It>
 {
     BOOST_CONCEPT_USAGE(Incrementable)
     {

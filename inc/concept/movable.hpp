@@ -20,16 +20,25 @@ namespace stl_concept {
 /**
  * @addtogroup object_group Object Concepts
  * @struct Movable
- * @brief Specifies that T is an object type that can moved (i.e. it can be move constructed, move assigned, and lvalues
- * of type T can be swapped).
+ * @brief Specifies that T is an object type that can moved
+ * (i.e. it can be move constructed, move assigned, and lvalues of type T can be swapped).
  *
  * @tparam T - type to be checked
  * @see https://en.cppreference.com/w/cpp/concepts/Movable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct Movable : Object<T>, MoveConstructible<T>, MoveAssignable<T>, Swappable<T> {};
+template <typename T>
+struct Movable
+    : Object<T>
+    , MoveConstructible<T>
+    , MoveAssignable<T>
+    , Swappable<T> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(Movable, (T)) : Object<T>, MoveConstructible<T>, MoveAssignable<T>, Swappable<T> {};
+BOOST_concept(Movable, (T))
+    : Object<T>
+    , MoveConstructible<T>
+    , MoveAssignable<T>
+    , Swappable<T> {};
 #endif // DOXYGEN_WORKING
 
 } // namespace stl_concept

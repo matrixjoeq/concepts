@@ -36,7 +36,7 @@ namespace stl_algorithm {
  */
 #ifdef DOXYGEN_WORKING
 template <class InputIt1, class InputIt2, class BinaryPredicate>
-constexpr inline bool equal_if(InputIt1 first1, InputIt1 last1, InputIt2 first2, BinaryPredicate p);
+inline bool equal_if(InputIt1 first1, InputIt1 last1, InputIt2 first2, BinaryPredicate p);
 #else // DOXYGEN_WORKING
 template <class InputIt1, class InputIt2, class BinaryPredicate>
     BOOST_CONCEPT_REQUIRES(
@@ -47,7 +47,7 @@ template <class InputIt1, class InputIt2, class BinaryPredicate>
         // Return
         (bool)
     )
-constexpr inline equal_if(InputIt1 first1, InputIt1 last1, InputIt2 first2, BinaryPredicate p)
+inline equal_if(InputIt1 first1, InputIt1 last1, InputIt2 first2, BinaryPredicate p)
 {
     return std::equal(first1, last1, first2, p);
 }

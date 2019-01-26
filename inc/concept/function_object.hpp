@@ -2,10 +2,8 @@
 #ifndef __STL_CONCEPT_FUNCTION_OBJECT_HPP__
 #define __STL_CONCEPT_FUNCTION_OBJECT_HPP__
 
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/declval.hpp>
-#include <boost/type_traits/is_object.hpp>
-#include <boost/type_traits/remove_const.hpp>
+#include <type_traits>
+#include <utility>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 #include "concept/detail/unuse.hpp"
@@ -47,32 +45,18 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/FunctionObject
  */
 #ifdef DOXYGEN_WORKING
-template <typename F, typename... Args> struct FunctionObject {};
+template <typename F, typename... Args>
+struct FunctionObject {};
 #else // DOXYGEN_WORKING
 template <typename F, typename... Args>
 struct FunctionObject
 {
     BOOST_CONCEPT_USAGE(FunctionObject)
     {
-        BOOST_STATIC_ASSERT_MSG(boost::is_object<F>::value, "Type is not an object");
-        using _ReturnType = decltype(f_(boost::declval<Args&>()...));
-        callable_test(boost::is_void<_ReturnType>());
+        static_assert(std::is_object<F>::value, "Type is not an object");
+        using Return = decltype(std::declval<F>()(std::declval<Args&>()...));
+        __detail::__Unuse<Return>();
     }
-
-private:
-    using _F = boost::remove_const_t<F>;
-
-    void callable_test(boost::is_void<void>)
-    {
-        f_(boost::declval<Args&>()...);
-    }
-
-    void callable_test(...)
-    {
-        __detail::__unuse(f_(boost::declval<Args&>()...));
-    }
-
-    _F f_;
 };
 #endif // DOXYGEN_WORKING
 

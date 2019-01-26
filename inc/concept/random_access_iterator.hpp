@@ -64,9 +64,12 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/experimental/ranges/iterator/RandomAccessIterator
  */
 #ifdef DOXYGEN_WORKING
-template <typename It> struct RandomAccessIterator : BidirectionalIterator<It> {};
+template <typename It>
+struct RandomAccessIterator
+    : BidirectionalIterator<It> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(RandomAccessIterator, (It)) : BidirectionalIterator<It>
+BOOST_concept(RandomAccessIterator, (It))
+    : BidirectionalIterator<It>
 {
     BOOST_CONCEPT_USAGE(RandomAccessIterator)
     {

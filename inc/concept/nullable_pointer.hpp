@@ -61,11 +61,20 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/NullablePointer
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct NullablePointer
-    : EqualityComparable<T>, DefaultConstructible<T>, CopyConstructible<T>, CopyAssignable<T>, Destructible<T> {};
+template <typename T>
+struct NullablePointer
+    : EqualityComparable<T>
+    , DefaultConstructible<T>
+    , CopyConstructible<T>
+    , CopyAssignable<T>
+    , Destructible<T> {};
 #else // DOXYGEN_WORKING
 BOOST_concept(NullablePointer, (T))
-    : EqualityComparable<T>, DefaultConstructible<T>, CopyConstructible<T>, CopyAssignable<T>, Destructible<T>
+    : EqualityComparable<T>
+    , DefaultConstructible<T>
+    , CopyConstructible<T>
+    , CopyAssignable<T>
+    , Destructible<T>
 {
     BOOST_CONCEPT_USAGE(NullablePointer)
     {

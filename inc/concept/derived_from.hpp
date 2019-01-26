@@ -2,10 +2,7 @@
 #ifndef __STL_CONCEPT_DERIVED_FROM_HPP__
 #define __STL_CONCEPT_DERIVED_FROM_HPP__
 
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/is_base_of.hpp>
-#include <boost/type_traits/is_convertible.hpp>
-#include <boost/type_traits/remove_cv.hpp>
+#include <type_traits>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 
@@ -27,15 +24,22 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/DerivedFrom
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct DerivedFrom {};
+template <typename T>
+struct DerivedFrom {};
 #else // DOXYGEN_WORKING
 BOOST_concept(DerivedFrom, (T)(U))
 {
     BOOST_CONCEPT_USAGE(DerivedFrom)
     {
-        BOOST_STATIC_ASSERT_MSG(boost::is_base_of<U, T>::value, "U must be the base of T");
-        BOOST_STATIC_ASSERT_MSG(boost::is_convertible<boost::remove_cv_t<T>*, boost::remove_cv_t<U>*>::value,
-                                "T* must be convertible to U*");
+        static_assert(
+            std::is_base_of<U, T>::value,
+            "U must be the base of T");
+
+        static_assert(
+            std::is_convertible<
+                typename std::remove_cv<T>::type*,
+                typename std::remove_cv<U>::type*>::value,
+            "T* must be convertible to U*");
     }
 };
 #endif // DOXYGEN_WORKING

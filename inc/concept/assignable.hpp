@@ -4,9 +4,7 @@
 
 #include "concept/same.hpp"
 #include <utility>
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/is_lvalue_reference.hpp>
-#include <boost/type_traits/remove_reference.hpp>
+#include <type_traits>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 
@@ -54,13 +52,14 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/Assignable
  */
 #ifdef DOXYGEN_WORKING
-template <typename LHS, typename RHS> struct Assignable {};
+template <typename LHS, typename RHS>
+struct Assignable {};
 #else // DOXYGEN_WORKING
 BOOST_concept(Assignable, (LHS)(RHS))
 {
     BOOST_CONCEPT_USAGE(Assignable)
     {
-        BOOST_STATIC_ASSERT_MSG(boost::is_lvalue_reference<LHS>::value, "LHS must be an lvalue reference");
+        static_assert(std::is_lvalue_reference<LHS>::value, "LHS must be an lvalue reference");
         assignable_constraints(lhs_, rhs_);
         assignable_constraints(lhs_, std::move(rhs_));
     }

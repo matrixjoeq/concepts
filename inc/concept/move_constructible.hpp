@@ -47,7 +47,8 @@ namespace stl_concept {
  * @bug This concept check fails with lambda functions, which should be move constructible.
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct MoveConstructible {};
+template <typename T>
+struct MoveConstructible {};
 #else // DOXYGEN_WORKING
 BOOST_concept(MoveConstructible, (T))
 {

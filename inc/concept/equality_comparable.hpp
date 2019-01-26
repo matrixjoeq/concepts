@@ -44,9 +44,12 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/EqualityComparable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct EqualityComparable : WeaklyEqualityComparableWith<T, T> {};
+template <typename T>
+struct EqualityComparable
+    : WeaklyEqualityComparableWith<T, T> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(EqualityComparable, (T)) : WeaklyEqualityComparableWith<T, T> {};
+BOOST_concept(EqualityComparable, (T))
+    : WeaklyEqualityComparableWith<T, T> {};
 #endif // DOXYGEN_WORKING
 
 } // namespace stl_concept

@@ -27,9 +27,14 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/Regular
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct Regular : Semiregular<T>, EqualityComparable<T> {};
+template <typename T>
+struct Regular
+    : Semiregular<T>
+    , EqualityComparable<T> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(Regular, (T)) : Semiregular<T>, EqualityComparable<T> {};
+BOOST_concept(Regular, (T))
+    : Semiregular<T>
+    , EqualityComparable<T> {};
 #endif // DOXYGEN_WORKING
 
 } // namespace stl_concept

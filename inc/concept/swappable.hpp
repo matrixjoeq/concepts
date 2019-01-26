@@ -2,14 +2,8 @@
 #ifndef __STL_CONCEPT_SWAPPABLE_HPP__
 #define __STL_CONCEPT_SWAPPABLE_HPP__
 
-// for swap
-#if __cplusplus < 201103L
-#include <algorithm>
-#else // __cplusplus < 201103L
-#include <utility>
-#endif // __cplusplus < 201103L
-
 #include "concept/swappable_with.hpp"
+#include <utility>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 
@@ -43,9 +37,12 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/Swappable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct Swappable : SwappableWith<T, T> {};
+template <typename T>
+struct Swappable
+    : SwappableWith<T, T> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(Swappable, (T)) : SwappableWith<T, T> {};
+BOOST_concept(Swappable, (T))
+    : SwappableWith<T, T> {};
 #endif // DOXYGEN_WORKING
 
 } // namespace stl_concept

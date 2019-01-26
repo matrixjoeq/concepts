@@ -34,11 +34,14 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/RandomAccessIterator
  */
 #ifdef DOXYGEN_WORKING
-template <typename It> struct MutableRandomAccessIterator
-    : RandomAccessIterator<It>, OutputIterator<It, typename boost::iterator_value<It>::type> {};
+template <typename It>
+struct MutableRandomAccessIterator
+    : RandomAccessIterator<It>
+    , OutputIterator<It, typename std::iterator_traits<It>::value_type> {};
 #else // DOXYGEN_WORKING
 BOOST_concept(MutableRandomAccessIterator, (It))
-    : RandomAccessIterator<It>, OutputIterator<It, __detail::__iterator_value_t<It>> {};
+    : RandomAccessIterator<It>
+    , OutputIterator<It, __detail::__iterator_value_t<It>> {};
 #endif // DOXYGEN_WORKING
 
 } // namespace stl_concept

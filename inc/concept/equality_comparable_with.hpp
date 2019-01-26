@@ -4,7 +4,6 @@
 
 #include "concept/weakly_equality_comparable_with.hpp"
 #include "concept/equality_comparable.hpp"
-#include <boost/type_traits/remove_const.hpp>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -51,9 +50,12 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/EqualityComparable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T, typename U> struct EqualityComparableWith : WeaklyEqualityComparableWith<T, U> {};
+template <typename T, typename U>
+struct EqualityComparableWith
+    : WeaklyEqualityComparableWith<T, U> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(EqualityComparableWith, (T)(U)) : WeaklyEqualityComparableWith<T, U>
+BOOST_concept(EqualityComparableWith, (T)(U))
+    : WeaklyEqualityComparableWith<T, U>
 {
     BOOST_CONCEPT_USAGE(EqualityComparableWith)
     {

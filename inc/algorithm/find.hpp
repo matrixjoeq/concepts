@@ -23,7 +23,7 @@ namespace stl_algorithm {
  */
 #ifdef DOXYGEN_WORKING
 template <class InputIt, class T>
-constexpr inline InputIt find(InputIt first, InputIt last, const T& value);
+inline InputIt find(InputIt first, InputIt last, const T& value);
 #else // DOXYGEN_WORKING
 template <class InputIt, class T>
     BOOST_CONCEPT_REQUIRES(
@@ -33,7 +33,7 @@ template <class InputIt, class T>
         // Return
         (InputIt)
     )
-constexpr inline find(InputIt first, InputIt last, const T& value)
+inline find(InputIt first, InputIt last, const T& value)
 {
     return std::find(first, last, value);
 }

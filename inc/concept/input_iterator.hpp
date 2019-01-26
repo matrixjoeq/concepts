@@ -58,9 +58,14 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/InputIterator
  */
 #ifdef DOXYGEN_WORKING
-template <typename It> struct InputIterator : EqualityComparable<It>, Iterator<It> {};
+template <typename It>
+struct InputIterator
+    : EqualityComparable<It>
+    , Iterator<It> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(InputIterator, (It)) : EqualityComparable<It>, Iterator<It>
+BOOST_concept(InputIterator, (It))
+    : EqualityComparable<It>
+    , Iterator<It>
 {
     BOOST_CONCEPT_USAGE(InputIterator)
     {

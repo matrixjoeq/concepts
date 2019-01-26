@@ -62,9 +62,12 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/experimental/ranges/iterator/BidirectionalIterator
  */
 #ifdef DOXYGEN_WORKING
-template <typename It> struct BidirectionalIterator : ForwardIterator<It> {};
+template <typename It>
+struct BidirectionalIterator
+    : ForwardIterator<It> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(BidirectionalIterator, (It)) : ForwardIterator<It>
+BOOST_concept(BidirectionalIterator, (It))
+    : ForwardIterator<It>
 {
     BOOST_CONCEPT_USAGE(BidirectionalIterator)
     {

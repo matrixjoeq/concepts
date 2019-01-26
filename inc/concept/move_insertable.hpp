@@ -4,8 +4,7 @@
 
 #include "concept/same.hpp"
 #include <memory>
-#include <boost/container/allocator_traits.hpp>
-#include <boost/type_traits/declval.hpp>
+#include <utility>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -49,16 +48,20 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/MoveInsertable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T, typename X> struct MoveInsertable {};
+template <typename T, typename X>
+struct MoveInsertable {};
 #else // DOXYGEN_WORKING
 BOOST_concept(MoveInsertable, (T)(X))
 {
     BOOST_CONCEPT_USAGE(MoveInsertable)
     {
         BOOST_CONCEPT_ASSERT((Same<T, _ValueType>));
-        using _RebindAllocType = typename boost::container::allocator_traits<_AllocatorType>::template rebind_alloc<T>;
+        using _RebindAllocType =
+            typename std::allocator_traits<_AllocatorType>::template rebind_alloc<T>;
+
         BOOST_CONCEPT_ASSERT((Same<_RebindAllocType, _AllocatorType>));
-        boost::container::allocator_traits<_AllocatorType>::construct(alloc_, pointer_, boost::declval<T>());
+        // FIXME: declval out of unevaluation context
+        std::allocator_traits<_AllocatorType>::construct(alloc_, pointer_, std::declval<T>());
     }
 
 private:

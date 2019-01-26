@@ -71,30 +71,26 @@ $(function() {
 <div class="title">function_object_adapter.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;boost/type_traits/conditional.hpp&gt;</code><br />
-<code>#include &lt;boost/type_traits/decay.hpp&gt;</code><br />
-<code>#include &lt;boost/type_traits/is_function.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;type_traits&gt;</code><br />
 </div>
 <p><a href="function__object__adapter_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ab7ea793d560ebea04156869d3ac05306"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
-<tr class="memitem:ab7ea793d560ebea04156869d3ac05306"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="function__object__adapter_8hpp.html#ab7ea793d560ebea04156869d3ac05306">stl_algorithm::__detail::__FunctionObjectAdapter</a> = __FunctionObjectAdapterImpl&lt; boost::remove_reference_t&lt; T &gt; &gt;</td></tr>
-<tr class="memdesc:ab7ea793d560ebea04156869d3ac05306"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type adapter for function objects.  <a href="function__object__adapter_8hpp.html#ab7ea793d560ebea04156869d3ac05306">More...</a><br /></td></tr>
-<tr class="separator:ab7ea793d560ebea04156869d3ac05306"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e92bbf167619c95e533932921e5053d"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:a4e92bbf167619c95e533932921e5053d"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="function__object__adapter_8hpp.html#a4e92bbf167619c95e533932921e5053d">__FunctionObjectAdapter</a> = __FunctionObjectAdapterImpl&lt; typename std::remove_reference&lt; T &gt;::type &gt;</td></tr>
+<tr class="memdesc:a4e92bbf167619c95e533932921e5053d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type adapter for function objects.  <a href="function__object__adapter_8hpp.html#a4e92bbf167619c95e533932921e5053d">More...</a><br /></td></tr>
+<tr class="separator:a4e92bbf167619c95e533932921e5053d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="file_ab7ea793d560ebea04156869d3ac05306"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#file_ab7ea793d560ebea04156869d3ac05306">&#9670;&nbsp;</a></span>__FunctionObjectAdapter</h2>
+<a id="file_a4e92bbf167619c95e533932921e5053d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a4e92bbf167619c95e533932921e5053d">&#9670;&nbsp;</a></span>__FunctionObjectAdapter</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="function__object__adapter_8hpp.html#ab7ea793d560ebea04156869d3ac05306">stl_algorithm::__detail::__FunctionObjectAdapter</a> = typedef __FunctionObjectAdapterImpl&lt;boost::remove_reference_t&lt;T&gt; &gt;</td>
+          <td class="memname">using __FunctionObjectAdapter =  __FunctionObjectAdapterImpl&lt;typename std::remove_reference&lt;T&gt;::type&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">

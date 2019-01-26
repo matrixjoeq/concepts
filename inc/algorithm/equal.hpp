@@ -28,7 +28,7 @@ namespace stl_algorithm {
  */
 #ifdef DOXYGEN_WORKING
 template <class InputIt1, class InputIt2>
-constexpr inline bool equal(InputIt1 first1, InputIt1 last1, InputIt2 first2);
+inline bool equal(InputIt1 first1, InputIt1 last1, InputIt2 first2);
 #else // DOXYGEN_WORKING
 template <class InputIt1, class InputIt2>
     BOOST_CONCEPT_REQUIRES(
@@ -39,7 +39,7 @@ template <class InputIt1, class InputIt2>
         // Return
         (bool)
     )
-constexpr inline equal(InputIt1 first1, InputIt1 last1, InputIt2 first2)
+inline equal(InputIt1 first1, InputIt1 last1, InputIt2 first2)
 {
     return std::equal(first1, last1, first2);
 }

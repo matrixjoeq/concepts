@@ -5,10 +5,8 @@
 #include "concept/same.hpp"
 #include "concept/convertible_to.hpp"
 #include "concept/iterator.hpp"
-#include <boost/static_assert.hpp>
-#include <boost/iterator/iterator_traits.hpp>
-#include <boost/type_traits/is_object.hpp>
-#include <boost/type_traits/is_pointer.hpp>
+#include <iterator>
+#include <type_traits>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -60,14 +58,18 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/OutputIterator
  */
 #ifdef DOXYGEN_WORKING
-template <typename It, typename ValueType> struct OutputIterator : Iterator<It> {};
+template <typename It, typename ValueType>
+struct OutputIterator
+    : Iterator<It> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(OutputIterator, (It)(ValueType)) : Iterator<It>
+BOOST_concept(OutputIterator, (It)(ValueType))
+    : Iterator<It>
 {
     BOOST_CONCEPT_USAGE(OutputIterator)
     {
-        BOOST_STATIC_ASSERT_MSG(boost::is_object<It>::value || boost::is_pointer<It>::value,
-                                "Type is neither object nor pointer");
+        static_assert(
+            std::is_object<It>::value || std::is_pointer<It>::value,
+            "Type is neither object nor pointer");
         BOOST_CONCEPT_ASSERT((Same<decltype(++iter_), It&>));
         BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(iter_++), const It&>));
         __detail::__unuse(*iter_ = value_);

@@ -2,16 +2,9 @@
 #ifndef __STL_CONCEPT_SWAPPABLE_WITH_HPP__
 #define __STL_CONCEPT_SWAPPABLE_WITH_HPP__
 
-// for swap
-#if __cplusplus < 201103L
-#include <algorithm>
-#else // __cplusplus < 201103L
-#include <utility>
-#endif // __cplusplus < 201103L
-
 #include "concept/referenceable.hpp"
-#include <boost/type_traits/declval.hpp>
-#include <boost/type_traits/remove_cv_ref.hpp>
+#include <type_traits>
+#include <utility>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 
@@ -46,7 +39,8 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/Swappable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T, typename U> struct SwappableWith {};
+template <typename T, typename U>
+struct SwappableWith {};
 #else // DOXYGEN_WORKING
 BOOST_concept(SwappableWith, (T)(U))
 {
@@ -56,10 +50,11 @@ BOOST_concept(SwappableWith, (T)(U))
 
         BOOST_CONCEPT_ASSERT((Referenceable<T>));
         BOOST_CONCEPT_ASSERT((Referenceable<U>));
-        swap(boost::declval<T&>(), boost::declval<T&>());
-        swap(boost::declval<U&>(), boost::declval<U&>());
-        swap(boost::declval<T&>(), boost::declval<U&>());
-        swap(boost::declval<U&>(), boost::declval<T&>());
+        // FIXME: declval out of unevaluation context
+        swap(std::declval<T&>(), std::declval<T&>());
+        swap(std::declval<U&>(), std::declval<U&>());
+        swap(std::declval<T&>(), std::declval<U&>());
+        swap(std::declval<U&>(), std::declval<T&>());
     }
 };
 #endif // DOXYGEN_WORKING

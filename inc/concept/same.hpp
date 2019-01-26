@@ -2,8 +2,7 @@
 #ifndef __STL_CONCEPT_SAME_HPP__
 #define __STL_CONCEPT_SAME_HPP__
 
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <type_traits>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 
@@ -26,13 +25,14 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/Same
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct Same {};
+template <typename T>
+struct Same {};
 #else // DOXYGEN_WORKING
 BOOST_concept(Same, (T)(U))
 {
     BOOST_CONCEPT_USAGE(Same)
     {
-        BOOST_STATIC_ASSERT_MSG(boost::is_same<U, T>::value, "T and U must be the same type");
+        static_assert(std::is_same<U, T>::value, "T and U must be the same type");
     }
 };
 #endif // DOXYGEN_WORKING

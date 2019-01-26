@@ -4,6 +4,7 @@
 
 #include "concept/iterator.hpp"
 #include "concept/swappable.hpp"
+#include <utility>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -38,13 +39,16 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/ValueSwappable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct ValueSwappable : Iterator<T> {};
+template <typename T>
+struct ValueSwappable
+    : Iterator<T> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(ValueSwappable, (T)) : Iterator<T>
+BOOST_concept(ValueSwappable, (T))
+    : Iterator<T>
 {
     BOOST_CONCEPT_USAGE(ValueSwappable)
     {
-        BOOST_CONCEPT_ASSERT((Swappable<decltype(*(boost::declval<T>()))>));
+        BOOST_CONCEPT_ASSERT((Swappable<decltype(*(std::declval<T>()))>));
     }
 };
 #endif // DOXYGEN_WORKING

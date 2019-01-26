@@ -3,7 +3,7 @@
 #define __STL_CONCEPT_LESS_THAN_COMPARABLE_HPP__
 
 #include "concept/convertible_to.hpp"
-#include <boost/type_traits/remove_const.hpp>
+#include <type_traits>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -49,7 +49,8 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/LessThanComparable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct LessThanComparable {};
+template <typename T>
+struct LessThanComparable {};
 #else // DOXYGEN_WORKING
 BOOST_concept(LessThanComparable, (T))
 {
@@ -60,7 +61,7 @@ BOOST_concept(LessThanComparable, (T))
     }
 
 private:
-    using _Tp = boost::remove_const_t<T>;
+    using _Tp = typename std::remove_const<T>::type;
 
     void const_constraints(const _Tp& x, const _Tp& y)
     {

@@ -12,6 +12,13 @@ namespace __detail {
  */
 template <class T>
 inline void __unuse(T&&) {}
+
+/**
+ * @brief Ignore unused type.
+ * @tparam T - object type
+ */
+template <class T>
+struct __Unuse {};
 /// @endcond
 
 } // namespace __detail

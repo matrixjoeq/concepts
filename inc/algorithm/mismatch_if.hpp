@@ -34,7 +34,7 @@ namespace stl_algorithm {
  */
 #ifdef DOXYGEN_WORKING
 template <class InputIt1, class InputIt2, class BinaryPredicate>
-constexpr inline auto mismatch_if(InputIt1 first1, InputIt1 last1, InputIt2 first2, BinaryPredicate p)
+inline auto mismatch_if(InputIt1 first1, InputIt1 last1, InputIt2 first2, BinaryPredicate p)
     -> decltype(std::pair<InputIt1, InputIt2>);
 #else // DOXYGEN_WORKING
 template <class InputIt1, class InputIt2, class BinaryPredicate>
@@ -46,7 +46,7 @@ template <class InputIt1, class InputIt2, class BinaryPredicate>
         // Return
         (std::pair<InputIt1, InputIt2>)
     )
-constexpr inline mismatch_if(InputIt1 first1, InputIt1 last1, InputIt2 first2, BinaryPredicate p)
+inline mismatch_if(InputIt1 first1, InputIt1 last1, InputIt2 first2, BinaryPredicate p)
 {
     return std::mismatch(first1, last1, first2, p);
 }

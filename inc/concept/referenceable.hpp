@@ -2,9 +2,9 @@
 #ifndef __STL_CONCEPT_REFERENCEABLE_HPP__
 #define __STL_CONCEPT_REFERENCEABLE_HPP__
 
-#include <boost/type_traits/remove_cv_ref.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
+#include "concept/detail/remove_cvref.hpp"
 #include "concept/detail/unuse.hpp"
 
 #if (defined _MSC_VER)
@@ -40,7 +40,8 @@ namespace stl_concept {
  * @tparam T - type to be checked
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct Referenceable {};
+template <typename T>
+struct Referenceable {};
 #else // DOXYGEN_WORKING
 BOOST_concept(Referenceable, (T))
 {
@@ -51,14 +52,19 @@ BOOST_concept(Referenceable, (T))
     }
 
 private:
-    using _Tp = typename boost::remove_cv_ref<T>::type;
+    using _Tp = typename __detail::__remove_cvref<T>::type;
     _Tp t_;
 };
 #endif // DOXYGEN_WORKING
 
-template <class T> struct Referenceable<T[]> {};
-template <class T, size_t N> struct Referenceable<T[N]> {};
-template <class R, class... Args> struct Referenceable<R(Args...)> {};
+template <class T>
+struct Referenceable<T[]> {};
+
+template <class T, size_t N>
+struct Referenceable<T[N]> {};
+
+template <class R, class... Args>
+struct Referenceable<R(Args...)> {};
 
 } // namespace stl_concept
 

@@ -2,16 +2,19 @@
 #ifndef __STL_ALGORITHM_DETAIL_FUNCTION_OBJECT_ADAPTER_HPP__
 #define __STL_ALGORITHM_DETAIL_FUNCTION_OBJECT_ADAPTER_HPP__
 
-#include <boost/type_traits/conditional.hpp>
-#include <boost/type_traits/decay.hpp>
-#include <boost/type_traits/is_function.hpp>
+#include <type_traits>
 
 namespace stl_algorithm {
 namespace __detail {
 namespace {
 
 template <class T>
-using __FunctionObjectAdapterImpl = boost::conditional_t<boost::is_function<T>::value, boost::decay_t<T>, T>;
+using __FunctionObjectAdapterImpl =
+    typename std::conditional<
+        std::is_function<T>::value,
+        typename std::decay<T>::type,
+        T
+    >::type;
 
 } // namespace
 
@@ -28,7 +31,8 @@ using __FunctionObjectAdapterImpl = boost::conditional_t<boost::is_function<T>::
  * @see https://en.cppreference.com/w/cpp/named_req/FunctionObject
  */
 template <class T>
-using __FunctionObjectAdapter = __FunctionObjectAdapterImpl<boost::remove_reference_t<T>>;
+using __FunctionObjectAdapter =
+    __FunctionObjectAdapterImpl<typename std::remove_reference<T>::type>;
 /// @endcond
 
 } // namespace __detail

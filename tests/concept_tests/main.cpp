@@ -16,6 +16,7 @@ int main()
     copy_assignable_check();
     assignable_check();
     swappable_check();
+    dereferenceable_check();
 
     // object group
     movable_check();

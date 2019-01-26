@@ -30,9 +30,12 @@ namespace stl_concept {
  * </p>
  */
 #ifdef DOXYGEN_WORKING
-template <typename Func, typename Arg> struct UnaryFunction : FunctionObject<Func, Arg> {};
+template <typename Func, typename Arg>
+struct UnaryFunction
+    : FunctionObject<Func, Arg> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(UnaryFunction, (Func)(Arg)) : FunctionObject<Func, Arg> {};
+BOOST_concept(UnaryFunction, (Func)(Arg))
+    : FunctionObject<Func, Arg> {};
 #endif // DOXYGEN_WORKING
 
 } // namespace stl_concept

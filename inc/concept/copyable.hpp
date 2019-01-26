@@ -19,16 +19,23 @@ namespace stl_concept {
 /**
  * @addtogroup object_group Object Concepts
  * @struct Copyable
- * @brief Specifies that T is an <i>Movable</i> object type that can also copied (i.e. it supports copy construction and
- * copy assignment).
+ * @brief Specifies that T is an <i>Movable</i> object type that can also copied
+ * (i.e. it supports copy construction and copy assignment).
  *
  * @tparam T - type to be checked
  * @see https://en.cppreference.com/w/cpp/concepts/Copyable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct Copyable : Movable<T>, CopyConstructible<T>, CopyAssignable<T> {};
+template <typename T>
+struct Copyable
+    : Movable<T>
+    , CopyConstructible<T>
+    , CopyAssignable<T> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(Copyable, (T)) : Movable<T>, CopyConstructible<T>, CopyAssignable<T> {};
+BOOST_concept(Copyable, (T))
+    : Movable<T>
+    , CopyConstructible<T>
+    , CopyAssignable<T> {};
 #endif // DOXYGEN_WORKING
 
 } // namespace stl_concept

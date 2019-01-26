@@ -3,8 +3,7 @@
 #define __STL_CONCEPT_SIGNED_INTEGRAL_HPP__
 
 #include "concept/integral.hpp"
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/is_signed.hpp>
+#include <type_traits>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 
@@ -35,13 +34,16 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/SignedIntegral
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct SignedIntegral : Integral<T> {};
+template <typename T>
+struct SignedIntegral
+    : Integral<T> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(SignedIntegral, (T)) : Integral<T>
+BOOST_concept(SignedIntegral, (T))
+    : Integral<T>
 {
     BOOST_CONCEPT_USAGE(SignedIntegral)
     {
-        BOOST_STATIC_ASSERT_MSG(boost::is_signed<T>::value, "T must be a signed integral type");
+        static_assert(std::is_signed<T>::value, "T must be a signed integral type");
     }
 };
 #endif // DOXYGEN_WORKING

@@ -4,7 +4,6 @@
 
 #include "concept/same.hpp"
 #include <memory>
-#include <boost/container/allocator_traits.hpp>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -46,16 +45,19 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/Erasable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T, typename X> struct Erasable {};
+template <typename T, typename X>
+struct Erasable {};
 #else // DOXYGEN_WORKING
 BOOST_concept(Erasable, (T)(X))
 {
     BOOST_CONCEPT_USAGE(Erasable)
     {
         BOOST_CONCEPT_ASSERT((Same<T, _ValueType>));
-        using _RebindAllocType = typename boost::container::allocator_traits<_AllocatorType>::template rebind_alloc<T>;
+        using _RebindAllocType =
+            typename std::allocator_traits<_AllocatorType>::template rebind_alloc<T>;
+
         BOOST_CONCEPT_ASSERT((Same<_RebindAllocType, _AllocatorType>));
-        boost::container::allocator_traits<_AllocatorType>::destroy(alloc_, pointer_);
+        std::allocator_traits<_AllocatorType>::destroy(alloc_, pointer_);
     }
 
 private:

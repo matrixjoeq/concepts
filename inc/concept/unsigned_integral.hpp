@@ -3,8 +3,7 @@
 #define __STL_CONCEPT_UNSIGNED_INTEGRAL_HPP__
 
 #include "concept/integral.hpp"
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/is_unsigned.hpp>
+#include <type_traits>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 
@@ -35,13 +34,18 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/UnsignedIntegral
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct UnsignedIntegral : Integral<T> {};
+template <typename T>
+struct UnsignedIntegral
+    : Integral<T> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(UnsignedIntegral, (T)) : Integral<T>
+BOOST_concept(UnsignedIntegral, (T))
+    : Integral<T>
 {
     BOOST_CONCEPT_USAGE(UnsignedIntegral)
     {
-        BOOST_STATIC_ASSERT_MSG(boost::is_unsigned<T>::value, "T must be an unsigned integral type");
+        static_assert(
+            std::is_unsigned<T>::value,
+            "T must be an unsigned integral type");
     }
 };
 #endif // DOXYGEN_WORKING

@@ -58,7 +58,8 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/Iterator
  */
 #ifdef DOXYGEN_WORKING
-template <typename It> struct Iterator
+template <typename It>
+struct Iterator
     : CopyConstructible<It>
     , CopyAssignable<It>
     , Destructible<It>

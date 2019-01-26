@@ -55,9 +55,14 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/experimental/ranges/iterator/ForwardIterator
  */
 #ifdef DOXYGEN_WORKING
-template <typename It> struct ForwardIterator : InputIterator<It>, Incrementable<It> {};
+template <typename It>
+struct ForwardIterator
+    : InputIterator<It>
+    , Incrementable<It> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(ForwardIterator, (It)) : InputIterator<It>, Incrementable<It>
+BOOST_concept(ForwardIterator, (It))
+    : InputIterator<It>
+    , Incrementable<It>
 {
     BOOST_CONCEPT_USAGE(ForwardIterator)
     {

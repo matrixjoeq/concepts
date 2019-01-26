@@ -23,7 +23,7 @@ namespace stl_algorithm {
  */
 #ifdef DOXYGEN_WORKING
 template <class InputIt, class T>
-constexpr inline auto count(InputIt first, InputIt last, const T& value)
+inline auto count(InputIt first, InputIt last, const T& value)
     -> decltype(typename std::iterator_traits<InputIt>::difference_type);
 #else // DOXYGEN_WORKING
 template <class InputIt, class T>
@@ -32,9 +32,9 @@ template <class InputIt, class T>
         ((stl_concept::InputIterator<InputIt>))
         ((stl_concept::EqualityComparableWith<__detail::__iterator_value_t<InputIt>, T>)),
         // Return
-        (__detail::__std_iterator_difference_t<InputIt>)
+        (__detail::__iterator_difference_t<InputIt>)
     )
-constexpr inline count(InputIt first, InputIt last, const T& value)
+inline count(InputIt first, InputIt last, const T& value)
 {
     return std::count(first, last, value);
 }

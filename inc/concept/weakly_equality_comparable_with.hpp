@@ -3,8 +3,8 @@
 #define __STL_CONCEPT_WEAKLY_EQUALITY_COMPARABLE_WITH_HPP__
 
 #include "concept/convertible_to.hpp"
-#include <boost/type_traits/declval.hpp>
-#include <boost/type_traits/remove_reference.hpp>
+#include <type_traits>
+#include <utility>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -47,18 +47,20 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/experimental/ranges/concepts/WeaklyEqualityComparableWith
  */
 #ifdef DOXYGEN_WORKING
-template <typename T, typename U> struct WeaklyEqualityComparableWith {};
+template <typename T, typename U>
+struct WeaklyEqualityComparableWith {};
 #else // DOXYGEN_WORKING
 BOOST_concept(WeaklyEqualityComparableWith, (T)(U))
 {
     BOOST_CONCEPT_USAGE(WeaklyEqualityComparableWith)
     {
-        equality_constraints(boost::declval<_Tp&>(), boost::declval<_Up&>());
+        // FIXME: declval
+        equality_constraints(std::declval<_Tp&>(), std::declval<_Up&>());
     }
 
 private:
-    using _Tp = boost::remove_reference_t<T>;
-    using _Up = boost::remove_reference_t<U>;
+    using _Tp = typename std::remove_reference<T>::type;
+    using _Up = typename std::remove_reference<U>::type;
 
     void equality_constraints(const _Tp& t, const _Up& u)
     {

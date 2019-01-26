@@ -26,7 +26,7 @@ namespace stl_algorithm {
  */
 #ifdef DOXYGEN_WORKING
 template <class InputIt, class UnaryPredicate>
-constexpr inline bool any_of(InputIt first, InputIt last, UnaryPredicate p);
+inline bool any_of(InputIt first, InputIt last, UnaryPredicate p);
 #else // DOXYGEN_WORKING
 template <class InputIt, class UnaryPredicate>
     BOOST_CONCEPT_REQUIRES(
@@ -36,7 +36,7 @@ template <class InputIt, class UnaryPredicate>
         // Return
         (bool)
     )
-constexpr inline any_of(InputIt first, InputIt last, UnaryPredicate p)
+inline any_of(InputIt first, InputIt last, UnaryPredicate p)
 {
     return std::any_of(first, last, p);
 }

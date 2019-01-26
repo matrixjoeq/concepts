@@ -7,7 +7,6 @@
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
-
 #include "concept/detail/unuse.hpp"
 
 #if (defined _MSC_VER)
@@ -48,9 +47,12 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/CopyConstructible
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct CopyConstructible : MoveConstructible<T> {};
+template <typename T>
+struct CopyConstructible
+    : MoveConstructible<T> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(CopyConstructible, (T)) : MoveConstructible<T>
+BOOST_concept(CopyConstructible, (T))
+    : MoveConstructible<T>
 {
     BOOST_CONCEPT_ASSERT((ConvertibleTo<T&, T>));
     BOOST_CONCEPT_ASSERT((ConvertibleTo<const T&, T>));

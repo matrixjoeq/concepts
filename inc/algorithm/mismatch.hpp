@@ -26,7 +26,7 @@ namespace stl_algorithm {
  */
 #ifdef DOXYGEN_WORKING
 template <class InputIt1, class InputIt2>
-constexpr inline auto mismatch(InputIt1 first1, InputIt1 last1, InputIt2 first2) -> decltype(std::pair<InputIt1, InputIt2>);
+inline auto mismatch(InputIt1 first1, InputIt1 last1, InputIt2 first2) -> decltype(std::pair<InputIt1, InputIt2>);
 #else // DOXYGEN_WORKING
 template <class InputIt1, class InputIt2>
     BOOST_CONCEPT_REQUIRES(
@@ -37,7 +37,7 @@ template <class InputIt1, class InputIt2>
         // Return
         (std::pair<InputIt1, InputIt2>)
     )
-constexpr inline mismatch(InputIt1 first1, InputIt1 last1, InputIt2 first2)
+inline mismatch(InputIt1 first1, InputIt1 last1, InputIt2 first2)
 {
     return std::mismatch(first1, last1, first2);
 }

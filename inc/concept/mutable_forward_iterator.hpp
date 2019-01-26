@@ -41,11 +41,14 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/ForwardIterator
  */
 #ifdef DOXYGEN_WORKING
-template <typename It> struct MutableForwardIterator
-    : ForwardIterator<It>, OutputIterator<It, typename boost::iterator_value<It>::type> {};
+template <typename It>
+struct MutableForwardIterator
+    : ForwardIterator<It>
+    , OutputIterator<It, typename std::iterator_traits<It>::value_type> {};
 #else // DOXYGEN_WORKING
 BOOST_concept(MutableForwardIterator, (It))
-    : ForwardIterator<It>, OutputIterator<It, __detail::__iterator_value_t<It>>
+    : ForwardIterator<It>
+    , OutputIterator<It, __detail::__iterator_value_t<It>>
 {
     BOOST_CONCEPT_USAGE(MutableForwardIterator)
     {

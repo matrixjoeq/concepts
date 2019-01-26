@@ -27,7 +27,7 @@ namespace stl_algorithm {
  */
 #ifdef DOXYGEN_WORKING
 template <class InputIt, class UnaryPredicate>
-constexpr inline InputIt find_if(InputIt first, InputIt last, UnaryPredicate p);
+inline InputIt find_if(InputIt first, InputIt last, UnaryPredicate p);
 #else // DOXYGEN_WORKING
 template <class InputIt, class UnaryPredicate>
     BOOST_CONCEPT_REQUIRES(
@@ -37,7 +37,7 @@ template <class InputIt, class UnaryPredicate>
         // Return
         (InputIt)
     )
-constexpr inline find_if(InputIt first, InputIt last, UnaryPredicate p)
+inline find_if(InputIt first, InputIt last, UnaryPredicate p)
 {
     return std::find_if(first, last, p);
 }

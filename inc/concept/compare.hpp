@@ -5,7 +5,7 @@
 #include "concept/same.hpp"
 #include "concept/convertible_to.hpp"
 #include "concept/binary_predicate.hpp"
-#include <boost/type_traits/declval.hpp>
+#include <utility>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -56,17 +56,28 @@ namespace stl_concept {
  * </p>
  */
 #ifdef DOXYGEN_WORKING
-template <typename Func, typename First, typename Second> struct Compare : BinaryPredicate<Func, First, Second> {};
+template <typename Func, typename First, typename Second>
+struct Compare
+    : BinaryPredicate<Func, First, Second> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(Compare, (Func)(First)(Second)) : BinaryPredicate<Func, First, Second>
+BOOST_concept(Compare, (Func)(First)(Second))
+    : BinaryPredicate<Func, First, Second>
 {
     BOOST_CONCEPT_USAGE(Compare)
     {
-        using _CompRet1 = decltype(boost::declval<Func>()(boost::declval<First&>(), boost::declval<Second&>()));
-        using _CompRet2 = decltype(boost::declval<Func>()(boost::declval<Second&>(), boost::declval<First&>()));
+        using _CompRet1 =
+            decltype(std::declval<Func>()(
+                std::declval<First&>(), std::declval<Second&>()));
+        using _CompRet2 =
+            decltype(std::declval<Func>()(
+                std::declval<Second&>(), std::declval<First&>()));
+
         BOOST_CONCETP_ASSERT((ConvertibleTo<_CompRet1, bool>));
         BOOST_CONCETP_ASSERT((ConvertibleTo<_CompRet2, bool>));
-        BOOST_CONCEPT_ASSERT((Same<decltype(!boost::declval<_CompRet1>() && !boost::declval<_CompRet2>()), bool>));
+
+        BOOST_CONCEPT_ASSERT((Same<
+            decltype(!std::declval<_CompRet1>() && !std::declval<_CompRet2>()),
+            bool>));
     }
 };
 #endif // DOXYGEN_WORKING

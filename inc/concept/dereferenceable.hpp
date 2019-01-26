@@ -2,7 +2,7 @@
 #ifndef __STL_CONCEPT_DEREFERENCEABLE_HPP__
 #define __STL_CONCEPT_DEREFERENCEABLE_HPP__
 
-#include <boost/type_traits/declval.hpp>
+#include <utility>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
 #include "concept/detail/unuse.hpp"
@@ -24,14 +24,15 @@ namespace stl_concept {
  * @tparam T - type to be checked
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct Dereferenceable {};
+template <typename T>
+struct Dereferenceable {};
 #else // DOXYGEN_WORKING
 BOOST_concept(Dereferenceable, (T))
 {
     BOOST_CONCEPT_USAGE(Dereferenceable)
     {
-        T t = boost::declval<T>();
-        __detail::__unuse(*t);
+        using Derefenced = decltype(*(std::declval<T>()));
+        __detail::__Unuse<Derefenced>();
     }
 };
 #endif // DOXYGEN_WORKING

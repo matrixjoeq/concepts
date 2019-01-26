@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>STL Concepts: stl_concept::FunctionObject&lt; T &gt; Struct Template Reference</title>
+<title>STL Concepts: FunctionObject&lt; F, Args &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">stl_concept::FunctionObject&lt; T &gt; Struct Template Reference</div>  </div>
+<div class="title">FunctionObject&lt; F, Args &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -75,18 +75,18 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="function__object_8hpp_source.html">function_object.hpp</a>&gt;</code></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T&gt;<br />
-struct stl_concept::FunctionObject&lt; T &gt;</h3>
+<div class="textblock"><h3>template&lt;typename F, typename... Args&gt;<br />
+struct stl_concept::FunctionObject&lt; F, Args &gt;</h3>
 
 <p>Specifies that an instance of the type can be used on the left of the function call operator. </p>
 <p><b>Requirements</b> </p>
-<p>The type T satisfies <em><a class="el" href="structstl__concept_1_1_function_object.html" title="Specifies that an instance of the type can be used on the left of the function call operator...">FunctionObject</a></em> if </p><ul style="list-style-type:disc">
+<p>The type F satisfies <em><a class="el" href="structstl__concept_1_1_function_object.html" title="Specifies that an instance of the type can be used on the left of the function call operator...">FunctionObject</a></em> if </p><ul style="list-style-type:disc">
 <li>
-The type T satisfies std::is_object, and </li>
+The type F satisfies std::is_object, and </li>
 </ul>
 <p>Given </p><ul style="list-style-type:disc">
 <li>
-f, a value of type T or const T </li>
+f, a value of type F or const F </li>
 <li>
 args, suitable argument list, which may be empty </li>
 </ul>
@@ -98,7 +98,8 @@ args, suitable argument list, which may be empty </li>
 </table>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>- type to be checked </td></tr>
+    <tr><td class="paramname">F</td><td>- function object type </td></tr>
+    <tr><td class="paramname">Args</td><td>- argument types </td></tr>
   </table>
   </dd>
 </dl>

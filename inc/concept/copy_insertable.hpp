@@ -5,8 +5,7 @@
 #include "concept/same.hpp"
 #include "concept/move_insertable.hpp"
 #include <memory>
-#include <boost/container/allocator_traits.hpp>
-#include <boost/type_traits/declval.hpp>
+#include <utility>
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
@@ -50,19 +49,25 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/CopyInsertable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T, typename X> struct CopyInsertable : MoveInsertable<T, X> {};
+template <typename T, typename X>
+struct CopyInsertable
+    : MoveInsertable<T, X> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(CopyInsertable, (T)(X)) : MoveInsertable<T, X>
+BOOST_concept(CopyInsertable, (T)(X))
+    : MoveInsertable<T, X>
 {
     BOOST_CONCEPT_USAGE(CopyInsertable)
     {
         BOOST_CONCEPT_ASSERT((Same<T, _ValueType>));
-        using _RebindAllocType = typename boost::container::allocator_traits<_AllocatorType>::template rebind_alloc<T>;
+
+        using _RebindAllocType =
+            typename std::allocator_traits<_AllocatorType>::template rebind_alloc<T>;
+
         BOOST_CONCEPT_ASSERT((Same<_RebindAllocType, _AllocatorType>));
-        T v = boost::declval<T&>();
-        boost::container::allocator_traits<_AllocatorType>::construct(alloc_, pointer_, v);
-        const T u = boost::declval<const T&>();
-        boost::container::allocator_traits<_AllocatorType>::construct(alloc_, pointer_, u);
+        T& v = *pointer_;
+        std::allocator_traits<_AllocatorType>::construct(alloc_, pointer_, v);
+        const T& u = *pointer_;
+        std::allocator_traits<_AllocatorType>::construct(alloc_, pointer_, u);
     }
 
 private:
@@ -74,6 +79,7 @@ private:
 
     using _ValueType = typename X::value_type;
     using _AllocatorType = decltype(get_allocator_type<X>(0));
+
     _AllocatorType alloc_;
     T* pointer_;
 };

@@ -38,7 +38,8 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/Destructible
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct Destructible {};
+template <typename T>
+struct Destructible {};
 #else // DOXYGEN_WORKING
 BOOST_concept(Destructible, (T))
 {

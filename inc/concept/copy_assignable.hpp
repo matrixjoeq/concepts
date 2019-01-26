@@ -45,9 +45,12 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/concepts/Copyable
  */
 #ifdef DOXYGEN_WORKING
-template <typename T> struct CopyAssignable : MoveAssignable<T> {};
+template <typename T>
+struct CopyAssignable
+    : MoveAssignable<T> {};
 #else // DOXYGEN_WORKING
-BOOST_concept(CopyAssignable, (T)) : MoveAssignable<T>
+BOOST_concept(CopyAssignable, (T))
+    : MoveAssignable<T>
 {
     BOOST_CONCEPT_USAGE(CopyAssignable)
     {

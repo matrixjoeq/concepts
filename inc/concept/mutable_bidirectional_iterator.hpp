@@ -4,6 +4,7 @@
 
 #include "concept/bidirectional_iterator.hpp"
 #include "concept/output_iterator.hpp"
+#include <iterator>
 #include <boost/concept/detail/concept_def.hpp>
 
 #if (defined _MSC_VER)
@@ -34,11 +35,14 @@ namespace stl_concept {
  * @see https://en.cppreference.com/w/cpp/named_req/BidirectionalIterator
  */
 #ifdef DOXYGEN_WORKING
-template <typename It> struct MutableBidirectionalIterator
-    : BidirectionalIterator<It>, OutputIterator<It, typename boost::iterator_value<It>::type> {};
+template <typename It>
+struct MutableBidirectionalIterator
+    : BidirectionalIterator<It>
+    , OutputIterator<It, typename std::iterator_traits<It>::value_type> {};
 #else // DOXYGEN_WORKING
 BOOST_concept(MutableBidirectionalIterator, (It))
-    : BidirectionalIterator<It>, OutputIterator<It, __detail::__iterator_value_t<It>> {};
+    : BidirectionalIterator<It>
+    , OutputIterator<It, __detail::__iterator_value_t<It>> {};
 #endif // DOXYGEN_WORKING
 
 } // namespace stl_concept
