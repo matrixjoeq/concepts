@@ -74,15 +74,15 @@ BOOST_concept(RandomAccessIterator, (It))
     BOOST_CONCEPT_USAGE(RandomAccessIterator)
     {
         It& r = iter_a_;
-        _DifferenceType n = iter_b_ - iter_a_;
-        BOOST_CONCEPT_ASSERT((DerivedFrom<_CategoryType, std::random_access_iterator_tag>));
+        __DifferenceType n = iter_b_ - iter_a_;
+        BOOST_CONCEPT_ASSERT((DerivedFrom<__CategoryType, std::random_access_iterator_tag>));
         BOOST_CONCEPT_ASSERT((Same<decltype(r += n), It&>));
         BOOST_CONCEPT_ASSERT((Same<decltype(iter_a_ + n), It>));
         BOOST_CONCEPT_ASSERT((Same<decltype(n + iter_a_), It>));
         BOOST_CONCEPT_ASSERT((Same<decltype(r -= n), It&>));
         BOOST_CONCEPT_ASSERT((Same<decltype(iter_a_ - n), It>));
-        BOOST_CONCEPT_ASSERT((Same<decltype(iter_b_ - iter_a_), _DifferenceType>));
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(iter_a_[n]), _ReferenceType>));
+        BOOST_CONCEPT_ASSERT((Same<decltype(iter_b_ - iter_a_), __DifferenceType>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(iter_a_[n]), __ReferenceType>));
         BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(iter_a_ < iter_b_), bool>));
         BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(iter_a_ > iter_b_), bool>));
         BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(iter_a_ <= iter_b_), bool>));
@@ -101,19 +101,19 @@ BOOST_concept(RandomAccessIterator, (It))
     }
 
 private:
-    using _ValueType = __detail::__iterator_value_t<It>;
-    using _ReferenceType = __detail::__iterator_reference_t<It>;
-    using _DifferenceType = __detail::__iterator_difference_t<It>;
-    using _CategoryType = __detail::__iterator_category_t<It>;
+    using __ValueType = __detail::__iterator_value_t<It>;
+    using __ReferenceType = __detail::__iterator_reference_t<It>;
+    using __DifferenceType = __detail::__iterator_difference_t<It>;
+    using __CategoryType = __detail::__iterator_category_t<It>;
 
     void const_constraints(const It& x, const It& y)
     {
-        _DifferenceType n = x - y;
+        __DifferenceType n = x - y;
         BOOST_CONCEPT_ASSERT((Same<decltype(x + n), It>));
         BOOST_CONCEPT_ASSERT((Same<decltype(n + x), It>));
         BOOST_CONCEPT_ASSERT((Same<decltype(x - n), It>));
-        BOOST_CONCEPT_ASSERT((Same<decltype(y - x), _DifferenceType>));
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(x[n]), _ReferenceType>));
+        BOOST_CONCEPT_ASSERT((Same<decltype(y - x), __DifferenceType>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(x[n]), __ReferenceType>));
         BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(x < y), bool>));
         BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(x > y), bool>));
         BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(x <= y), bool>));

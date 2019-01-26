@@ -65,18 +65,20 @@ BOOST_concept(Compare, (Func)(First)(Second))
 {
     BOOST_CONCEPT_USAGE(Compare)
     {
-        using _CompRet1 =
+        using __CompRet1 =
             decltype(std::declval<Func>()(
-                std::declval<First&>(), std::declval<Second&>()));
-        using _CompRet2 =
+                std::declval<First&>(),
+                std::declval<Second&>()));
+        using __CompRet2 =
             decltype(std::declval<Func>()(
-                std::declval<Second&>(), std::declval<First&>()));
+                std::declval<Second&>(),
+                std::declval<First&>()));
 
-        BOOST_CONCETP_ASSERT((ConvertibleTo<_CompRet1, bool>));
-        BOOST_CONCETP_ASSERT((ConvertibleTo<_CompRet2, bool>));
+        BOOST_CONCETP_ASSERT((ConvertibleTo<__CompRet1, bool>));
+        BOOST_CONCETP_ASSERT((ConvertibleTo<__CompRet2, bool>));
 
         BOOST_CONCEPT_ASSERT((Same<
-            decltype(!std::declval<_CompRet1>() && !std::declval<_CompRet2>()),
+            decltype(!std::declval<__CompRet1>() && !std::declval<__CompRet2>()),
             bool>));
     }
 };

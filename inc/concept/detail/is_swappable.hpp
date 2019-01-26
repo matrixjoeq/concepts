@@ -10,12 +10,14 @@
 namespace stl_concept {
 namespace __detail {
 
+using std::swap;
+
 /// @cond DEV
 template <class T, class U = T, bool NotVoid = !std::is_void<T>::value && !std::is_void<U>::value>
 struct __swappable_with
 {
     template <class LHS, class RHS>
-    static auto __test(int) -> decltype(std::swap(std::declval<LHS>(), std::declval<RHS>()));
+    static auto __test(int) -> decltype(swap(std::declval<LHS>(), std::declval<RHS>()));
 
     template <class LHS, class RHS>
     static __na_type __test(...);
@@ -28,7 +30,8 @@ struct __swappable_with
 };
 
 template <class T, class U>
-struct __swappable_with<T, U, false> : std::integral_constant<bool, false> {};
+struct __swappable_with<T, U, false>
+    : std::integral_constant<bool, false> {};
 
 /**
  * @struct __is_swappable_with
@@ -38,7 +41,8 @@ struct __swappable_with<T, U, false> : std::integral_constant<bool, false> {};
  * @see https://en.cppreference.com/w/cpp/types/is_swappable
  */
 template <class T, class U>
-struct __is_swappable_with : std::integral_constant<bool, __swappable_with<T, U>::value> {};
+struct __is_swappable_with
+    : std::integral_constant<bool, __swappable_with<T, U>::value> {};
 
 /**
  * @struct __is_swappable

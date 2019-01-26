@@ -54,8 +54,8 @@ struct FunctionObject
     BOOST_CONCEPT_USAGE(FunctionObject)
     {
         static_assert(std::is_object<F>::value, "Type is not an object");
-        using Return = decltype(std::declval<F>()(std::declval<Args&>()...));
-        __detail::__Unuse<Return>();
+        using __Return = decltype(std::declval<F>()(std::declval<Args&>()...));
+        __detail::__Unuse<__Return>();
     }
 };
 #endif // DOXYGEN_WORKING

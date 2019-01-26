@@ -52,12 +52,12 @@ BOOST_concept(Erasable, (T)(X))
 {
     BOOST_CONCEPT_USAGE(Erasable)
     {
-        BOOST_CONCEPT_ASSERT((Same<T, _ValueType>));
-        using _RebindAllocType =
-            typename std::allocator_traits<_AllocatorType>::template rebind_alloc<T>;
+        BOOST_CONCEPT_ASSERT((Same<T, __ValueType>));
+        using __RebindAllocType =
+            typename std::allocator_traits<__AllocatorType>::template rebind_alloc<T>;
 
-        BOOST_CONCEPT_ASSERT((Same<_RebindAllocType, _AllocatorType>));
-        std::allocator_traits<_AllocatorType>::destroy(alloc_, pointer_);
+        BOOST_CONCEPT_ASSERT((Same<__RebindAllocType, __AllocatorType>));
+        std::allocator_traits<__AllocatorType>::destroy(alloc_, pointer_);
     }
 
 private:
@@ -67,9 +67,9 @@ private:
     template <typename C>
     static std::allocator<T> get_allocator_type(...);
 
-    using _ValueType = typename X::value_type;
-    using _AllocatorType = decltype(get_allocator_type<X>(0));
-    _AllocatorType alloc_;
+    using __ValueType = typename X::value_type;
+    using __AllocatorType = decltype(get_allocator_type<X>(0));
+    __AllocatorType alloc_;
     T* pointer_;
 };
 #endif // DOXYGEN_WORKING

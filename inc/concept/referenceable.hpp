@@ -47,13 +47,13 @@ BOOST_concept(Referenceable, (T))
 {
     BOOST_CONCEPT_USAGE(Referenceable)
     {
-        _Tp& r = t_;
+        __Tp& r = t_;
         __detail::__unuse(r);
     }
 
 private:
-    using _Tp = typename __detail::__remove_cvref<T>::type;
-    _Tp t_;
+    using __Tp = typename __detail::__remove_cvref<T>::type;
+    __Tp t_;
 };
 #endif // DOXYGEN_WORKING
 

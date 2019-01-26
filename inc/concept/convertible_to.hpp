@@ -68,13 +68,13 @@ BOOST_concept(ConvertibleTo, (From)(To))
 private:
     ConvertibleTo();
 
-    using _ConvertibleFuncRef = From (&)();
-    void convertible_constraints(_ConvertibleFuncRef f)
+    using __ConvertibleFuncRef = From (&)();
+    void convertible_constraints(__ConvertibleFuncRef f)
     {
         __detail::__unuse(static_cast<To>(f()));
     }
 
-    _ConvertibleFuncRef func_;
+    __ConvertibleFuncRef func_;
 };
 #endif // DOXYGEN_WORKING
 

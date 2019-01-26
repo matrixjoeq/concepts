@@ -31,8 +31,8 @@ BOOST_concept(Dereferenceable, (T))
 {
     BOOST_CONCEPT_USAGE(Dereferenceable)
     {
-        using Derefenced = decltype(*(std::declval<T>()));
-        __detail::__Unuse<Derefenced>();
+        using __Derefenced = decltype(*(std::declval<T>()));
+        __detail::__Unuse<__Derefenced>();
     }
 };
 #endif // DOXYGEN_WORKING

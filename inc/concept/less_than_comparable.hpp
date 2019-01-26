@@ -61,17 +61,17 @@ BOOST_concept(LessThanComparable, (T))
     }
 
 private:
-    using _Tp = typename std::remove_const<T>::type;
+    using __Tp = typename std::remove_const<T>::type;
 
-    void const_constraints(const _Tp& x, const _Tp& y)
+    void const_constraints(const __Tp& x, const __Tp& y)
     {
         __detail::__unuse(x);
         __detail::__unuse(y);
         BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(x < y), bool>));
     }
 
-    _Tp a_;
-    _Tp b_;
+    __Tp a_;
+    __Tp b_;
 
 };
 #endif // DOXYGEN_WORKING

@@ -69,13 +69,13 @@ BOOST_concept(InputIterator, (It))
 {
     BOOST_CONCEPT_USAGE(InputIterator)
     {
-        using _ValueType = __detail::__iterator_value_t<It>;
-        using _DifferenceType = __detail::__iterator_difference_t<It>;
-        using _CategoryType = __detail::__iterator_category_t<It>;
+        using __ValueType = __detail::__iterator_value_t<It>;
+        using __DifferenceType = __detail::__iterator_difference_t<It>;
+        using __CategoryType = __detail::__iterator_category_t<It>;
 
-        BOOST_CONCEPT_ASSERT((SignedIntegral<_DifferenceType>));
-        BOOST_CONCEPT_ASSERT((DerivedFrom<_CategoryType, std::input_iterator_tag>));
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(*iter_), _ValueType>));
+        BOOST_CONCEPT_ASSERT((SignedIntegral<__DifferenceType>));
+        BOOST_CONCEPT_ASSERT((DerivedFrom<__CategoryType, std::input_iterator_tag>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(*iter_), __ValueType>));
     }
 
 private:

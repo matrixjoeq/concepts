@@ -71,12 +71,12 @@ BOOST_concept(BidirectionalIterator, (It))
 {
     BOOST_CONCEPT_USAGE(BidirectionalIterator)
     {
-        using _ReferenceType = __detail::__iterator_reference_t<It>;
-        using _CategoryType = __detail::__iterator_category_t<It>;
-        BOOST_CONCEPT_ASSERT((DerivedFrom<_CategoryType, std::bidirectional_iterator_tag>));
+        using __ReferenceType = __detail::__iterator_reference_t<It>;
+        using __CategoryType = __detail::__iterator_category_t<It>;
+        BOOST_CONCEPT_ASSERT((DerivedFrom<__CategoryType, std::bidirectional_iterator_tag>));
         BOOST_CONCEPT_ASSERT((Same<decltype(--iter_), It&>));
         BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(iter_--), const It&>));
-        BOOST_CONCEPT_ASSERT((Same<decltype(*iter_--), _ReferenceType>));
+        BOOST_CONCEPT_ASSERT((Same<decltype(*iter_--), __ReferenceType>));
         __detail::__unuse(--iter_);
         __detail::__unuse(iter_--);
         __detail::__unuse(*iter_--);

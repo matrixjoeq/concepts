@@ -46,7 +46,9 @@ BOOST_concept(BinaryPredicate, (Func)(First)(Second))
     {
         BOOST_CONCEPT_ASSERT((ConvertibleTo<
             decltype(boost::declval<Func>()(
-                boost::declval<First&>(), boost::declval<Second&>())), bool>));
+                boost::declval<First&>(),
+                boost::declval<Second&>())),
+            bool>));
     }
 };
 #endif // DOXYGEN_WORKING

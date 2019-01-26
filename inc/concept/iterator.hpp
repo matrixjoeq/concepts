@@ -76,11 +76,11 @@ BOOST_concept(Iterator, (It))
     , WeaklyIncrementable<It>
 {
 private:
-    using _ValueType = __detail::__iterator_value_t<It>;
-    using _DifferenceType = __detail::__iterator_difference_t<It>;
-    using _ReferenceType = __detail::__iterator_reference_t<It>;
-    using _PointerType = __detail::__iterator_pointer_t<It>;
-    using _CategoryType = __detail::__iterator_category_t<It>;
+    using __ValueType = __detail::__iterator_value_t<It>;
+    using __DifferenceType = __detail::__iterator_difference_t<It>;
+    using __ReferenceType = __detail::__iterator_reference_t<It>;
+    using __PointerType = __detail::__iterator_pointer_t<It>;
+    using __CategoryType = __detail::__iterator_category_t<It>;
 };
 #endif // DOXYGEN_WORKING
 

@@ -8,6 +8,7 @@
 #include <boost/concept/assert.hpp>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
+#include "concept/detail/unuse.hpp"
 
 #if (defined _MSC_VER)
 #pragma warning(push)
@@ -55,13 +56,15 @@ BOOST_concept(MoveInsertable, (T)(X))
 {
     BOOST_CONCEPT_USAGE(MoveInsertable)
     {
-        BOOST_CONCEPT_ASSERT((Same<T, _ValueType>));
-        using _RebindAllocType =
-            typename std::allocator_traits<_AllocatorType>::template rebind_alloc<T>;
+        BOOST_CONCEPT_ASSERT((Same<T, __ValueType>));
+        using __RebindAllocType =
+            typename std::allocator_traits<__AllocatorType>::template rebind_alloc<T>;
 
-        BOOST_CONCEPT_ASSERT((Same<_RebindAllocType, _AllocatorType>));
-        // FIXME: declval out of unevaluation context
-        std::allocator_traits<_AllocatorType>::construct(alloc_, pointer_, std::declval<T>());
+        BOOST_CONCEPT_ASSERT((Same<__RebindAllocType, __AllocatorType>));
+
+        using __Return = decltype(std::allocator_traits<__AllocatorType>::construct(
+            alloc_, pointer_, std::declval<T>()));
+        __detail::__Unuse<__Return>();
     }
 
 private:
@@ -71,9 +74,10 @@ private:
     template <typename C>
     static std::allocator<T> get_allocator_type(...);
 
-    using _ValueType = typename X::value_type;
-    using _AllocatorType = decltype(get_allocator_type<X>(0));
-    _AllocatorType alloc_;
+    using __ValueType = typename X::value_type;
+    using __AllocatorType = decltype(get_allocator_type<X>(0));
+
+    __AllocatorType alloc_;
     T* pointer_;
 };
 #endif // DOXYGEN_WORKING

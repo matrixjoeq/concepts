@@ -52,9 +52,9 @@ BOOST_concept(MutableForwardIterator, (It))
 {
     BOOST_CONCEPT_USAGE(MutableForwardIterator)
     {
-        using _ValueType = __detail::__iterator_value_t<It>;
-        using _ReferenceType = __detail::__iterator_reference_t<It>;
-        BOOST_CONCEPT_ASSERT((Same<_ReferenceType, _ValueType&>));
+        using __ValueType = __detail::__iterator_value_t<It>;
+        using __ReferenceType = __detail::__iterator_reference_t<It>;
+        BOOST_CONCEPT_ASSERT((Same<__ReferenceType, __ValueType&>));
     }
 };
 #endif // DOXYGEN_WORKING

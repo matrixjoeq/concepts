@@ -54,22 +54,17 @@ BOOST_concept(WeaklyEqualityComparableWith, (T)(U))
 {
     BOOST_CONCEPT_USAGE(WeaklyEqualityComparableWith)
     {
-        // FIXME: declval
-        equality_constraints(std::declval<_Tp&>(), std::declval<_Up&>());
-    }
+        using __T = typename std::remove_reference<T>::type;
+        using __U = typename std::remove_reference<U>::type;
 
-private:
-    using _Tp = typename std::remove_reference<T>::type;
-    using _Up = typename std::remove_reference<U>::type;
-
-    void equality_constraints(const _Tp& t, const _Up& u)
-    {
-        __detail::__unuse(t);
-        __detail::__unuse(u);
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(t == u), bool>));
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(t != u), bool>));
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(u == t), bool>));
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<decltype(u != t), bool>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<
+            decltype(std::declval<const __T&>() == std::declval<const __U&>()), bool>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<
+            decltype(std::declval<const __T&>() != std::declval<const __U&>()), bool>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<
+            decltype(std::declval<const __U&>() == std::declval<const __T&>()), bool>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<
+            decltype(std::declval<const __U&>() != std::declval<const __T&>()), bool>));
     }
 };
 #endif // DOXYGEN_WORKING

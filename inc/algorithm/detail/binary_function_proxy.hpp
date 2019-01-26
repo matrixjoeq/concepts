@@ -11,8 +11,8 @@ namespace __detail {
 
 /// @cond DEV
 /**
- * @brief Proxy for using stl_concept::BinaryFunction with standard library algorithms applicable unary predicates and
- * values.
+ * @brief Proxy for using stl_concept::BinaryFunction
+ *        with standard library algorithms applicable unary predicates and values.
  * @tparam BinaryFunction - binary function to be applied to algorithms
  * @tparam Iterator1, Iterator2 - iterators to be applied to algorithms
  */

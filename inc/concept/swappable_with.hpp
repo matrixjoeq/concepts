@@ -7,6 +7,7 @@
 #include <utility>
 #include <boost/concept/usage.hpp>
 #include <boost/concept/detail/concept_def.hpp>
+#include "concept/detail/unuse.hpp"
 
 #if (defined _MSC_VER)
 #pragma warning(push)
@@ -46,15 +47,22 @@ BOOST_concept(SwappableWith, (T)(U))
 {
     BOOST_CONCEPT_USAGE(SwappableWith)
     {
-        using std::swap;
-
         BOOST_CONCEPT_ASSERT((Referenceable<T>));
         BOOST_CONCEPT_ASSERT((Referenceable<U>));
-        // FIXME: declval out of unevaluation context
-        swap(std::declval<T&>(), std::declval<T&>());
-        swap(std::declval<U&>(), std::declval<U&>());
-        swap(std::declval<T&>(), std::declval<U&>());
-        swap(std::declval<U&>(), std::declval<T&>());
+
+        swap_constraint<T, T>();
+        swap_constraint<T, U>();
+        swap_constraint<U, T>();
+        swap_constraint<U, U>();
+    }
+
+private:
+    template <typename _T, typename _U>
+    void swap_constraint()
+    {
+        using std::swap;
+        using __Return = decltype(swap(std::declval<_T&>(), std::declval<_U&>()));
+        __detail::__Unuse<__Return>();
     }
 };
 #endif // DOXYGEN_WORKING

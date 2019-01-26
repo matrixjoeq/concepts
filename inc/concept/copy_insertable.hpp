@@ -58,16 +58,16 @@ BOOST_concept(CopyInsertable, (T)(X))
 {
     BOOST_CONCEPT_USAGE(CopyInsertable)
     {
-        BOOST_CONCEPT_ASSERT((Same<T, _ValueType>));
+        BOOST_CONCEPT_ASSERT((Same<T, __ValueType>));
 
-        using _RebindAllocType =
-            typename std::allocator_traits<_AllocatorType>::template rebind_alloc<T>;
+        using __RebindAllocType =
+            typename std::allocator_traits<__AllocatorType>::template rebind_alloc<T>;
 
-        BOOST_CONCEPT_ASSERT((Same<_RebindAllocType, _AllocatorType>));
+        BOOST_CONCEPT_ASSERT((Same<__RebindAllocType, __AllocatorType>));
         T& v = *pointer_;
-        std::allocator_traits<_AllocatorType>::construct(alloc_, pointer_, v);
+        std::allocator_traits<__AllocatorType>::construct(alloc_, pointer_, v);
         const T& u = *pointer_;
-        std::allocator_traits<_AllocatorType>::construct(alloc_, pointer_, u);
+        std::allocator_traits<__AllocatorType>::construct(alloc_, pointer_, u);
     }
 
 private:
@@ -77,10 +77,10 @@ private:
     template <typename C>
     static std::allocator<T> get_allocator_type(...);
 
-    using _ValueType = typename X::value_type;
-    using _AllocatorType = decltype(get_allocator_type<X>(0));
+    using __ValueType = typename X::value_type;
+    using __AllocatorType = decltype(get_allocator_type<X>(0));
 
-    _AllocatorType alloc_;
+    __AllocatorType alloc_;
     T* pointer_;
 };
 #endif // DOXYGEN_WORKING

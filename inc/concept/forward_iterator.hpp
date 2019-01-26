@@ -66,19 +66,19 @@ BOOST_concept(ForwardIterator, (It))
 {
     BOOST_CONCEPT_USAGE(ForwardIterator)
     {
-        using _ValueType = __detail::__iterator_value_t<It>;
-        using _ReferenceType = __detail::__iterator_reference_t<It>;
-        using _CategoryType = __detail::__iterator_category_t<It>;
+        using __ValueType = __detail::__iterator_value_t<It>;
+        using __ReferenceType = __detail::__iterator_reference_t<It>;
+        using __CategoryType = __detail::__iterator_category_t<It>;
         // According to C++ named requirements for ForwardIterator,
-        // if It satisfies OutputIterator as well, _ReferenceType should be exactly _ValueType&,
-        // otherwise, it should be exactly const _ValueType&.
+        // if It satisfies OutputIterator as well, __ReferenceType should be exactly __ValueType&,
+        // otherwise, it should be exactly const __ValueType&.
         // However, it is not possible for boost concept to be applied to enable_if for static dispatch.
         // The only way to check if It satisfies OutputIterator is to use BOOST_CONCEPT_ASSERT macro,
         // which will cause compile failure if it does not meet the requirement.
-        // So the compromising requirement for _ReferenceType is to check if it can be converted to const _ValueType&.
+        // So the compromising requirement for __ReferenceType is to check if it can be converted to const __ValueType&.
         // And add another concept called MutableForwardIterator, which set strict requirements on it.
-        BOOST_CONCEPT_ASSERT((ConvertibleTo<_ReferenceType, const _ValueType&>));
-        BOOST_CONCEPT_ASSERT((DerivedFrom<_CategoryType, std::forward_iterator_tag>));
+        BOOST_CONCEPT_ASSERT((ConvertibleTo<__ReferenceType, const __ValueType&>));
+        BOOST_CONCEPT_ASSERT((DerivedFrom<__CategoryType, std::forward_iterator_tag>));
     }
 };
 #endif // DOXYGEN_WORKING

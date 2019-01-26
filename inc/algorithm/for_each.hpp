@@ -34,8 +34,7 @@ template <class InputIt, class UnaryFunction>
     BOOST_CONCEPT_REQUIRES(
         // Requirements
         ((stl_concept::InputIterator<InputIt>))
-        // TODO: UnaryFunction should be move constructible, need to fix MoveConstructible with lambda types first.
-        //((stl_concept::MoveConstructible<UnaryFunction>))
+        ((stl_concept::MoveConstructible<UnaryFunction>))
         ((__detail::__UnaryFunctionProxy<UnaryFunction, InputIt>)),
         // Return
         (UnaryFunction)
